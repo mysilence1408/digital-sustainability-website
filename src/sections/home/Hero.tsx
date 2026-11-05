@@ -120,7 +120,7 @@ export default function Hero() {
       ref={root}
       id="companion"
       aria-labelledby="companion-title"
-      className="relative isolate min-h-svh w-full overflow-hidden bg-[#fdf8f4] font-sans text-[#293c31] selection:bg-[#f4d7bf] selection:text-[#293c31] [font-family:var(--font-geist-sans),Arial,sans-serif] [&_button]:cursor-pointer [&_:is(a,button):focus-visible]:outline-2 [&_:is(a,button):focus-visible]:outline-offset-4 [&_:is(a,button):focus-visible]:outline-[#38754b]"
+      className="relative isolate min-h-svh w-full overflow-hidden bg-[#fdf8f4] font-sans text-[#222222] selection:bg-[#f4d7bf] selection:text-[#222222] [font-family:var(--font-geist-sans),Arial,sans-serif] [&_button]:cursor-pointer [&_:is(a,button):focus-visible]:outline-2 [&_:is(a,button):focus-visible]:outline-offset-4 [&_:is(a,button):focus-visible]:outline-[#38754b]"
     >
       <div className="mx-auto flex min-h-svh max-w-[1800px] flex-col px-5 sm:px-9 lg:px-12">
         {/* Reserved for the navbar you will add later. */}
@@ -148,13 +148,13 @@ export default function Hero() {
             className="font-normal tracking-[-0.075em]"
           >
             <span className="block text-[clamp(3.5rem,7.65vw,8.6rem)] leading-[1.06]">
-              <LetterReveal text="Digital" gradient />
+              <LetterReveal text="Digital" />
             </span>
             <span className="mt-1 block text-[clamp(2.3rem,11.65vw,13rem)] leading-[0.98] sm:-mt-1">
               <LetterReveal text="Sustainability" start={7} gradient />
             </span>
-            <span className="mt-1 block text-right text-[clamp(3rem,8.55vw,9.5rem)] leading-[1] text-[#293c31]">
-              <LetterReveal text="Companion" start={22} gradient />
+            <span className="mt-1 block text-right text-[clamp(3rem,8.55vw,9.5rem)] leading-[1]">
+              <LetterReveal text="Companion" start={22} />
             </span>
           </h1>
         </div>
