@@ -1,7 +1,5 @@
-import React from "react";
+import Hero from "@/sections/Hero";
 
-const page = () => {
-  return <div className=" text-9xl font-bold uppercase">page</div>;
-};
-
-export default page;
+export default function Page() {
+  return <Hero />;
+}
