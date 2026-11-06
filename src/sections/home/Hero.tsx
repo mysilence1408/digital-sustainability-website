@@ -3,7 +3,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import LetterReveal from "@/components/landing/letter-reveal";
-import ParticleSculpture from "@/components/landing/particle-sculpture";
+import FollowingCompanion from "@/components/landing/following-companion";
 
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
@@ -162,11 +162,7 @@ export default function Hero() {
         <div className="relative grid flex-1 lg:grid-cols-[1.55fr_1fr] lg:gap-14 xl:gap-24">
           <figure className="relative -mx-5 h-[300px] sm:-mx-9 sm:h-[380px] lg:mx-0 lg:h-auto lg:min-h-[420px] xl:min-h-[450px]">
             <div className="absolute inset-x-[-8%] inset-y-[-18%] sm:inset-x-[-14%] lg:inset-y-[-22%]">
-              <ParticleSculpture
-                className="h-full w-full"
-                ready={formationReady}
-                theme="light"
-              />
+              <FollowingCompanion ready={formationReady} />
             </div>
             <figcaption
               data-enter="1250"
