@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionTitle, {
   notifySectionBackgroundReady,
+  notifySectionBackgroundReset,
 } from "@/components/landing/section-title";
 import FeatureCard from "@/components/landing/feature-card";
 
@@ -59,6 +60,7 @@ export default function Features() {
             duration: reduced ? 0 : 0.7,
             ease: "power1.inOut",
             onComplete: () => notifySectionBackgroundReady(section),
+            onReverseComplete: () => notifySectionBackgroundReset(section),
             scrollTrigger: {
               trigger: section,
               start: "top 30%",
@@ -98,7 +100,7 @@ export default function Features() {
       ref={root}
       data-companion-shape="4"
       aria-labelledby="features-title"
-      className="bg-[#feebca] text-[#222222] px-5 sm:px-9 lg:px-12 py-10 lg:py-30"
+      className="h-auto bg-[#feebca] text-[#222222] px-5 sm:px-9 lg:px-12 py-10 lg:py-30"
     >
       <div className="mx-auto max-w-[120rem]">
         <header className="mx-auto max-w-3xl text-center">

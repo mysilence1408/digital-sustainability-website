@@ -5,7 +5,13 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function notifySectionBackgroundReady(section: HTMLElement) {
+  section.dataset.backgroundReady = "true";
   section.dispatchEvent(new Event("section-background-ready"));
+}
+
+export function notifySectionBackgroundReset(section: HTMLElement) {
+  delete section.dataset.backgroundReady;
+  section.dispatchEvent(new Event("section-background-reset"));
 }
 
 // Keep words together and preserve the heading's line breaks and color spans.

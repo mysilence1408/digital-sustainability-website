@@ -1,4 +1,7 @@
-/** Organic infinity sculpture with stable particle homes and GPU magnetic displacement. */
+import { createDigitalLeafHomes } from "./digital-leaf-homes";
+import { createFootprintHomes } from "./footprint-homes";
+
+/** Carbon-footprint sculpture with stable particle homes and GPU magnetic displacement. */
 const quadVertex = `#version 300 es
 precision highp float;
 out vec2 uv;
@@ -14,131 +17,25 @@ uniform vec2 gaze;
 uniform float time,sculpture;
 uniform float morphWeights[6];
 uniform float idlePose,arrival;
+uniform sampler2D companionOrigin;
+vec2 particleUV;
 mat3 rx(float a){float c=cos(a),s=sin(a);return mat3(1,0,0,0,c,s,0,-s,c);}
 mat3 ry(float a){float c=cos(a),s=sin(a);return mat3(c,0,-s,0,1,0,s,0,c);}
 mat3 rz(float a){float c=cos(a),s=sin(a);return mat3(c,s,0,-s,c,0,0,0,1);}
 float seed(float a){return fract(sin(a)*43758.5453);}
-float robotPart(float phase){
-  // Give the limbs enough particles to read as solid articulated components.
-  if(phase<.28)return phase/.28*.25;
-  if(phase<.56)return .25+(phase-.28)/.28*.40;
-  if(phase<.62)return .65+(phase-.56)/.06*.07;
-  if(phase<.68)return .72+(phase-.62)/.06*.07;
-  if(phase<.71)return .79+(phase-.68)/.03*.05;
-  if(phase<.85)return .84+(phase-.71)/.14*.09;
-  if(phase<.98)return .93+(phase-.85)/.13*.06;
-  return .99+(phase-.98)/.02*.01;
-}
-vec3 buddy(vec4 anchor,float kind){
-  float phase=robotPart(anchor.w);
-  float a=seed(dot(anchor.xyz,vec3(13.1,73.7,41.3)))*6.2831853;
-  float v=seed(dot(anchor.xyz,vec3(33.7,17.9,62.1)))*2.-1.;
-  float r=sqrt(max(0.,1.-v*v));
-  // One robot silhouette in every section. The kind selects acting, not anatomy.
-  vec3 normal=vec3(r*cos(a),v,r*sin(a));
-  // Sample armor faces uniformly. Power-warped spheres crowd particles into
-  // corners and leave the chest and shins looking transparent at small sizes.
-  vec3 box=vec3(
-    seed(dot(anchor.xyz,vec3(59.3,21.7,83.1))),
-    seed(dot(anchor.xyz,vec3(19.9,67.1,37.3))),
-    seed(dot(anchor.xyz,vec3(71.7,43.9,11.3))))*2.-1.;
-  float face=seed(dot(anchor.xyz,vec3(47.3,89.1,29.7)))*6.;
-  float faceSign=mod(floor(face),2.)<.5?-1.:1.;
-  if(face<2.)box.x=faceSign;else if(face<4.)box.y=faceSign;else box.z=faceSign;
-  vec3 bevel=mix(box,normalize(box),.08);
-  // Round only the chest shell; keep the limbs' straighter armor surfaces.
-  vec3 chest=mix(box,normalize(box),.52);
-  float taper=mix(.90,1.,(chest.y+1.)*.5);
-  vec3 p=vec3(chest.x*.40*taper,-.29+chest.y*.40,chest.z*.27);
-  if(phase>=.25&&phase<.65){
-    vec3 n=vec3(r*cos(a),v,r*sin(a));
-    vec3 rounded=sign(n)*pow(abs(n),vec3(.72));
-    p=vec3(rounded.x*.49,.48+rounded.y*.39,rounded.z*.31);
-    // Leave an opening in the helmet for the inset particle faceplate.
-    if(n.z>.35&&abs(p.x)<.41&&abs(p.y-.53)<.23)p.z=-.15;
-  }else if(phase>=.65&&phase<.72){
-    float u=seed(dot(anchor.xyz,vec3(41.2,93.3,12.7)))*2.-1.;
-    float h=seed(dot(anchor.xyz,vec3(22.9,31.7,81.1)))*2.-1.;
-    float edge=pow(abs(u),4.)+pow(abs(h),4.);
-    float fit=max(1.,pow(edge,.25));
-    p=vec3(u/fit*.41,.53+h/fit*.23,.315+.018*(1.-u*u)*(1.-h*h));
-  }
-  // Dedicated groups form two eyes and a curved smile on the front surface.
-  if(phase>.72&&phase<.79){
-    float side=phase<.755?-1.:1.;
-    float blink=1.-.94*exp(-pow((mod(time+1.7,4.7)-.12)/.065,2.));
-    blink*=1.-.85*exp(-pow((mod(time+1.7,9.4)-.38)/.06,2.));
-    p=vec3(side*.20+.073*cos(a)*r,.55+.088*v*blink,.36+.016*sin(a));
-    p.xy+=gaze*.13;
-  }else if(phase>=.79&&phase<.84){
-    float t=(phase-.79)/.05;
-    float smile=mix(.65+.35*sin(time*.48),.08,idlePose);
-    if(kind==2.)smile*=.35;
-    p=vec3((t-.5)*.27,.32-.055*smile*sin(t*3.14159),.36)+vec3(.006*cos(a),.006*sin(a),0.);
-  }else if(phase>=.84&&phase<.93){
-    float t=(phase-.84)/.09;
-    float side=t<.5?-1.:1.;t=fract(t*2.);
-    vec3 start=vec3(side*.42,-.09,0.);
-    vec3 tip=vec3(side*.78,-.16+.04*sin(time*1.6+side),.06);
-    if(kind==2.)tip=side<0.?vec3(-.24,.19,.48):vec3(.67,.08,.1);
-    if(kind==3.)tip=vec3(side*.95,.16+.08*sin(time*1.9+side),.08);
-    if(kind==4.)tip=vec3(side*.82,.52+.09*sin(time*2.3+side),.05);
-    if(side<0.)tip=mix(tip,vec3(-.8+.1*sin(time*8.),.69,.08),arrival);
-    if(kind==5.&&side>0.)tip=vec3(.88+.12*sin(time*7.),.74,.06);
-    // Waiting pose: bring both hands together, glance down and tap a wrist.
-    vec3 waiting=side<0.?vec3(.03,-.15,.66):vec3(-.10,-.10+.035*sin(time*5.),.70);
-    tip=mix(tip,waiting,idlePose);
-    vec3 elbow=mix(start,tip,.5)+vec3(side*.12,-.14,.04);
-    float armT=min(t/.83,1.);
-    p=armT<.5?mix(start,elbow,armT*2.):mix(elbow,tip,(armT-.5)*2.);
-    float thickness=t>.83?.105:.092;
-    float joint=1.-.18*exp(-pow((armT-.5)/.065,2.));
-    p+=bevel*thickness*joint;
-    if(t>.90){
-      // Four small articulated fingers and a thumb extend from the palm.
-      float handT=(t-.90)/.10;
-      float finger=floor(handT*5.);
-      float along=fract(handT*5.);
-      vec3 direction=normalize(tip-elbow);
-      vec3 across=normalize(cross(direction,vec3(0.,0.,1.)));
-      float spread=(finger-1.5)*.036;
-      vec3 base=tip+direction*.055+across*spread;
-      vec3 end=base+direction*(finger==4.?.065:.11)+across*(finger==4.?.05:spread*.3);
-      p=mix(base,end,along)+bevel*.025;
-    }
-  }else if(phase>=.93&&phase<.99){
-    float side=phase<.96?-1.:1.;
-    float legT=fract((phase-.93)/.03);
-    // Distinct thigh armor, knee gap, shin and planted foot: one stable anatomy.
-    if(legT<.40)p=vec3(side*.22+bevel.x*.125,-.80+bevel.y*.17,bevel.z*.14);
-    else if(legT<.80)p=vec3(side*.23+bevel.x*.115,-1.07+bevel.y*.11,bevel.z*.12);
-    else p=vec3(side*.24+bevel.x*.15,-1.20+bevel.y*.065,.07+bevel.z*.20);
-  }else if(phase>=.99){
-    float detail=(phase-.99)/.01;
-    if(detail<.45){
-      float side=detail<.225?-1.:1.;
-      p=vec3(side*.49+normal.x*.045,.48+normal.y*.13,normal.z*.12);
-    }else if(detail<.60)p=vec3(normal.x*.13,.10+normal.y*.045,normal.z*.13);
-    else if(detail<.70)p=vec3(bevel.x*.075,-.23+bevel.y*.09,.27);
-    else{
-      // Curved antenna with a spherical tip, rooted in the helmet crown.
-      float t=clamp((detail-.70)/.22,0.,1.);
-      vec3 stem=vec3(.13+.10*sin(t*2.4),.85+.31*t,.015);
-      p=detail<.92?stem+vec3(.016*cos(a),.008*v,.016*sin(a)):
-        vec3(.13+.10*sin(2.4),1.16,.015)+normal*.065;
-    }
-  }
-  // Whole-body acting stays in home-space, so repelled particles always recover.
-  p=rx(idlePose*.17)*ry(.06*sin(time*.7)+arrival*.22)*rz(.015*sin(time*1.1)+arrival*.05)*p;
-  p.y*=1.+.008*sin(time*1.8)-.025*arrival;
-  return p+vec3(0.,.018*sin(time*1.3)+arrival*.06,0.);
+// Both footprints share fixed GPU homes throughout all section states.
+vec3 ecoFootprint(float kind){
+  vec3 p=texture(companionOrigin,particleUV).xyz;
+  float goodbye=kind>4.5?.025*sin(time*3.):0.;
+  p=ry(.06*sin(time*.35)+gaze.x*.06)*rx(.12)*rz(.012*sin(time*.7)+arrival*.025+goodbye)*p;
+  return p+vec3(0.,.022*sin(time*.9)+arrival*.035+idlePose*.008*sin(time*2.),0.);
 }
 vec3 home(vec4 anchor){
   vec3 p=anchor.xyz;
   if(sculpture>.5){
     p=ry(.2+sin(time*.13)*.07)*rx(.22)*rz(.08+sin(time*.11)*.035)*p*(1.+.014*sin(time*.5));
     p*=morphWeights[0];
-    for(int i=1;i<6;i++)if(morphWeights[i]>.0001)p+=buddy(anchor,float(i))*morphWeights[i];
+    for(int i=1;i<6;i++)if(morphWeights[i]>.0001)p+=ecoFootprint(float(i))*morphWeights[i];
   }else if(anchor.w<.5){
     p=ry(time*.085)*rx(.12)*p*(1.+.012*sin(time*.65));
   }else{
@@ -170,6 +67,7 @@ uniform float hz,pointerActive;
 uniform vec2 pointer;
 ${projection}
 void main(){
+  particleUV=uv;
   vec3 anchor=home(texture(origin,uv));
   // State contains displacement, never the rotated world position.
   vec3 offset=texture(state,uv).xyz;
@@ -191,16 +89,15 @@ const pointsVertex = `#version 300 es
 precision highp float;
 uniform sampler2D state,origin;
 uniform float size,dpr,density,drawProgress,lightTheme;
+uniform vec3 robotInk;
+uniform float customInk;
 out vec4 color;
 ${projection}
 float hash(float n){return fract(sin(n)*43758.5453);}
-vec3 pathCenter(float phase){
-  float u=phase*6.28318530718+1.57079632679;
-  return vec3(1.36*cos(u)*(1.+.035*sin(u)),.58*sin(2.*u)*(1.+.1*cos(u))+.06*cos(u),.25*sin(u));
-}
 void main(){
   float id=float(gl_VertexID);vec3 random=vec3(hash(id+1.),hash(id+7.),hash(id+19.));
   vec2 uv=(vec2(mod(id,size),floor(id/size))+.5)/size;
+  particleUV=uv;
   vec4 anchor=texture(origin,uv);
   vec3 homePosition=home(anchor);
   vec3 p=homePosition+texture(state,uv).xyz;
@@ -209,7 +106,7 @@ void main(){
     // Undrawn segments do not exist on screen; no whole-object fade or clipping mask.
     float stroke=drawProgress*1.04;
     float gathered=smoothstep(anchor.w,anchor.w+.035,stroke);
-    vec3 center=home(vec4(pathCenter(anchor.w),anchor.w));
+    vec3 center=home(vec4(anchor.x*.12,-1.04,anchor.z*.12,anchor.w));
     gathered=mix(1.,gathered,morphWeights[0]);
     p=mix(center,homePosition,gathered)+texture(state,uv).xyz*gathered;
   }
@@ -244,10 +141,9 @@ void main(){
     color=vec4(base*sparkle*density*(1.+tip*.65),1.);
     if(lightTheme>.5){
       vec3 ink=mix(vec3(.12,.24,.18),vec3(.34,.43,.28),random.x);
+      ink=mix(ink,robotInk,customInk);
       color=vec4(ink,clamp((.12+random.x*.2)*sparkle*density*(1.+tip*.35),0.,.7));
-      float part=robotPart(anchor.w);
-      float structure=(part<.25||part>=.84)?1.:0.;
-      float opacityBoost=mix(1.,mix(1.25,2.4,structure),1.-morphWeights[0]);
+      float opacityBoost=mix(1.,1.65,1.-morphWeights[0]);
       color.a=min(.85,color.a*opacityBoost);
     }
     if(morphWeights[0]>.999&&(drawProgress<=0.||anchor.w>drawProgress*1.04)){gl_Position=vec4(2.,2.,2.,1.);gl_PointSize=1.;}
@@ -277,7 +173,7 @@ type Target = {
   size: number;
 };
 
-export type CompanionActing = { idle: number; arrival: number };
+export type CompanionActing = { idle: number; arrival: number; color?: readonly [number, number, number] };
 const restingActing: CompanionActing = { idle: 0, arrival: 0 };
 
 /** Starts one scene; the public lifecycle below also handles context restoration. */
@@ -417,51 +313,17 @@ function createScene(
     const size = mobile ? 128 : sculpture ? 512 : 256;
     const count = size * size;
     const anchors = new Float32Array(count * 4);
+    const heroHomes = sculpture ? createDigitalLeafHomes(count) : null;
     const sphereCount = Math.floor(count * 0.76);
     const ringCount = Math.floor(count * 0.16);
     const goldenAngle = Math.PI * (3 - Math.sqrt(5));
     for (let index = 0; index < count; index++) {
       const i = index * 4;
       if (sculpture) {
-        // A 3D Gerono infinity curve, with separate front/back strands at the crossing.
-        const phase = Math.random();
-        const u = phase * Math.PI * 2 + Math.PI / 2;
-        const v = Math.random() * Math.PI * 2;
-        const sin = Math.sin(u),
-          cos = Math.cos(u);
-        const sin2 = Math.sin(2 * u),
-          cos2 = Math.cos(2 * u);
-        const x = 1.36 * cos * (1 + 0.035 * sin);
-        const y = 0.58 * sin2 * (1 + 0.1 * cos) + 0.06 * cos;
-        const z = 0.25 * sin;
-        // Analytic tangent and a perpendicular frame keep the tubular surface continuous.
-        let tx = -1.36 * sin + 0.0476 * cos2;
-        let ty =
-          1.16 * cos2 * (1 + 0.1 * cos) - 0.058 * sin2 * sin - 0.06 * sin;
-        let tz = 0.25 * cos;
-        const length = Math.hypot(tx, ty, tz);
-        tx /= length;
-        ty /= length;
-        tz /= length;
-        const planar = Math.hypot(tx, ty);
-        const nx = -ty / planar,
-          ny = tx / planar;
-        const bx = -tz * ny,
-          by = tz * nx,
-          bz = tx * ny - ty * nx;
-        // A gently folded oval cross-section suggests a leaf at the central meeting.
-        const twist = 0.4 * sin2;
-        const width = 0.155 + 0.035 * sin * sin;
-        const normalOffset =
-          width * Math.cos(v) * Math.cos(twist) -
-          0.12 * Math.sin(v) * Math.sin(twist);
-        const binormalOffset =
-          width * Math.cos(v) * Math.sin(twist) +
-          0.12 * Math.sin(v) * Math.cos(twist);
-        anchors[i] = x + nx * normalOffset + bx * binormalOffset;
-        anchors[i + 1] = y + ny * normalOffset + by * binormalOffset;
-        anchors[i + 2] = z + bz * binormalOffset;
-        anchors[i + 3] = phase;
+        anchors[i] = heroHomes![i];
+        anchors[i + 1] = heroHomes![i + 1];
+        anchors[i + 2] = heroHomes![i + 2];
+        anchors[i + 3] = heroHomes![i + 3];
       } else if (index < sphereCount) {
         // Fibonacci distribution produces a uniform spherical shell, not poles.
         const y = 1 - (2 * (index + 0.5)) / sphereCount;
@@ -507,6 +369,7 @@ function createScene(
       }
     }
     const origin = target(size, anchors);
+    const companionOrigin = target(size, createFootprintHomes(count));
     const zero = new Float32Array(count * 4);
     let positions = target(size, zero),
       nextPositions = target(size, zero);
@@ -520,7 +383,9 @@ function createScene(
       gazeY = 0,
       lastTime = 0,
       elapsed = 0;
+    const formationDuration = 1.8;
     let drawingElapsed = 0;
+    let formationStartedAt: number | null = null;
     const morphWeights = new Float32Array([1,0,0,0,0,0]);
     let visible = true;
     let hasRendered = false;
@@ -577,13 +442,21 @@ function createScene(
       lastTime = now;
       if (!reduced.matches) elapsed += delta;
       const motionTime = reduced.matches ? 0 : elapsed;
-      if (reduced.matches) drawingElapsed = 3.4;
-      else if (isFormationReady())
-        drawingElapsed = Math.min(3.4, drawingElapsed + delta);
-      const strokeTime = drawingElapsed / 3.4;
+      if (reduced.matches) drawingElapsed = formationDuration;
+      else if (isFormationReady()) {
+        formationStartedAt ??= now;
+        // Formation uses real elapsed time, independent of GPU warm-up/FPS.
+        // The capped delta above remains dedicated to stable particle simulation.
+        drawingElapsed = Math.min(formationDuration, (now - formationStartedAt) / 1000);
+      } else {
+        formationStartedAt = null;
+        drawingElapsed = 0;
+      }
+      const strokeTime = drawingElapsed / formationDuration;
       const drawProgress = reduced.matches
         ? 1
-        : strokeTime * strokeTime * (3 - 2 * strokeTime);
+        // Start visibly on the first frame, then settle gently at the tip.
+        : 1 - Math.pow(1 - strokeTime, 3);
       gl.bindVertexArray(vao);
       gl.disable(gl.BLEND);
       gazeX +=
@@ -597,6 +470,7 @@ function createScene(
       drawTo(step, nextPositions);
       texture(step, "state", positions, 0);
       texture(step, "origin", origin, 1);
+      texture(step, "companionOrigin", companionOrigin, 2);
       vector(step, "pointer", mouseX, mouseY);
       scalar(step, "pointerActive", pointerActive && !reduced.matches ? 1 : 0);
       scalar(step, "hz", hz);
@@ -626,6 +500,7 @@ function createScene(
       gl.useProgram(points);
       texture(points, "state", positions, 0);
       texture(points, "origin", origin, 1);
+      texture(points, "companionOrigin", companionOrigin, 2);
       scalar(points, "lightTheme", lightTheme ? 1 : 0);
       scalar(points, "drawProgress", drawProgress);
       scalar(points, "size", size);
@@ -633,6 +508,9 @@ function createScene(
       scalar(points, "time", motionTime);
       scalar(points, "idlePose", reduced.matches ? 0 : acting.idle);
       scalar(points, "arrival", reduced.matches ? 0 : acting.arrival);
+      scalar(points, "customInk", acting.color ? 1 : 0);
+      const ink = acting.color;
+      gl.uniform3f(location(points, "robotInk"), ink?.[0] ?? 0, ink?.[1] ?? 0, ink?.[2] ?? 0);
       scalar(points, "sculpture", sculpture ? 1 : 0);
       gl.uniform1fv(location(points,"morphWeights[0]"),morphWeights);
       scalar(points, "density", mobile ? 2.2 : 1);

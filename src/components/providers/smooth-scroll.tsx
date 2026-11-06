@@ -20,6 +20,10 @@ export default function SmoothScroll() {
     // Drive Lenis from the existing ticker, using real milliseconds so changing
     // GSAP's global lag-smoothing settings is unnecessary.
     const tick = () => lenis.current?.raf(performance.now());
+    const syncLock = () => {
+      if (document.documentElement.dataset.navigationOpen === "true") lenis.current?.stop();
+      else lenis.current?.start();
+    };
     const destroy = () => {
       gsap.ticker.remove(tick);
       lenis.current?.off("scroll", ScrollTrigger.update);
@@ -37,13 +41,16 @@ export default function SmoothScroll() {
         anchors: true,
       });
       lenis.current.on("scroll", ScrollTrigger.update);
+      syncLock();
       gsap.ticker.add(tick);
     };
 
     configure();
+    window.addEventListener("navigation-lock-change", syncLock);
     motion.addEventListener("change", configure);
     return () => {
       motion.removeEventListener("change", configure);
+      window.removeEventListener("navigation-lock-change", syncLock);
       destroy();
       window.history.scrollRestoration = previousRestoration;
     };

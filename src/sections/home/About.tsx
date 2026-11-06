@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionTitle, {
   notifySectionBackgroundReady,
+  notifySectionBackgroundReset,
 } from "@/components/landing/section-title";
 import Image from "next/image";
 import aboutLeaf from "../../../public/images/about_leaf.gif";
@@ -33,6 +34,7 @@ const About = () => {
             duration: context.conditions?.reduce ? 0 : 0.7,
             ease: "power1.inOut",
             onComplete: () => notifySectionBackgroundReady(section),
+            onReverseComplete: () => notifySectionBackgroundReset(section),
             scrollTrigger: {
               trigger: section,
               // Switch when About's top reaches 20% down the viewport.
@@ -55,7 +57,7 @@ const About = () => {
       ref={root}
       data-companion-shape="1"
       id="about"
-      className="h-auto flex flex-col items-center justify-center text-[#2b4836] gap-7 px-5 sm:px-9 lg:px-12 py-10 lg:py-30"
+      className="h-auto flex flex-col items-center justify-center gap-7 px-5 sm:px-9 lg:px-12 py-10 lg:py-30"
     >
       <header className="mx-auto max-w-3xl text-center">
         <p className="text-xs font-medium uppercase tracking-[0.2em]">
@@ -67,7 +69,7 @@ const About = () => {
         >
           Small choices.
           <br />
-          <span className="text-[#34824f]">Meaningful change.</span>
+          <span className="text-[#294935]">Meaningful change.</span>
         </SectionTitle>
         <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-[#222222]/65">
           A companion to help you understand your impact and find a more mindful

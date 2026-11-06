@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionTitle, {
   notifySectionBackgroundReady,
+  notifySectionBackgroundReset,
 } from "@/components/landing/section-title";
 
 const Challenge = () => {
@@ -30,6 +31,7 @@ const Challenge = () => {
             duration: context.conditions?.reduce ? 0 : 0.7,
             ease: "power1.inOut",
             onComplete: () => notifySectionBackgroundReady(section),
+            onReverseComplete: () => notifySectionBackgroundReset(section),
             scrollTrigger: {
               trigger: section,
               // Switch when About's top reaches 20% down the viewport.

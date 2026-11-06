@@ -1,22 +1,26 @@
 "use client";
 
-import { useEffect, useRef, useSyncExternalStore } from "react";
+import { useEffect, useRef, useSyncExternalStore, type RefObject } from "react";
 import { createPortal } from "react-dom";
 import { gsap } from "gsap";
-import { createParticleSculptureRenderer } from "./particle-renderer";
+import { createParticleSculptureRenderer, type CompanionActing } from "./particle-renderer";
 
 const subscribe = () => () => {};
 const clientSnapshot = () => true;
 const serverSnapshot = () => false;
+const sectionColors: Record<string, readonly [number, number, number]> = {
+  "1": [0x29 / 255, 0x49 / 255, 0x35 / 255],
+  "2": [0x55 / 255, 0x27 / 255, 0x56 / 255],
+  "3": [0x65 / 255, 0x49 / 255, 0x12 / 255],
+  "4": [0x68 / 255, 0x6d / 255, 0x76 / 255],
+};
 
 /** A single GPU scene travels from its original hero slot into a viewport dock. */
-export default function FollowingCompanion({ ready }: { ready: boolean }) {
+export default function FollowingCompanion({ formationReady }: { formationReady: RefObject<boolean> }) {
   const slot = useRef<HTMLDivElement>(null);
   const layer = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
-  const readyRef = useRef(ready);
   const mounted = useSyncExternalStore(subscribe, clientSnapshot, serverSnapshot);
-  useEffect(() => { readyRef.current = ready; }, [ready]);
 
   useEffect(() => {
     if (!mounted || !slot.current || !layer.current || !canvas.current) return;
@@ -28,7 +32,7 @@ export default function FollowingCompanion({ ready }: { ready: boolean }) {
     const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-companion-shape]"));
     const last = sections.at(-1);
     let shape = 0;
-    const acting = { idle: 0, arrival: 0 };
+    const acting: CompanionActing = { idle: 0, arrival: 0 };
     let lastScroll = performance.now(), entered = -Infinity;
     let dockSide = 1;
     const onScroll = () => { lastScroll = performance.now(); };
@@ -46,7 +50,7 @@ export default function FollowingCompanion({ ready }: { ready: boolean }) {
     measure();
     const resize = new ResizeObserver(measure);
     resize.observe(anchor);
-    const destroy = createParticleSculptureRenderer(surface, () => readyRef.current, true, () => shape, () => acting);
+    const destroy = createParticleSculptureRenderer(surface, () => formationReady.current, true, () => shape, () => acting);
     const tick = () => {
       const stamp = performance.now();
       const dt = Math.min(.1, (stamp-lastStamp)/1000); lastStamp = stamp;
@@ -56,6 +60,18 @@ export default function FollowingCompanion({ ready }: { ready: boolean }) {
       const heroRect = hero.getBoundingClientRect();
       const progress = Math.min(1, Math.max(0, -heroRect.top / Math.max(1, heroRect.height * .65)));
       const follow = progress * progress * (3 - 2 * progress);
+      // Background completion, rather than shape entry, controls the ink color.
+      let color: CompanionActing["color"];
+      if (heroRect.top < 0) {
+        for (const section of sections) {
+          if (section.dataset.backgroundReady === "true")
+            color = sectionColors[section.dataset.companionShape!];
+        }
+      }
+      if (color !== acting.color) {
+        acting.color = color;
+        surface.dispatchEvent(new Event("particle-state-change"));
+      }
       const small = viewportWidth < 768;
       const dockWidth = Math.min(width, small ? 185 : 400);
       const dockScale = dockWidth / width;
@@ -103,12 +119,12 @@ export default function FollowingCompanion({ ready }: { ready: boolean }) {
       window.removeEventListener("scroll", onScroll);
       document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, [mounted]);
+  }, [mounted, formationReady]);
 
   return <>
     <div ref={slot} className="h-full w-full" aria-hidden="true" />
     {mounted && createPortal(
-      <div ref={layer} data-following-companion className="pointer-events-none fixed left-0 top-0 z-30 origin-top-left" role="img" aria-label="A friendly particle companion that transforms as you explore, then waves goodbye.">
+      <div ref={layer} data-following-companion className="pointer-events-none fixed left-0 top-0 z-30 origin-top-left" role="img" aria-label="Two particle footprints labeled Carbon Footprint that follow you through each section and fade before the footer.">
         <canvas ref={canvas} aria-hidden="true" className="absolute inset-0 block size-full" />
       </div>, document.body,
     )}
