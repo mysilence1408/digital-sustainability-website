@@ -33,9 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Suspense fallback={null}>
           <SmoothScroll />
         </Suspense>
-        <Suspense fallback={null}>
-          <Navbar />
-        </Suspense>
+        <Suspense fallback={null}><Navbar /></Suspense>
         {children}
         <Footer />
       </body>
