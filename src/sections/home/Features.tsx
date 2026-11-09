@@ -41,6 +41,7 @@ export default function Features() {
     media.add(
       {
         reduce: "(prefers-reduced-motion: reduce)",
+        motion: "(prefers-reduced-motion: no-preference)",
         desktop: "(min-width: 768px)",
       },
       (context) => {
