@@ -418,6 +418,19 @@ content:
                 label: Description
                 type: text
                 required: true
+      - name: metadata
+        label: Search / browser title
+        type: object
+        required: true
+        fields:
+          - name: title
+            label: Page title
+            type: string
+            required: true
+          - name: description
+            label: Description
+            type: text
+            required: true
   - name: about
     label: About / Team
     type: file
@@ -500,6 +513,19 @@ content:
                 label: Alt
                 type: string
                 required: true
+      - name: metadata
+        label: Search / browser title
+        type: object
+        required: true
+        fields:
+          - name: title
+            label: Page title
+            type: string
+            required: true
+          - name: description
+            label: Description
+            type: text
+            required: true
   - name: project
     label: Project page
     type: file
@@ -753,6 +779,19 @@ content:
             required: true
           - name: errorMessage
             label: Error Message
+            type: text
+            required: true
+      - name: metadata
+        label: Search / browser title
+        type: object
+        required: true
+        fields:
+          - name: title
+            label: Page title
+            type: string
+            required: true
+          - name: description
+            label: Description
             type: text
             required: true
   - name: site

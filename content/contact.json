@@ -25,5 +25,9 @@
     "unavailableMessage": "Sending isn’t available just yet. Please try again later.",
     "successMessage": "Thank you. Your message is on its way!",
     "errorMessage": "Your message couldn’t be sent. Your text is still here—please try again."
+  },
+  "metadata": {
+    "title": "Contact | Digital Sustainability Companion",
+    "description": "Get in touch with the Digital Sustainability Companion team to share a question, idea, or perspective on digital sustainability."
   }
 }

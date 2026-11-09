@@ -23,16 +23,13 @@
   "video": {
     "src": "/videos/project/reference-placeholder.mp4",
     "poster": "/images/project/lake-placeholder.jpg",
-    "title": [
-      "Some creations",
-      "merit a place"
-    ],
+    "title": ["Some creations", "merit a place"],
     "subtitle": "A lighter footprint. A shared future.",
     "url": "",
     "label": "Project film placeholder"
   },
   "metadata": {
-    "title": "The Project | Digital Sustainability Companion",
+    "title": "Project | Digital Sustainability Companion",
     "description": "Exploring a lighter digital footprint through research, thoughtful design, and more considered everyday habits."
   }
 }
