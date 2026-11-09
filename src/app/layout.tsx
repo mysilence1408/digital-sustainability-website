@@ -20,6 +20,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    "https://digital-sustainability-website-ten.vercel.app",
+  ),
   title: site.title,
   description: site.description,
 };
@@ -34,7 +37,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Suspense fallback={null}>
           <SmoothScroll />
         </Suspense>
-        <Suspense fallback={null}><Navbar /></Suspense>
+        <Suspense fallback={null}>
+          <Navbar />
+        </Suspense>
         {children}
         <Footer />
         <PageTransition />
