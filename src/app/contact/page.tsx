@@ -1,16 +1,15 @@
+import contact from "@/content/contact";
+import { pageMetadata } from "@/lib/seo";
+import PageStructuredData from "@/components/seo/page-structured-data";
 import ContactForm from "@/sections/contact/ContactForm";
 
-export const metadata: Metadata = {
-  title: contact.metadata.title,
-  description: contact.metadata.description,
-};
+export const metadata = pageMetadata("/contact", contact.metadata);
 
 export default function Page() {
   return (
-    <main>
+    <main id="main-content" tabIndex={-1}>
+      <PageStructuredData path="/contact" title={contact.metadata.title} description={contact.metadata.description} />
       <ContactForm />
     </main>
   );
 }
-import type { Metadata } from "next";
-import contact from "@/content/contact";

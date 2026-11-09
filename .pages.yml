@@ -800,6 +800,16 @@ content:
     path: content/site.json
     format: json
     fields:
+      - name: url
+        label: Production website address
+        type: string
+        required: true
+        description: >-
+          Your public HTTPS domain only, with no page path. Used for canonical links, sharing, and sitemap
+          URLs.
+        pattern:
+          regex: ^https://[^/?#\s]+/?$
+          message: Use an HTTPS origin, such as https://example.com, without a page path.
       - name: title
         label: Title
         type: string

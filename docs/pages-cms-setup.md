@@ -28,6 +28,8 @@ Lists that belong to a fixed layout have an enforced size: three hero lines, thr
 
 The SVG art, colors, typography, and animation settings are intentionally not exposed as layout controls. Longer headings may wrap differently; check the mobile page after editing.
 
+Each page also has **Search / browser title** fields for its SEO title and description. Set your public HTTPS domain in **Site / Navigation / Footer → Production website address**. Canonical links, sharing metadata, and the sitemap use this address. See [SEO publishing steps](seo.md) after deployment.
+
 ## Images and video
 
 Upload images through **Images** (`public/images` → `/images`) and clips through **Videos** (`public/videos` → `/videos`). Choose them in the relevant image/file field. Do not include `public` in a web URL. Existing media is already selectable; replacing content does not require renaming files or editing TSX.
