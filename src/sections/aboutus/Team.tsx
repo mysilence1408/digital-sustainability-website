@@ -9,24 +9,11 @@ import {
 } from "react";
 import { usePageEntranceReady } from "@/components/providers/page-entrance";
 import { gsap } from "gsap";
+import about from "@/content/about";
 import ParticlePortrait from "@/components/team/particle-portrait";
 import EncryptedText from "@/components/team/encrypted-text";
 
-// Edit names, roles and individual descriptions here.
-const members = [
-  {
-    name: "Team member 01",
-    role: "Research & strategy",
-    description:
-      "Exploring the relationship between our digital habits and the world around us. Turning research into thoughtful, practical steps towards a lighter digital life.",
-  },
-  {
-    name: "Team member 02",
-    role: "Design & technology",
-    description:
-      "Bringing ideas to life through considered design and thoughtful technology. Creating a companion that makes sustainable choices feel clear, useful, and human.",
-  },
-];
+const members = about.members;
 
 export default function Team() {
   const entranceReady = usePageEntranceReady();
@@ -113,15 +100,15 @@ export default function Team() {
       />
       <div className="relative z-10 flex items-start justify-between gap-6">
         <p className="pt-2 font-mono text-[9px] uppercase tracking-[.2em] text-[#829b9f]">
-          <EncryptedText text="The people behind" delay={.1} />
+          <EncryptedText text={about.eyebrowLine1} delay={.1} />
           <br />
-          <span className="mt-2 block"><EncryptedText text="a lighter digital future" delay={.2} /></span>
+          <span className="mt-2 block"><EncryptedText text={about.eyebrowLine2} delay={.2} /></span>
         </p>
         <h1
           id="team-title"
           className="text-[clamp(2.8rem,5vw,5.5rem)] font-light leading-none tracking-[.28em]"
         >
-          <EncryptedText text="TEAM" delay={.1} />
+          <EncryptedText text={about.title} delay={.1} />
         </h1>
       </div>
 
@@ -156,8 +143,7 @@ export default function Team() {
               <path d="M3 12h24M19 4l8 8-8 8" />
             </svg>
             <span className="mt-1 font-mono text-[8px] uppercase tracking-widest">
-              Next
-            </span>
+              {about.nextLabel}</span>
           </span>
         </button>
         <div
@@ -204,7 +190,7 @@ export default function Team() {
 
       <div className="relative z-30 mt-10 flex flex-wrap items-center justify-between gap-5 border-t border-[#8eaaae]/15 pt-5 font-mono text-[9px] uppercase tracking-[.14em] text-[#8eaaae] lg:absolute lg:inset-x-12 lg:bottom-7 lg:mt-0">
         <span>
-          Portrait scan /{" "}
+          {about.scanLabel + " / "}{" "}
           <span className="text-[#d8e9e9]">
             {String(member + 1).padStart(2, "0")}
           </span>{" "}
@@ -217,14 +203,14 @@ export default function Team() {
             onClick={() => setPaused((value) => !value)}
             className="cursor-pointer py-2 hover:text-white focus-visible:outline focus-visible:outline-[#4a46ff]"
           >
-            {paused ? "Resume" : "Pause"} autoplay
+            {paused ? about.resumeLabel : about.pauseLabel} {about.autoplayLabel}
           </button>
           <button
             type="button"
             onClick={next}
             className="flex cursor-pointer items-center gap-3 py-2 text-[#d8e9e9] hover:text-[#8e88ff] focus-visible:outline focus-visible:outline-[#4a46ff]"
           >
-            Next member <span aria-hidden="true">&#8594;</span>
+            {about.nextMemberLabel}<span aria-hidden="true">&#8594;</span>
           </button>
         </div>
       </div>

@@ -1,0 +1,31 @@
+{
+  "eyebrowLine1": "The people behind",
+  "eyebrowLine2": "a lighter digital future",
+  "title": "TEAM",
+  "scanLabel": "Portrait scan",
+  "nextLabel": "Next",
+  "nextMemberLabel": "Next member",
+  "pauseLabel": "Pause",
+  "resumeLabel": "Resume",
+  "autoplayLabel": "autoplay",
+  "members": [
+    {
+      "name": "Team member 01",
+      "role": "Research & strategy",
+      "description": "Exploring the relationship between our digital habits and the world around us. Turning research into thoughtful, practical steps towards a lighter digital life.",
+      "image": {
+        "src": "/images/team/head-01.png",
+        "alt": "Team member 01"
+      }
+    },
+    {
+      "name": "Team member 02",
+      "role": "Design & technology",
+      "description": "Bringing ideas to life through considered design and thoughtful technology. Creating a companion that makes sustainable choices feel clear, useful, and human.",
+      "image": {
+        "src": "/images/team/head-02.png",
+        "alt": "Team member 02"
+      }
+    }
+  ]
+}

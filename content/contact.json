@@ -1,0 +1,29 @@
+{
+  "eyebrow": "Contact / Let’s talk",
+  "title": "A little hello.",
+  "titleAccent": "A lighter future.",
+  "description": "A question, an idea, or a new perspective?\nWe’d love to hear from you.",
+  "image": {
+    "src": "/images/lahti-campus.jpg",
+    "alt": "LUT University’s Lahti campus surrounded by greenery"
+  },
+  "stickerLine1": "SMALL MESSAGES.",
+  "stickerLine2": "BIGGER POSSIBILITIES.",
+  "captionLeft": "Rooted in research.",
+  "captionRight": "Looking forward. ↗",
+  "form": {
+    "nameLabel": "Your name",
+    "namePlaceholder": "What should we call you?",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "messageLabel": "Your message",
+    "messagePlaceholder": "Tell us what’s on your mind…",
+    "submitLabel": "Send message",
+    "sendingLabel": "Sending…",
+    "requiredNote": "All fields are required.",
+    "validationMessage": "Please complete all three fields before sending.",
+    "unavailableMessage": "Sending isn’t available just yet. Please try again later.",
+    "successMessage": "Thank you. Your message is on its way!",
+    "errorMessage": "Your message couldn’t be sent. Your text is still here—please try again."
+  }
+}

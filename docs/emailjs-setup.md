@@ -20,4 +20,4 @@ Example subject: `New companion enquiry from {{name}}`.
 
 The form uses the [official EmailJS send endpoint](https://www.emailjs.com/docs/rest-api/send/), with required-field validation, an in-flight submission lock, and success/error feedback. Missing configuration shows an honest unavailable message; it never reports a message as sent.
 
-Replace the campus image in `src/sections/contact/ContactForm.tsx`. Edit the decorative SVG lettering in `src/components/contact/contact-sticker.tsx`.
+Edit the image and decorative SVG lettering through **Contact page** in Pages CMS (stored in `content/contact.json`). EmailJS keys remain in `.env.local` or hosting environment settings, outside the CMS.

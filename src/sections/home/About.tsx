@@ -1,14 +1,16 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
+import home from "@/content/home";
+const copy = home.about;
+
+import CompanionStoryCard from "@/components/landing/companion-story-card";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionTitle, {
   notifySectionBackgroundReady,
   notifySectionBackgroundReset,
 } from "@/components/landing/section-title";
-import Image from "next/image";
-import aboutLeaf from "../../../public/images/about_leaf.gif";
 
 const About = () => {
   const root = useRef<HTMLElement>(null);
@@ -57,36 +59,25 @@ const About = () => {
       ref={root}
       data-companion-shape="1"
       id="about"
-      className="h-auto flex flex-col items-center justify-center gap-7 px-5 sm:px-9 lg:px-12 py-10 lg:py-30"
+      className="h-auto flex flex-col items-center justify-center gap-7 px-7 sm:px-9 lg:px-12 py-16 lg:py-30"
     >
       <header className="mx-auto max-w-3xl text-center">
         <p className="text-xs font-medium uppercase tracking-[0.2em]">
-          Your digital life, with a little more care
-        </p>
+          {copy.eyebrow}</p>
         <SectionTitle
           id="about-title"
           className="mt-6 text-[clamp(2.5rem,5.5vw,5rem)] font-medium leading-[1.05] tracking-[-0.055em]"
         >
-          Small choices.
-          <br />
-          <span className="text-[#294935]">Meaningful change.</span>
+          {copy.title}<br />
+          <span className="text-[#294935]">{copy.accent}</span>
         </SectionTitle>
         <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-[#222222]/65">
-          A companion to help you understand your impact and find a more mindful
-          way forward.
-        </p>
+          {copy.description}</p>
       </header>
 
-      <Image
-        src={aboutLeaf}
-        alt="AboutImg"
-        className=" rounded-2xl w-200 h-200 object-cover object-center"
-      />
-      <p className=" max-w-xl mx-auto text-center text-3xl">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium
-        quis aut, quia deserunt ducimus vel nihil corrupti quam eaque maxime
-        iure aliquid atque fuga voluptate dolorem ipsum provident ut. Nobis?
-      </p>
+      <CompanionStoryCard kind="about" />
+      <p className="mx-auto max-w-2xl text-center text-base leading-relaxed text-[#222222]/75 sm:text-lg">
+        {copy.caption}</p>
     </section>
   );
 };

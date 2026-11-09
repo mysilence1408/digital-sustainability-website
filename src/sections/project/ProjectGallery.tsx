@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePageEntranceReady } from "@/components/providers/page-entrance";
+import project from "@/content/project";
 import ProjectImage from "@/components/project/project-image";
 import { projectImages } from "./project-content";
 
@@ -45,8 +46,8 @@ export default function ProjectGallery() {
   }, [ready]);
 
   return <section ref={root} aria-labelledby="project-title" className="overflow-hidden pb-14 pt-32 sm:pb-24 sm:pt-40">
-      <h1 id="project-title" data-enter data-opening-copy className="text-center font-serif text-[clamp(4rem,8.5vw,9rem)] font-normal leading-none tracking-[-0.055em] motion-safe:[transform:translateY(32px)] motion-safe:opacity-0">Our project</h1>
-      <p data-enter data-opening-copy className="mb-14 mt-6 text-center text-xs uppercase tracking-[0.2em] sm:mb-20 sm:text-sm motion-safe:[transform:translateY(32px)] motion-safe:opacity-0">Digital Sustainability Companion</p>
+      <h1 id="project-title" data-enter data-opening-copy className="text-center font-serif text-[clamp(4rem,8.5vw,9rem)] font-normal leading-none tracking-[-0.055em] motion-safe:[transform:translateY(32px)] motion-safe:opacity-0">{project.title}</h1>
+      <p data-enter data-opening-copy className="mb-14 mt-6 text-center text-xs uppercase tracking-[0.2em] sm:mb-20 sm:text-sm motion-safe:[transform:translateY(32px)] motion-safe:opacity-0">{project.subtitle}</p>
       <div data-gallery className="mx-auto grid w-[135%] -translate-x-[13%] grid-cols-[1fr_1.47fr_1fr] items-center gap-2 md:w-full md:translate-x-0 md:gap-[10px]">
         <figure data-gallery-side data-enter className="relative m-0 aspect-[3/4.1]"><ProjectImage {...projectImages.forest} reveal priority sizes="(min-width: 768px) 25vw, 34vw" /></figure>
         <figure data-gallery-center data-enter className="relative m-0 aspect-[4.4/6.3]"><ProjectImage {...projectImages.lake} reveal priority sizes="(min-width: 768px) 40vw, 50vw" /></figure>

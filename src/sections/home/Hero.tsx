@@ -3,6 +3,9 @@ import { useLayoutEffect, useRef } from "react";
 import { usePageEntranceReady } from "@/components/providers/page-entrance";
 import { gsap } from "gsap";
 import { CustomEase } from "gsap/CustomEase";
+import home from "@/content/home";
+const hero = home.hero;
+
 import LetterReveal from "@/components/landing/letter-reveal";
 import FollowingCompanion from "@/components/landing/following-companion";
 
@@ -11,7 +14,10 @@ export default function Hero() {
   const formationReady = useRef(false);
   const entranceReady = usePageEntranceReady();
   useLayoutEffect(() => {
-    if (!entranceReady) { formationReady.current = false; return; }
+    if (!entranceReady) {
+      formationReady.current = false;
+      return;
+    }
     const section = root.current;
     if (!section) return;
     formationReady.current = false;
@@ -141,25 +147,21 @@ export default function Hero() {
             className="pointer-events-none absolute top-1 right-0 hidden max-w-[190px] text-[11px] leading-[1.7] text-[#746a61] lg:block"
           >
             <span className="mb-2 block font-mono text-[9px] tracking-[0.14em] text-[#367348] uppercase">
-              A small shift in perspective
-            </span>
-            Our digital world has a footprint.
-            <br />
-            Let us make it a lighter one.
-          </div>
+              {hero.researchLabel}</span>
+            {hero.researchSummary}</div>
           <h1
             id="companion-title"
-            aria-label="Digital Sustainability Companion"
+            aria-label={hero.titleLines.join(" ")}
             className="font-normal tracking-[-0.075em]"
           >
             <span className="block text-[clamp(3.5rem,7.65vw,8.6rem)] leading-[1.06]">
-              <LetterReveal text="Digital" />
+              <LetterReveal text={hero.titleLines[0]} />
             </span>
             <span className="mt-1 block text-[clamp(2.3rem,11.65vw,13rem)] leading-[0.98] sm:-mt-1">
-              <LetterReveal text="Sustainability" start={7} gradient />
+              <LetterReveal text={hero.titleLines[1]} start={Array.from(hero.titleLines[0]).length} gradient />
             </span>
             <span className="mt-1 block text-right text-[clamp(3rem,8.55vw,9.5rem)] leading-[1]">
-              <LetterReveal text="Companion" start={22} />
+              <LetterReveal text={hero.titleLines[2]} start={Array.from(hero.titleLines[0]).length + Array.from(hero.titleLines[1]).length + 1} />
             </span>
           </h1>
         </div>
@@ -173,16 +175,7 @@ export default function Hero() {
               data-enter="1250"
               className="pointer-events-none absolute inset-x-5 bottom-3 flex justify-between gap-3 font-mono text-[8px] tracking-[0.08em] text-[#746e65] uppercase sm:inset-x-9 lg:inset-x-0 lg:bottom-7"
             >
-              <span>01 / A lighter footprint</span>
-              <span className="flex items-center gap-2">
-                <span
-                  aria-hidden="true"
-                  className="grid size-4 place-items-center rounded-full border border-[#a99a88]/50"
-                >
-                  +
-                </span>{" "}
-                Move. Disturb. Reconnect.
-              </span>
+              <span>{hero.particleCaption}</span>
             </figcaption>
           </figure>
 
@@ -191,23 +184,17 @@ export default function Hero() {
               data-enter="850"
               className="mb-4 flex items-center gap-3 font-mono text-[9px] tracking-[0.16em] text-[#367348] uppercase"
             >
-              <span className="h-px w-7 bg-[#367348]" /> Small habits.
-              Meaningful change.
-            </p>
+              <span className="h-px w-7 bg-[#367348]" /> {hero.eyebrow}</p>
             <h2
               data-enter="1000"
               className="max-w-[400px] text-[clamp(1.65rem,2.3vw,2.5rem)] leading-[1.16] tracking-[-0.045em]"
             >
-              A lighter digital life
-              <br />
-              starts with the everyday.
-            </h2>
+              {hero.heading}</h2>
             <p
               data-enter="1100"
               className="mt-4 max-w-[380px] text-[13px] leading-[1.85] text-[#73675e]"
             >
-              Understand your digital habits. Make room for better ones. A
-              mindful companion for a lighter everyday footprint.
+              {hero.description}
             </p>
             <div
               data-enter="1250"
@@ -216,10 +203,10 @@ export default function Hero() {
               <button
                 type="button"
                 disabled
-                aria-label="Digital Sustainability Companion coming soon"
+                aria-label={hero.buttonAccessibleLabel}
                 className="flex items-center gap-8 rounded-full border border-[#222222] bg-[#222222] px-5 py-3.5 text-xs font-medium text-white disabled:cursor-not-allowed"
               >
-                <span>Coming soon</span>
+                <span>{hero.buttonLabel}</span>
                 <svg
                   width="16"
                   height="16"
@@ -248,8 +235,7 @@ export default function Hero() {
               data-enter="1400"
               className="mt-5 font-mono text-[9px] tracking-[0.03em] text-[#817368]"
             >
-              Designed for your desktop. Built around your privacy.
-            </p>
+              {hero.researchLabel}</p>
           </div>
         </div>
 
@@ -258,11 +244,7 @@ export default function Hero() {
           className="relative z-20 border-t border-[#baa58f]/20 pt-5 pb-5 sm:pb-6"
         >
           <div className="grid gap-4 sm:grid-cols-3 sm:gap-8">
-            {[
-              ["01", "Energy", "Use a little less."],
-              ["02", "Storage", "Keep what matters."],
-              ["03", "Habits", "Make change a daily thing."],
-            ].map(([number, title, description]) => (
+            {hero.highlights.map(({number, title, description}) => (
               <div key={number} className="flex items-baseline gap-3">
                 <span className="font-mono text-[8px] text-[#9b8068]">
                   {number}
@@ -275,14 +257,11 @@ export default function Hero() {
             ))}
           </div>
           <div className="mt-6 flex flex-wrap items-center justify-between gap-3 font-mono text-[8px] tracking-[0.08em] text-[#8a7a6d] uppercase">
-            <span>Thoughtful technology. Lighter footprints.</span>
-            <span>A university research project / In development</span>
+            <span>{hero.bottomLeft}</span>
+            <span>{hero.bottomRight}</span>
           </div>
         </div>
       </div>
     </section>
   );
 }
-
-
-

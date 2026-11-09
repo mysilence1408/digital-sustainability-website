@@ -54,7 +54,7 @@ export default function ProjectFilm() {
   return <section ref={root} aria-labelledby="project-film-title" className="relative h-[115svh] min-h-[640px] bg-[#fdf8f4] md:h-[135svh]">
     <div className="sticky top-0 h-svh min-h-[560px] overflow-hidden">
       <div ref={frame} className="absolute inset-0 overflow-hidden bg-[#293c31]">
-        <video ref={video} src={projectVideo.src} poster={projectVideo.poster} muted loop playsInline preload="metadata" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} aria-label="Project film placeholder" className="size-full object-cover" />
+        <video ref={video} src={projectVideo.src} poster={projectVideo.poster} muted loop playsInline preload="metadata" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} aria-label={projectVideo.label} className="size-full object-cover" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
       </div>
       <div ref={copy} className="pointer-events-none absolute inset-x-4 bottom-[13%] text-center text-[#fdf8f4] sm:inset-x-9">

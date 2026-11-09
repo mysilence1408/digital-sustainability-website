@@ -1,5 +1,9 @@
 "use client";
 import React, { useLayoutEffect, useRef } from "react";
+import home from "@/content/home";
+const copy = home.challenge;
+
+import CompanionStoryCard from "@/components/landing/companion-story-card";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionTitle, {
@@ -52,25 +56,24 @@ const Challenge = () => {
     <section
       ref={root}
       data-companion-shape="2"
-      className=" h-screen px-5 sm:px-9 lg:px-12 py-10 lg:py-30"
+      className=" h-auto flex flex-col items-center justify-center gap-7 px-7 sm:px-9 lg:px-12 py-16 lg:py-30"
     >
       <header className="mx-auto max-w-3xl text-center">
         <p className="text-xs font-medium uppercase tracking-[0.2em]">
-          Your digital life, with a little more care
-        </p>
+          {copy.eyebrow}</p>
         <SectionTitle
           id="challenge-title"
           className="mt-6 text-[clamp(2.5rem,5.5vw,5rem)] font-medium leading-[1.05] tracking-[-0.055em]"
         >
-          Small choices.
-          <br />
-          <span className="text-[#552756]">Meaningful change.</span>
+          {copy.title}<br />
+          <span className="text-[#552756]">{copy.accent}</span>
         </SectionTitle>
         <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-[#222222]/65">
-          A companion to help you understand your impact and find a more mindful
-          way forward.
-        </p>
+          {copy.description}</p>
       </header>
+      <CompanionStoryCard kind="challenge" />
+      <p className="mx-auto max-w-2xl text-center text-base leading-relaxed text-[#222222]/75 sm:text-lg">
+        {copy.caption}</p>
     </section>
   );
 };

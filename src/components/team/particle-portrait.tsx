@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import about from "@/content/about";
 import { createFaceCloud } from "./face-cloud-renderer";
 
-const sources = ["/images/team/head-01.png", "/images/team/head-02.png"];
+const sources = about.members.map(member => member.image.src);
 
 export default function ParticlePortrait({ member }: { member: number }) {
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -51,8 +52,8 @@ export default function ParticlePortrait({ member }: { member: number }) {
       surface.removeEventListener("webglcontextlost", lost); surface.removeEventListener("webglcontextrestored", start);
     };
   }, []);
-  return <>
+  return <div role="img" aria-label={about.members[member].image.alt} className="absolute inset-0">
     <canvas ref={codes} aria-hidden="true" className="absolute inset-0 size-full" />
     <canvas ref={canvas} aria-hidden="true" className="absolute inset-0 size-full" />
-  </>;
+  </div>;
 }

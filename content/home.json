@@ -1,0 +1,176 @@
+{
+  "hero": {
+    "titleLines": [
+      "Digital",
+      "Sustainability",
+      "Companion"
+    ],
+    "researchLabel": "A research project at LUT University",
+    "researchSummary": "Exploring how everyday computer use affects digital sustainability.",
+    "particleCaption": "Understanding our digital footprint",
+    "eyebrow": "about the project",
+    "heading": "Do you know how much energy your computer uses?",
+    "description": "We're developing a desktop companion that helps people understand their computer use, identify unnecessary energy and storage consumption, and find practical ways to improve their digital habits.",
+    "buttonLabel": "Coming soon",
+    "buttonAccessibleLabel": "Digital Sustainability Companion coming soon",
+    "highlights": [
+      {
+        "number": "01",
+        "title": "Energy",
+        "description": "Understand where energy is being used."
+      },
+      {
+        "number": "02",
+        "title": "Storage",
+        "description": "Find files you no longer need."
+      },
+      {
+        "number": "03",
+        "title": "Habits",
+        "description": "\tSee how your computer habits add up."
+      }
+    ],
+    "bottomLeft": "Understanding the impact of our digital habits",
+    "bottomRight": "a research project at lut university / in development"
+  },
+  "art": {
+    "deviceLabel": "YOUR DEVICE",
+    "unusedFiles": "UNUSED FILES",
+    "challengeBadges": [
+      "Always-on habits",
+      "Storage adds up",
+      "Make it visible"
+    ],
+    "scoreLabel": "DSS",
+    "scoreCaption": "A CLEARER PICTURE",
+    "dashboardHeading": "YOUR SUSTAINABILITY, AT A GLANCE",
+    "dimensions": [
+      "Energy",
+      "Storage",
+      "Behaviour"
+    ],
+    "solutionBadges": [
+      "Calculated on your device",
+      "A practical next step",
+      "See your habits evolve"
+    ]
+  },
+  "cardNote": "Companion concept / in development",
+  "about": {
+    "eyebrow": "about the project",
+    "title": "Digital habits.",
+    "accent": "Environmental impact.",
+    "description": "Computers are part of almost everything we do at work, but we rarely think about the energy and resources they use.",
+    "caption": "A research project at LUT University, exploring a desktop companion that helps people understand their digital habits and make more sustainable everyday choices.",
+    "card": {
+      "tag": "A companion for your digital life",
+      "image": {
+        "src": "/images/project/forest-placeholder.jpg",
+        "alt": "Sunlight reaching a green forest"
+      },
+      "steps": [
+        {
+          "label": "Observe",
+          "line1": "A clearer view of",
+          "line2": "your everyday habits."
+        },
+        {
+          "label": "Understand",
+          "line1": "Connect digital choices",
+          "line2": "to the resources they use."
+        },
+        {
+          "label": "Act",
+          "line1": "A little awareness.",
+          "line2": "A more mindful routine."
+        }
+      ]
+    }
+  },
+  "challenge": {
+    "eyebrow": "The challenge",
+    "title": "The hidden cost",
+    "accent": "of everyday habits.",
+    "description": "What happens on a screen can feel weightless. The resources behind it are very real.",
+    "caption": "Idle computers, unnecessary background activity, and growing file collections can use resources without us noticing. Awareness is the first step towards a more considered digital routine.",
+    "card": {
+      "tag": "The impact we don’t always see",
+      "image": {
+        "src": "/images/project/energy-placeholder.jpg",
+        "alt": "Solar panels and the energy behind our digital lives"
+      },
+      "steps": [
+        {
+          "label": "Energy",
+          "line1": "Idle doesn’t always",
+          "line2": "mean switched off."
+        },
+        {
+          "label": "Storage",
+          "line1": "Files accumulate.",
+          "line2": "So does resource use."
+        },
+        {
+          "label": "Awareness",
+          "line1": "The first step is seeing",
+          "line2": "what usually stays hidden."
+        }
+      ]
+    }
+  },
+  "solution": {
+    "eyebrow": "The proposed solution",
+    "title": "Understand your impact.",
+    "accent": "Choose a lighter way.",
+    "description": "A clearer picture of energy, storage, and digital behaviour. Thoughtful guidance for what to do next.",
+    "caption": "The proposed companion brings together local activity monitoring, a Digital Sustainability Score, and practical recommendations. Core monitoring and scoring stay on your device; AI-enhanced explanations are optional.",
+    "card": {
+      "tag": "Built around meaningful next steps",
+      "image": {
+        "src": "/images/lahti-campus.jpg",
+        "alt": "LUT University’s Lahti campus"
+      },
+      "steps": [
+        {
+          "label": "Score",
+          "line1": "One score.",
+          "line2": "Three useful perspectives."
+        },
+        {
+          "label": "Recommend",
+          "line1": "Thoughtful guidance.",
+          "line2": "Practical everyday actions."
+        },
+        {
+          "label": "Reflect",
+          "line1": "See your progress.",
+          "line2": "Build a lighter digital life."
+        }
+      ]
+    }
+  },
+  "features": {
+    "eyebrow": "Your digital life, with a little more care",
+    "title": "Small choices.",
+    "accent": "Meaningful change.",
+    "description": "A companion to help you understand your impact and find a more mindful way forward.",
+    "items": [
+      {
+        "title": "Understand",
+        "description": "Get to know the impact behind your everyday digital habits."
+      },
+      {
+        "title": "Discover",
+        "description": "Explore simple ways to make your digital life more sustainable."
+      },
+      {
+        "title": "Take action",
+        "description": "Turn small, thoughtful choices into everyday habits."
+      },
+      {
+        "title": "Keep growing",
+        "description": "Build awareness and make progress, one step at a time."
+      }
+    ]
+  }
+}

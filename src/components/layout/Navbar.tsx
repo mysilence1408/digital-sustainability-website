@@ -1,16 +1,12 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
+import site from "@/content/site";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 
-const links = [
-  { label: "Home", href: "/" },
-  { label: "About us", href: "/about" },
-  { label: "Project", href: "/project" },
-  { label: "Contact", href: "/contact" },
-];
+const links = site.navigation;
 
 function Menu({ pathname }: { pathname: string }) {
   const root = useRef<HTMLElement>(null);
@@ -164,8 +160,8 @@ function Menu({ pathname }: { pathname: string }) {
             <span
               className={`block transition-transform duration-300 motion-reduce:transition-none ${open ? "-translate-y-1/2" : "translate-y-0"}`}
             >
-              <span className="block h-4">Menu</span>
-              <span className="block h-4">Close</span>
+              <span className="block h-4">{site.menuLabel}</span>
+              <span className="block h-4">{site.closeLabel}</span>
             </span>
           </span>
           <span

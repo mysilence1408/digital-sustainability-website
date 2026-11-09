@@ -1,0 +1,39 @@
+{
+  "title": "Digital Sustainability Companion",
+  "description": "A university research project exploring a lighter digital life through mindful energy use, storage habits, and everyday digital behaviour.",
+  "navigation": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "About us",
+      "href": "/about"
+    },
+    {
+      "label": "Project",
+      "href": "/project"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact"
+    }
+  ],
+  "menuLabel": "Menu",
+  "closeLabel": "Close",
+  "footer": {
+    "navigationLabel": "Keep exploring",
+    "brand": "Digital Sustainability Companion",
+    "title": "Small habits.",
+    "titleAccent": "A lighter digital footprint.",
+    "description": "Exploring how everyday digital choices can make room for a more sustainable future.",
+    "universityLabel": "LUT University",
+    "universityUrl": "https://www.lut.fi/en",
+    "universityCaption": "Research, people, and thoughtful technology.",
+    "statement": "Lighter, together",
+    "statementAccent": ".",
+    "bottomLeft": "A university research project",
+    "bottomMiddle": "Energy / Storage / Everyday habits",
+    "bottomRight": "Mindful by design"
+  }
+}

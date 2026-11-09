@@ -1,0 +1,858 @@
+# Pages CMS: edit content, while layouts and animations stay in code.
+media:
+  - name: images
+    label: Images
+    input: public/images
+    output: /images
+    rename: safe
+    extensions:
+      - jpg
+      - jpeg
+      - png
+      - webp
+      - avif
+      - gif
+      - svg
+  - name: videos
+    label: Videos
+    input: public/videos
+    output: /videos
+    rename: safe
+    extensions:
+      - mp4
+      - webm
+content:
+  - name: home
+    label: Home page
+    type: file
+    path: content/home.json
+    format: json
+    fields:
+      - name: hero
+        label: Hero
+        type: object
+        required: true
+        fields:
+          - name: titleLines
+            label: Title Lines
+            type: string
+            required: true
+            list:
+              min: 3
+              max: 3
+          - name: researchLabel
+            label: Research Label
+            type: string
+            required: true
+          - name: researchSummary
+            label: Research Summary
+            type: text
+            required: true
+          - name: particleCaption
+            label: Particle Caption
+            type: string
+            required: true
+          - name: eyebrow
+            label: Eyebrow
+            type: string
+            required: true
+          - name: heading
+            label: Heading
+            type: string
+            required: true
+          - name: description
+            label: Description
+            type: text
+            required: true
+          - name: buttonLabel
+            label: Button Label
+            type: string
+            required: true
+          - name: buttonAccessibleLabel
+            label: Button Accessible Label
+            type: string
+            required: true
+          - name: highlights
+            label: Highlights
+            type: object
+            required: true
+            list:
+              min: 3
+              max: 3
+              collapsible:
+                collapsed: true
+                summary: '{index}'
+            fields:
+              - name: number
+                label: Number
+                type: string
+                required: true
+              - name: title
+                label: Title
+                type: string
+                required: true
+              - name: description
+                label: Description
+                type: text
+                required: true
+          - name: bottomLeft
+            label: Bottom Left
+            type: string
+            required: true
+          - name: bottomRight
+            label: Bottom Right
+            type: string
+            required: true
+      - name: art
+        label: Art
+        type: object
+        required: true
+        fields:
+          - name: deviceLabel
+            label: Device Label
+            type: string
+            required: true
+          - name: unusedFiles
+            label: Unused Files
+            type: string
+            required: true
+          - name: challengeBadges
+            label: Challenge Badges
+            type: string
+            required: true
+            list:
+              min: 3
+              max: 3
+          - name: scoreLabel
+            label: Score Label
+            type: string
+            required: true
+          - name: scoreCaption
+            label: Score Caption
+            type: string
+            required: true
+          - name: dashboardHeading
+            label: Dashboard Heading
+            type: string
+            required: true
+          - name: dimensions
+            label: Dimensions
+            type: string
+            required: true
+            list:
+              min: 3
+              max: 3
+          - name: solutionBadges
+            label: Solution Badges
+            type: string
+            required: true
+            list:
+              min: 3
+              max: 3
+      - name: cardNote
+        label: Card Note
+        type: string
+        required: true
+      - name: about
+        label: About
+        type: object
+        required: true
+        fields:
+          - name: eyebrow
+            label: Eyebrow
+            type: string
+            required: true
+          - name: title
+            label: Title
+            type: string
+            required: true
+          - name: accent
+            label: Accent
+            type: string
+            required: true
+          - name: description
+            label: Description
+            type: text
+            required: true
+          - name: caption
+            label: Caption
+            type: text
+            required: true
+          - name: card
+            label: Card
+            type: object
+            required: true
+            fields:
+              - name: tag
+                label: Tag
+                type: string
+                required: true
+              - name: image
+                label: Image
+                type: object
+                required: true
+                fields:
+                  - name: src
+                    label: Src
+                    type: image
+                    required: true
+                    options:
+                      media: images
+                    pattern:
+                      regex: ^/images/.+
+                      message: Choose an image from the media library.
+                  - name: alt
+                    label: Alt
+                    type: string
+                    required: true
+              - name: steps
+                label: Steps
+                type: object
+                required: true
+                list:
+                  min: 3
+                  max: 3
+                  collapsible:
+                    collapsed: true
+                    summary: '{index}'
+                fields:
+                  - name: label
+                    label: Label
+                    type: string
+                    required: true
+                  - name: line1
+                    label: Line1
+                    type: string
+                    required: true
+                  - name: line2
+                    label: Line2
+                    type: string
+                    required: true
+      - name: challenge
+        label: Challenge
+        type: object
+        required: true
+        fields:
+          - name: eyebrow
+            label: Eyebrow
+            type: string
+            required: true
+          - name: title
+            label: Title
+            type: string
+            required: true
+          - name: accent
+            label: Accent
+            type: string
+            required: true
+          - name: description
+            label: Description
+            type: text
+            required: true
+          - name: caption
+            label: Caption
+            type: text
+            required: true
+          - name: card
+            label: Card
+            type: object
+            required: true
+            fields:
+              - name: tag
+                label: Tag
+                type: string
+                required: true
+              - name: image
+                label: Image
+                type: object
+                required: true
+                fields:
+                  - name: src
+                    label: Src
+                    type: image
+                    required: true
+                    options:
+                      media: images
+                    pattern:
+                      regex: ^/images/.+
+                      message: Choose an image from the media library.
+                  - name: alt
+                    label: Alt
+                    type: string
+                    required: true
+              - name: steps
+                label: Steps
+                type: object
+                required: true
+                list:
+                  min: 3
+                  max: 3
+                  collapsible:
+                    collapsed: true
+                    summary: '{index}'
+                fields:
+                  - name: label
+                    label: Label
+                    type: string
+                    required: true
+                  - name: line1
+                    label: Line1
+                    type: string
+                    required: true
+                  - name: line2
+                    label: Line2
+                    type: string
+                    required: true
+      - name: solution
+        label: Solution
+        type: object
+        required: true
+        fields:
+          - name: eyebrow
+            label: Eyebrow
+            type: string
+            required: true
+          - name: title
+            label: Title
+            type: string
+            required: true
+          - name: accent
+            label: Accent
+            type: string
+            required: true
+          - name: description
+            label: Description
+            type: text
+            required: true
+          - name: caption
+            label: Caption
+            type: text
+            required: true
+          - name: card
+            label: Card
+            type: object
+            required: true
+            fields:
+              - name: tag
+                label: Tag
+                type: string
+                required: true
+              - name: image
+                label: Image
+                type: object
+                required: true
+                fields:
+                  - name: src
+                    label: Src
+                    type: image
+                    required: true
+                    options:
+                      media: images
+                    pattern:
+                      regex: ^/images/.+
+                      message: Choose an image from the media library.
+                  - name: alt
+                    label: Alt
+                    type: string
+                    required: true
+              - name: steps
+                label: Steps
+                type: object
+                required: true
+                list:
+                  min: 3
+                  max: 3
+                  collapsible:
+                    collapsed: true
+                    summary: '{index}'
+                fields:
+                  - name: label
+                    label: Label
+                    type: string
+                    required: true
+                  - name: line1
+                    label: Line1
+                    type: string
+                    required: true
+                  - name: line2
+                    label: Line2
+                    type: string
+                    required: true
+      - name: features
+        label: Features
+        type: object
+        required: true
+        fields:
+          - name: eyebrow
+            label: Eyebrow
+            type: string
+            required: true
+          - name: title
+            label: Title
+            type: string
+            required: true
+          - name: accent
+            label: Accent
+            type: string
+            required: true
+          - name: description
+            label: Description
+            type: text
+            required: true
+          - name: items
+            label: Items
+            type: object
+            required: true
+            list:
+              min: 4
+              max: 4
+              collapsible:
+                collapsed: true
+                summary: '{index}'
+            fields:
+              - name: title
+                label: Title
+                type: string
+                required: true
+              - name: description
+                label: Description
+                type: text
+                required: true
+  - name: about
+    label: About / Team
+    type: file
+    path: content/about.json
+    format: json
+    fields:
+      - name: eyebrowLine1
+        label: Eyebrow Line1
+        type: string
+        required: true
+      - name: eyebrowLine2
+        label: Eyebrow Line2
+        type: string
+        required: true
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: scanLabel
+        label: Scan Label
+        type: string
+        required: true
+      - name: nextLabel
+        label: Next Label
+        type: string
+        required: true
+      - name: nextMemberLabel
+        label: Next Member Label
+        type: string
+        required: true
+      - name: pauseLabel
+        label: Pause Label
+        type: string
+        required: true
+      - name: resumeLabel
+        label: Resume Label
+        type: string
+        required: true
+      - name: autoplayLabel
+        label: Autoplay Label
+        type: string
+        required: true
+      - name: members
+        label: Members
+        type: object
+        required: true
+        list:
+          min: 1
+          collapsible:
+            collapsed: true
+            summary: '{index}'
+        fields:
+          - name: name
+            label: Name
+            type: string
+            required: true
+          - name: role
+            label: Role
+            type: string
+            required: true
+          - name: description
+            label: Description
+            type: text
+            required: true
+          - name: image
+            label: Image
+            type: object
+            required: true
+            fields:
+              - name: src
+                label: Src
+                type: image
+                required: true
+                options:
+                  media: images
+                pattern:
+                  regex: ^/images/.+
+                  message: Choose an image from the media library.
+              - name: alt
+                label: Alt
+                type: string
+                required: true
+  - name: project
+    label: Project page
+    type: file
+    path: content/project.json
+    format: json
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: subtitle
+        label: Subtitle
+        type: string
+        required: true
+      - name: storyLabel
+        label: Story Label
+        type: string
+        required: true
+      - name: images
+        label: Images
+        type: object
+        required: true
+        fields:
+          - name: forest
+            label: Forest
+            type: object
+            required: true
+            fields:
+              - name: src
+                label: Src
+                type: image
+                required: true
+                options:
+                  media: images
+                pattern:
+                  regex: ^/images/.+
+                  message: Choose an image from the media library.
+              - name: alt
+                label: Alt
+                type: string
+                required: true
+          - name: lake
+            label: Lake
+            type: object
+            required: true
+            fields:
+              - name: src
+                label: Src
+                type: image
+                required: true
+                options:
+                  media: images
+                pattern:
+                  regex: ^/images/.+
+                  message: Choose an image from the media library.
+              - name: alt
+                label: Alt
+                type: string
+                required: true
+          - name: energy
+            label: Energy
+            type: object
+            required: true
+            fields:
+              - name: src
+                label: Src
+                type: image
+                required: true
+                options:
+                  media: images
+                pattern:
+                  regex: ^/images/.+
+                  message: Choose an image from the media library.
+              - name: alt
+                label: Alt
+                type: string
+                required: true
+      - name: paragraphs
+        label: Paragraphs
+        type: text
+        required: true
+        list:
+          min: 1
+      - name: video
+        label: Video
+        type: object
+        required: true
+        fields:
+          - name: src
+            label: Src
+            type: file
+            required: false
+            options:
+              media: videos
+            description: Upload a video, or leave this blank when a direct hosted URL is provided.
+          - name: poster
+            label: Poster
+            type: image
+            required: true
+            options:
+              media: images
+            pattern:
+              regex: ^/images/.+
+              message: Choose an image from the media library.
+          - name: title
+            label: Title
+            type: string
+            required: true
+            list:
+              min: 2
+              max: 2
+          - name: subtitle
+            label: Subtitle
+            type: string
+            required: true
+          - name: url
+            label: Url
+            type: string
+            required: false
+            description: >-
+              Optional direct HTTPS video URL (MP4/WebM). Overrides the uploaded file. Not a YouTube page
+              link.
+            pattern:
+              regex: ^(https://[^\s]+)?$
+              message: Use a direct HTTPS URL, or leave blank to use the uploaded video.
+          - name: label
+            label: Label
+            type: string
+            required: true
+      - name: metadata
+        label: Search / browser title
+        type: object
+        required: true
+        fields:
+          - name: title
+            label: Page title
+            type: string
+            required: true
+          - name: description
+            label: Description
+            type: text
+            required: true
+  - name: contact
+    label: Contact page
+    type: file
+    path: content/contact.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Eyebrow
+        type: string
+        required: true
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: titleAccent
+        label: Title Accent
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+        required: true
+      - name: image
+        label: Image
+        type: object
+        required: true
+        fields:
+          - name: src
+            label: Src
+            type: image
+            required: true
+            options:
+              media: images
+            pattern:
+              regex: ^/images/.+
+              message: Choose an image from the media library.
+          - name: alt
+            label: Alt
+            type: string
+            required: true
+      - name: stickerLine1
+        label: Sticker Line1
+        type: string
+        required: true
+      - name: stickerLine2
+        label: Sticker Line2
+        type: string
+        required: true
+      - name: captionLeft
+        label: Caption Left
+        type: string
+        required: true
+      - name: captionRight
+        label: Caption Right
+        type: string
+        required: true
+      - name: form
+        label: Form
+        type: object
+        required: true
+        fields:
+          - name: nameLabel
+            label: Name Label
+            type: string
+            required: true
+          - name: namePlaceholder
+            label: Name Placeholder
+            type: string
+            required: true
+          - name: emailLabel
+            label: Email Label
+            type: string
+            required: true
+          - name: emailPlaceholder
+            label: Email Placeholder
+            type: string
+            required: true
+          - name: messageLabel
+            label: Message Label
+            type: string
+            required: true
+          - name: messagePlaceholder
+            label: Message Placeholder
+            type: string
+            required: true
+          - name: submitLabel
+            label: Submit Label
+            type: string
+            required: true
+          - name: sendingLabel
+            label: Sending Label
+            type: string
+            required: true
+          - name: requiredNote
+            label: Required Note
+            type: string
+            required: true
+          - name: validationMessage
+            label: Validation Message
+            type: text
+            required: true
+          - name: unavailableMessage
+            label: Unavailable Message
+            type: text
+            required: true
+          - name: successMessage
+            label: Success Message
+            type: text
+            required: true
+          - name: errorMessage
+            label: Error Message
+            type: text
+            required: true
+  - name: site
+    label: Site / Navigation / Footer
+    type: file
+    path: content/site.json
+    format: json
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+        required: true
+      - name: navigation
+        label: Navigation
+        type: object
+        required: true
+        list:
+          min: 4
+          max: 4
+          collapsible:
+            collapsed: true
+            summary: '{index}'
+        fields:
+          - name: label
+            label: Label
+            type: string
+            required: true
+          - name: href
+            label: Href
+            type: string
+            required: true
+            pattern: ^/(?!/)[^\s]*$
+            description: 'Internal page path: /, /about, /project, or /contact.'
+      - name: menuLabel
+        label: Menu Label
+        type: string
+        required: true
+      - name: closeLabel
+        label: Close Label
+        type: string
+        required: true
+      - name: footer
+        label: Footer
+        type: object
+        required: true
+        fields:
+          - name: navigationLabel
+            label: Navigation Label
+            type: string
+            required: true
+          - name: brand
+            label: Brand
+            type: string
+            required: true
+          - name: title
+            label: Title
+            type: string
+            required: true
+          - name: titleAccent
+            label: Title Accent
+            type: string
+            required: true
+          - name: description
+            label: Description
+            type: text
+            required: true
+          - name: universityLabel
+            label: University Label
+            type: string
+            required: true
+          - name: universityUrl
+            label: University Url
+            type: string
+            required: true
+            pattern: ^https://[^\s]+$
+          - name: universityCaption
+            label: University Caption
+            type: string
+            required: true
+          - name: statement
+            label: Statement
+            type: string
+            required: true
+          - name: statementAccent
+            label: Statement Accent
+            type: string
+            required: true
+          - name: bottomLeft
+            label: Bottom Left
+            type: string
+            required: true
+          - name: bottomMiddle
+            label: Bottom Middle
+            type: string
+            required: true
+          - name: bottomRight
+            label: Bottom Right
+            type: string
+            required: true

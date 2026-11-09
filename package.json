@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "validate:content": "node scripts/validate-content.mjs",
+    "prebuild": "npm run validate:content"
   },
   "dependencies": {
     "gsap": "^3.15.1",
@@ -22,6 +24,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.5",
+    "js-yaml": "^5.5.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

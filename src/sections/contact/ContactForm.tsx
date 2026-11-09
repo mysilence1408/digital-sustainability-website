@@ -5,7 +5,7 @@ import { useLayoutEffect, useRef, useState, type FormEvent } from "react";
 import { gsap } from "gsap";
 import ContactSticker from "@/components/contact/contact-sticker";
 import { usePageEntranceReady } from "@/components/providers/page-entrance";
-import lahtiCampus from "../../../public/images/lahti-campus.jpg";
+import copy from "@/content/contact";
 
 const fieldClass =
   "w-full rounded-none border-b border-[#293c31]/30 bg-transparent py-3 text-lg text-[#293c31] outline-none transition-colors placeholder:text-[#293c31]/35 focus:border-[#293c31] focus:border-b-2 disabled:opacity-50 sm:text-xl";
@@ -90,7 +90,7 @@ export default function ContactForm() {
     const message = String(data.get("message") ?? "").trim();
     if (!name || !email || !message) {
       setStatus("error");
-      setFeedback("Please complete all three fields before sending.");
+      setFeedback(copy.form.validationMessage);
       return;
     }
     const service = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
@@ -98,7 +98,7 @@ export default function ContactForm() {
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
     if (!service || !template || !publicKey) {
       setStatus("error");
-      setFeedback("Sending isn’t available just yet. Please try again later.");
+      setFeedback(copy.form.unavailableMessage);
       return;
     }
     sending.current = true;
@@ -128,12 +128,12 @@ export default function ContactForm() {
       );
       if (!response.ok) throw new Error("Email delivery failed");
       setStatus("success");
-      setFeedback("Thank you. Your message is on its way!");
+      setFeedback(copy.form.successMessage);
       form.reset();
     } catch {
       setStatus("error");
       setFeedback(
-        "Your message couldn’t be sent. Your text is still here—please try again.",
+        copy.form.errorMessage,
       );
     } finally {
       sending.current = false;
@@ -152,26 +152,21 @@ export default function ContactForm() {
             data-enter
             className="mb-6 text-xs font-medium uppercase tracking-[0.22em]"
           >
-            Contact / Let’s talk
-          </p>
+            {copy.eyebrow}</p>
           <h1
             id="contact-title"
             data-enter
             className="max-w-lg text-[clamp(3.5rem,5.8vw,6.5rem)] font-medium leading-[0.95] tracking-[-0.065em]"
           >
-            A little hello.
-            <br />
+            {copy.title}<br />
             <span className="font-serif font-normal italic tracking-[-0.06em]">
-              A lighter future.
-            </span>
+              {copy.titleAccent}</span>
           </h1>
           <p
             data-enter
-            className="mt-6 max-w-sm text-sm leading-relaxed text-[#293c31]/65 sm:text-base"
+            className="mt-6 max-w-sm whitespace-pre-line text-sm leading-relaxed text-[#293c31]/65 sm:text-base"
           >
-            A question, an idea, or a new perspective?
-            <br />
-            We’d love to hear from you.
+            {copy.description}
           </p>
           <form
             onSubmit={submit}
@@ -183,7 +178,7 @@ export default function ContactForm() {
                 htmlFor="contact-name"
                 className="text-xs font-medium uppercase tracking-[0.13em]"
               >
-                Your name <span aria-hidden="true">*</span>
+                {copy.form.nameLabel}<span aria-hidden="true">*</span>
               </label>
               <input
                 className={fieldClass}
@@ -191,7 +186,7 @@ export default function ContactForm() {
                 name="name"
                 type="text"
                 autoComplete="name"
-                placeholder="What should we call you?"
+                placeholder={copy.form.namePlaceholder}
                 required
                 pattern=".*\S.*"
                 maxLength={100}
@@ -203,7 +198,7 @@ export default function ContactForm() {
                 htmlFor="contact-email"
                 className="text-xs font-medium uppercase tracking-[0.13em]"
               >
-                Email <span aria-hidden="true">*</span>
+                {copy.form.emailLabel}<span aria-hidden="true">*</span>
               </label>
               <input
                 className={fieldClass}
@@ -211,7 +206,7 @@ export default function ContactForm() {
                 name="email"
                 type="email"
                 autoComplete="email"
-                placeholder="you@example.com"
+                placeholder={copy.form.emailPlaceholder}
                 required
                 maxLength={254}
                 disabled={status === "sending"}
@@ -222,14 +217,14 @@ export default function ContactForm() {
                 htmlFor="contact-message"
                 className="text-xs font-medium uppercase tracking-[0.13em]"
               >
-                Your message <span aria-hidden="true">*</span>
+                {copy.form.messageLabel}<span aria-hidden="true">*</span>
               </label>
               <textarea
                 className={`${fieldClass} min-h-24 resize-y`}
                 id="contact-message"
                 name="message"
                 rows={2}
-                placeholder="Tell us what’s on your mind…"
+                placeholder={copy.form.messagePlaceholder}
                 required
                 maxLength={5000}
                 disabled={status === "sending"}
@@ -241,7 +236,7 @@ export default function ContactForm() {
                 disabled={status === "sending"}
                 className="group inline-flex min-h-14 cursor-pointer items-center gap-10 rounded-full bg-[#293c31] py-2 pl-7 pr-2 text-sm font-medium text-[#fdf8f4] transition-colors hover:bg-[#3d5947] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#293c31] disabled:cursor-wait disabled:opacity-60"
               >
-                {status === "sending" ? "Sending…" : "Send message"}
+                {status === "sending" ? copy.form.sendingLabel : copy.form.submitLabel}
                 <span
                   aria-hidden="true"
                   className="flex size-10 items-center justify-center rounded-full bg-[#d7f991] text-[#293c31] transition-transform group-hover:-rotate-45 motion-reduce:transform-none"
@@ -258,8 +253,7 @@ export default function ContactForm() {
                 </span>
               </button>
               <span className="text-xs text-[#293c31]/55">
-                All fields are required.
-              </span>
+                {copy.form.requiredNote}</span>
             </div>
             <p
               role="status"
@@ -275,8 +269,8 @@ export default function ContactForm() {
       <figure ref={imageArea} className="relative m-0 min-h-[440px] overflow-hidden bg-[#b3bcaa] sm:min-h-[580px] lg:min-h-full">
         <div ref={imageMotion} className="absolute -inset-6">
           <Image
-          src={lahtiCampus}
-          alt="LUT University’s Lahti campus surrounded by greenery"
+          src={copy.image.src}
+          alt={copy.image.alt}
           fill
           priority
           sizes="(min-width: 1024px) 49vw, 100vw"
@@ -294,8 +288,8 @@ export default function ContactForm() {
           <ContactSticker />
         </div>
         <figcaption className="absolute bottom-7 left-7 right-7 flex items-center justify-between gap-4 border-t border-white/40 pt-4 text-[10px] uppercase tracking-[0.17em] text-white sm:bottom-10 sm:left-10 sm:right-10">
-          <span>Rooted in research.</span>
-          <span>Looking forward. ↗</span>
+          <span>{copy.captionLeft}</span>
+          <span>{copy.captionRight}</span>
         </figcaption>
       </figure>
     </section>

@@ -1,3 +1,4 @@
+import site from "@/content/site";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -19,9 +20,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Digital Sustainability Companion",
-  description:
-    "A university research project exploring a lighter digital life through mindful energy use, storage habits, and everyday digital behaviour.",
+  title: site.title,
+  description: site.description,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
