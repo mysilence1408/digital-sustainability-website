@@ -94,28 +94,37 @@ export default function Features() {
       ref={root}
       data-companion-shape="4"
       aria-labelledby="features-title"
-      className="h-auto bg-[#feebca] text-[#222222] px-5 sm:px-9 lg:px-12 py-10 lg:py-30"
+      className="h-auto gap-7 px-5 sm:px-9 lg:px-12 py-10 lg:py-30"
     >
       <div className="mx-auto max-w-[120rem]">
         <header className="mx-auto max-w-3xl text-center">
           <p className="text-xs font-medium uppercase tracking-[0.2em]">
-            {copy.eyebrow}</p>
+            {copy.eyebrow}
+          </p>
           <SectionTitle
             id="features-title"
             className="mt-6 text-[clamp(2.5rem,5.5vw,5rem)] font-medium leading-[1.05] tracking-[-0.055em]"
           >
-            {copy.title}<br />
+            {copy.title}
+            <br />
             <span className="text-[#686D76]">{copy.accent}</span>
           </SectionTitle>
           <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-[#222222]/65">
-            {copy.description}</p>
+            {copy.description}
+          </p>
         </header>
         <div
           data-feature-grid
           className="mt-14 grid grid-cols-2 gap-x-4 gap-y-14 pb-12 sm:gap-x-6 md:mt-20 md:grid-cols-4 md:gap-x-5 lg:gap-x-7"
         >
           {features.map((feature, index) => (
-            <FeatureCard key={index} index={index} {...feature} title={copy.items[index].title} description={copy.items[index].description} />
+            <FeatureCard
+              key={index}
+              index={index}
+              {...feature}
+              title={copy.items[index].title}
+              description={copy.items[index].description}
+            />
           ))}
         </div>
       </div>
