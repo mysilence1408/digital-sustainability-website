@@ -1,10 +1,6 @@
 {
   "hero": {
-    "titleLines": [
-      "Digital",
-      "Sustainability",
-      "Companion"
-    ],
+    "titleLines": ["Digital", "Sustainability", "Companion"],
     "researchLabel": "A research project at LUT University",
     "researchSummary": "Exploring how everyday computer use affects digital sustainability.",
     "particleCaption": "Understanding our digital footprint",
@@ -44,18 +40,14 @@
     "scoreLabel": "DSS",
     "scoreCaption": "A CLEARER PICTURE",
     "dashboardHeading": "YOUR SUSTAINABILITY, AT A GLANCE",
-    "dimensions": [
-      "Energy",
-      "Storage",
-      "Behaviour"
-    ],
+    "dimensions": ["Energy", "Storage", "Behaviour"],
     "solutionBadges": [
       "Calculated on your device",
       "A practical next step",
       "See your habits evolve"
     ]
   },
-  "cardNote": "Companion concept / in development",
+  "cardNote": "Digital Sustainability Companion / In development",
   "about": {
     "eyebrow": "about the project",
     "title": "Digital habits.",
@@ -65,8 +57,8 @@
     "card": {
       "tag": "A companion for your digital life",
       "image": {
-        "src": "/images/project/forest-placeholder.jpg",
-        "alt": "Sunlight reaching a green forest"
+        "src": "/images/home/about.jpg",
+        "alt": "About the project"
       },
       "steps": [
         {
@@ -91,13 +83,13 @@
     "eyebrow": "The challenge",
     "title": "The hidden cost",
     "accent": "of everyday habits.",
-    "description": "What happens on a screen can feel weightless. The resources behind it are very real.",
-    "caption": "Idle computers, unnecessary background activity, and growing file collections can use resources without us noticing. Awareness is the first step towards a more considered digital routine.",
+    "description": "Our digital activities may seem invisible, but the energy and resources they consume are very real.",
+    "caption": "Computers can continue consuming energy even when we're not using them. Background applications keep running, and files we no longer need take up storage space. These are everyday habits we rarely think about, but they can add up over time.",
     "card": {
       "tag": "The impact we don’t always see",
       "image": {
-        "src": "/images/project/energy-placeholder.jpg",
-        "alt": "Solar panels and the energy behind our digital lives"
+        "src": "/images/home/challenge.jpg",
+        "alt": "The challenge"
       },
       "steps": [
         {
@@ -119,16 +111,16 @@
     }
   },
   "solution": {
-    "eyebrow": "The proposed solution",
+    "eyebrow": "The solution",
     "title": "Understand your impact.",
-    "accent": "Choose a lighter way.",
+    "accent": "Make better choices.",
     "description": "A clearer picture of energy, storage, and digital behaviour. Thoughtful guidance for what to do next.",
-    "caption": "The proposed companion brings together local activity monitoring, a Digital Sustainability Score, and practical recommendations. Core monitoring and scoring stay on your device; AI-enhanced explanations are optional.",
+    "caption": "We're developing a desktop companion that helps people better understand their digital habits. By monitoring selected activities, calculating a Digital Sustainability Score, and offering practical recommendations, it aims to help users make more sustainable choices in their everyday computer use.",
     "card": {
       "tag": "Built around meaningful next steps",
       "image": {
-        "src": "/images/lahti-campus.jpg",
-        "alt": "LUT University’s Lahti campus"
+        "src": "/images/home/solution.jpg",
+        "alt": "The solution"
       },
       "steps": [
         {
@@ -150,10 +142,10 @@
     }
   },
   "features": {
-    "eyebrow": "Your digital life, with a little more care",
+    "eyebrow": "What the companion offers",
     "title": "Small choices.",
     "accent": "Meaningful change.",
-    "description": "A companion to help you understand your impact and find a more mindful way forward.",
+    "description": "Understand your digital habits, discover ways to improve them, and make more informed choices.",
     "items": [
       {
         "title": "Understand",
@@ -169,7 +161,7 @@
       },
       {
         "title": "Keep growing",
-        "description": "Build awareness and make progress, one step at a time."
+        "description": "Follow your progress over time and see how your digital habits change."
       }
     ]
   },
