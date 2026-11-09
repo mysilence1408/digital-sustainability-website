@@ -51,8 +51,8 @@ export default function ProjectFilm() {
     else surface.pause();
   };
 
-  return <section ref={root} data-nav-theme="dark" aria-labelledby="project-film-title" className="relative h-[115svh] min-h-[640px] bg-[#fdf8f4] md:h-[135svh]">
-    <div className="sticky top-0 h-svh min-h-[560px] overflow-hidden">
+  return <section ref={root} data-nav-theme="dark" aria-labelledby="project-film-title" className="relative h-svh bg-[#fdf8f4] md:h-[135svh] md:min-h-[640px]">
+    <div className="relative h-full overflow-hidden md:sticky md:top-0 md:h-svh md:min-h-[560px]">
       <div ref={frame} className="absolute inset-0 overflow-hidden bg-[#293c31]">
         <video ref={video} src={projectVideo.src} poster={projectVideo.poster} muted loop playsInline preload="metadata" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} aria-label={projectVideo.label} className="size-full object-cover" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
