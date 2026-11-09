@@ -19,6 +19,9 @@ export default function Team() {
   const entranceReady = usePageEntranceReady();
   const root = useRef<HTMLElement>(null);
   const text = useRef<HTMLDivElement>(null);
+  const progress = useRef<HTMLDivElement>(null);
+  const progressFill = useRef<HTMLSpanElement>(null);
+  const autoplay = useRef({ paused: false, ready: false });
   const [member, setMember] = useState(0);
   const [paused, setPaused] = useState(false);
   const next = useCallback(
@@ -26,6 +29,10 @@ export default function Team() {
     [],
   );
   const current = members[member];
+
+  useLayoutEffect(() => {
+    autoplay.current = { paused, ready: entranceReady };
+  }, [paused, entranceReady]);
 
   useLayoutEffect(() => {
     // Next.js can restore this section with its previous state. Its layout
@@ -39,30 +46,58 @@ export default function Team() {
 
   useEffect(() => {
     let visible = false;
+    let elapsed = 0;
+    let last = performance.now();
+    let previousPercent = -1;
+    const duration = 8000;
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
     const observer = new IntersectionObserver(
       ([entry]) => {
         visible = entry.isIntersecting;
+        last = performance.now();
       },
       { threshold: 0.3 },
     );
     observer.observe(root.current!);
-    const timer = setInterval(() => {
+    const paint = () => {
+      const fraction = elapsed / duration;
+      if (progressFill.current) progressFill.current.style.transform = `scaleX(${fraction})`;
+      const percent = Math.floor(fraction * 100);
+      if (percent !== previousPercent) {
+        progress.current?.setAttribute("aria-valuenow", String(percent));
+        previousPercent = percent;
+      }
+    };
+    paint();
+    // The line and slide advance share one clock, so pausing cannot desync them.
+    const tick = () => {
+      const now = performance.now();
+      const delta = now - last;
+      last = now;
       if (
-        entranceReady &&
-        !paused &&
+        autoplay.current.ready &&
+        !autoplay.current.paused &&
+        members.length > 1 &&
         visible &&
         !document.hidden &&
         !motion.matches &&
-        document.documentElement.dataset.navigationOpen !== "true"
-      )
-        next();
-    }, 8000);
+        document.documentElement.dataset.navigationOpen !== "true" &&
+        document.documentElement.dataset.pageTransition !== "active"
+      ) {
+        elapsed = Math.min(duration, elapsed + delta);
+        paint();
+        if (elapsed === duration) { elapsed = 0; next(); }
+      }
+    };
+    const resetFrame = () => { last = performance.now(); };
+    document.addEventListener("visibilitychange", resetFrame);
+    gsap.ticker.add(tick);
     return () => {
-      clearInterval(timer);
+      gsap.ticker.remove(tick);
+      document.removeEventListener("visibilitychange", resetFrame);
       observer.disconnect();
     };
-  }, [member, next, paused, entranceReady]);
+  }, [member, next]);
 
   useLayoutEffect(() => {
     if (!entranceReady) return;
@@ -165,7 +200,11 @@ export default function Team() {
           </span>{" "}
           - {String(members.length).padStart(2, "0")}
         </span>
-        <div className="flex items-center gap-5">
+        <div className="ml-auto flex flex-col items-end gap-2">
+          {members.length > 1 && <div ref={progress} role="progressbar" aria-label="Time until next team member" aria-valuemin={0} aria-valuemax={100} aria-valuenow={0} className="pointer-events-none h-px w-48 overflow-hidden bg-[#8eaaae]/20">
+            <span ref={progressFill} className="block h-full w-full origin-left bg-[#b5d9df]" style={{ transform: "scaleX(0)" }} />
+          </div>}
+          <div className="flex items-center gap-5">
           <button
             type="button"
             aria-pressed={paused}
@@ -181,6 +220,7 @@ export default function Team() {
           >
             {about.nextMemberLabel}<span aria-hidden="true">&#8594;</span>
           </button>
+        </div>
         </div>
       </div>
     </section>
