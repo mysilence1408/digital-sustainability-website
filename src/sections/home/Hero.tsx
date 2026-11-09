@@ -1,5 +1,6 @@
 "use client";
 import { useLayoutEffect, useRef } from "react";
+import { usePageEntranceReady } from "@/components/providers/page-entrance";
 import { gsap } from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import LetterReveal from "@/components/landing/letter-reveal";
@@ -8,7 +9,9 @@ import FollowingCompanion from "@/components/landing/following-companion";
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
   const formationReady = useRef(false);
+  const entranceReady = usePageEntranceReady();
   useLayoutEffect(() => {
+    if (!entranceReady) { formationReady.current = false; return; }
     const section = root.current;
     if (!section) return;
     formationReady.current = false;
@@ -115,7 +118,7 @@ export default function Hero() {
       context.revert();
       motion.removeEventListener("change", finish);
     };
-  }, []);
+  }, [entranceReady]);
 
   return (
     <section
@@ -280,5 +283,6 @@ export default function Hero() {
     </section>
   );
 }
+
 
 

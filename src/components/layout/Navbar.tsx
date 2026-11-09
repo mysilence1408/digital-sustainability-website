@@ -8,7 +8,7 @@ import { gsap } from "gsap";
 const links = [
   { label: "Home", href: "/" },
   { label: "About us", href: "/about" },
-  { label: "Projects", href: "/projects" },
+  { label: "Project", href: "/project" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -78,14 +78,26 @@ function Menu({ pathname }: { pathname: string }) {
     window.dispatchEvent(new Event("navigation-lock-change"));
     const outside: HTMLElement[] = [];
     // Include siblings inside the route-transition wrapper and body-level portals.
-    for (let branch: HTMLElement | null = root.current; branch?.parentElement; branch = branch.parentElement) {
+    for (
+      let branch: HTMLElement | null = root.current;
+      branch?.parentElement;
+      branch = branch.parentElement
+    ) {
       const parent = branch.parentElement;
       for (const child of Array.from(parent.children)) {
-        if (child !== branch && child instanceof HTMLElement && !["SCRIPT", "STYLE", "LINK"].includes(child.tagName)) outside.push(child);
+        if (
+          child !== branch &&
+          child instanceof HTMLElement &&
+          !["SCRIPT", "STYLE", "LINK"].includes(child.tagName)
+        )
+          outside.push(child);
       }
       if (parent === body) break;
     }
-    const siblings = outside.map((element) => ({ element, inert: element.inert }));
+    const siblings = outside.map((element) => ({
+      element,
+      inert: element.inert,
+    }));
     siblings.forEach(({ element }) => {
       element.inert = true;
     });

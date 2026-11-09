@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import SmoothScroll from "@/components/providers/smooth-scroll";
+import PageTransition from "@/components/providers/page-transition";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Suspense fallback={null}><Navbar /></Suspense>
         {children}
         <Footer />
+        <PageTransition />
       </body>
     </html>
   );

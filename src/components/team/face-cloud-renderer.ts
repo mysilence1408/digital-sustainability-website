@@ -1,3 +1,4 @@
+import { isPageEntranceReady } from "@/components/providers/page-entrance";
 /** Original transparent head cutouts, lit and scanned without facial reconstruction. */
 export function createFaceCloud(canvas: HTMLCanvasElement, images: HTMLImageElement[], getMember: () => number) {
   const gl=canvas.getContext("webgl2",{alpha:true,antialias:false});
@@ -96,7 +97,7 @@ void main(){
   const resize=new ResizeObserver(([entry])=>{width=entry.contentRect.width;height=entry.contentRect.height;dpr=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);dirty=true;});
   const observer=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;last=0;dirty=true;});
   const changed=()=>{dirty=true;last=0;leave();pointer.x=0;pointer.y=0;};
-  const cleanup=()=>{disposed=true;cancelAnimationFrame(frame);resize.disconnect();observer.disconnect();motion.removeEventListener("change",changed);window.removeEventListener("pointermove",move);window.removeEventListener("blur",leave);document.documentElement.removeEventListener("pointerleave",leave);textures.forEach(t=>gl.deleteTexture(t));shaders.forEach(s=>gl.deleteShader(s));gl.deleteProgram(program);gl.deleteVertexArray(vao);};
+  const cleanup=()=>{disposed=true;cancelAnimationFrame(frame);resize.disconnect();observer.disconnect();motion.removeEventListener("change",changed);window.removeEventListener("page-entrance-change",changed);window.removeEventListener("pointermove",move);window.removeEventListener("blur",leave);document.documentElement.removeEventListener("pointerleave",leave);textures.forEach(t=>gl.deleteTexture(t));shaders.forEach(s=>gl.deleteShader(s));gl.deleteProgram(program);gl.deleteVertexArray(vao);};
   try{
     for(const [type,code] of [[gl.VERTEX_SHADER,vertex],[gl.FRAGMENT_SHADER,fragment]] as const){const shader=gl.createShader(type)!;shaders.push(shader);gl.shaderSource(shader,code);gl.compileShader(shader);if(!gl.getShaderParameter(shader,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(shader)??"Portrait shader failed");gl.attachShader(program,shader);}
     gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(program)??"Portrait link failed");
@@ -104,7 +105,7 @@ void main(){
     images.forEach(image=>{const texture=gl.createTexture()!;textures.push(texture);gl.bindTexture(gl.TEXTURE_2D,texture);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,image);});
     const uniforms=Object.fromEntries(["beforeFace","afterFace","viewport","gaze","grid","time","scanTime","progress","aspectBefore","aspectAfter","particles","dpr","reduced","entrance"].map(name=>[name,gl.getUniformLocation(program,name)]));
     const grid=matchMedia("(max-width:767px)").matches?172:260;
-    resize.observe(canvas);observer.observe(canvas);motion.addEventListener("change",changed);
+    window.addEventListener("page-entrance-change",changed);resize.observe(canvas);observer.observe(canvas);motion.addEventListener("change",changed);
     window.addEventListener("pointermove",move,{passive:true});window.addEventListener("blur",leave);document.documentElement.addEventListener("pointerleave",leave);
     const render=(stamp:number)=>{
       if(disposed)return;frame=requestAnimationFrame(render);
@@ -115,8 +116,9 @@ void main(){
       const follow=1-Math.exp(-delta*6);
       pointer.x+=(pointer.targetX-pointer.x)*follow;
       pointer.y+=(pointer.targetY-pointer.y)*follow;
-      entranceStartedAt ??= stamp;
-      const entrance=motion.matches?1:Math.min(1,(stamp-entranceStartedAt)/1800);
+      const waiting=!isPageEntranceReady();
+      if(waiting) entranceStartedAt=null; else entranceStartedAt ??= stamp;
+      const entrance=waiting?0:motion.matches?1:Math.min(1,(stamp-(entranceStartedAt??stamp))/1800);
       if(!motion.matches){time+=delta;scanTime+=delta;}
       progress=motion.matches?1:Math.min(1,progress+delta/1.8);
       gl.viewport(0,0,canvas.width,canvas.height);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.useProgram(program);gl.bindVertexArray(vao);
@@ -132,5 +134,6 @@ void main(){
   }catch(error){console.warn("Particle portrait initialization failed",error);canvas.dataset.renderer="unavailable";cleanup();}
   return cleanup;
 }
+
 
 

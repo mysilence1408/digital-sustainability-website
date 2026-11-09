@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { usePageEntranceReady } from "@/components/providers/page-entrance";
 import { gsap } from "gsap";
 import ParticlePortrait from "@/components/team/particle-portrait";
 import EncryptedText from "@/components/team/encrypted-text";
@@ -28,6 +29,7 @@ const members = [
 ];
 
 export default function Team() {
+  const entranceReady = usePageEntranceReady();
   const root = useRef<HTMLElement>(null);
   const text = useRef<HTMLDivElement>(null);
   const cursor = useRef<HTMLSpanElement>(null);
@@ -61,6 +63,7 @@ export default function Team() {
     observer.observe(root.current!);
     const timer = setInterval(() => {
       if (
+        entranceReady &&
         !paused &&
         visible &&
         !document.hidden &&
@@ -73,9 +76,10 @@ export default function Team() {
       clearInterval(timer);
       observer.disconnect();
     };
-  }, [member, next, paused]);
+  }, [member, next, paused, entranceReady]);
 
   useLayoutEffect(() => {
+    if (!entranceReady) return;
     const media = gsap.matchMedia();
     media.add(
       "(prefers-reduced-motion: no-preference)",
@@ -95,7 +99,7 @@ export default function Team() {
       root,
     );
     return () => media.revert();
-  }, [member]);
+  }, [member, entranceReady]);
 
   return (
     <section
@@ -227,5 +231,6 @@ export default function Team() {
     </section>
   );
 }
+
 
 

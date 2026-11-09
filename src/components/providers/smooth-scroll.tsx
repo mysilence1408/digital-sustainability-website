@@ -21,7 +21,7 @@ export default function SmoothScroll() {
     // GSAP's global lag-smoothing settings is unnecessary.
     const tick = () => lenis.current?.raf(performance.now());
     const syncLock = () => {
-      if (document.documentElement.dataset.navigationOpen === "true") lenis.current?.stop();
+      if (document.documentElement.dataset.navigationOpen === "true" || document.documentElement.dataset.pageTransition === "active") lenis.current?.stop();
       else lenis.current?.start();
     };
     const destroy = () => {
@@ -82,5 +82,6 @@ export default function SmoothScroll() {
 
   return null;
 }
+
 
 

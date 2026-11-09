@@ -17,3 +17,15 @@ html::-webkit-scrollbar {
 }
 
 
+
+html[data-page-transition='active'] { overflow: hidden; }
+
+/* Do not show completed text underneath the wipe before its entrance starts. */
+html[data-page-transition='active'] [data-letter],
+html[data-page-transition='active'] [data-gradient-word],
+html[data-page-transition='active'] [data-enter],
+html[data-page-transition='active'] [data-member-copy],
+html[data-page-transition='active'] [data-entrance-copy] {
+  opacity: 0 !important;
+}
+

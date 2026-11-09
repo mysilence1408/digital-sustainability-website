@@ -4,7 +4,7 @@ import FooterSymbols from "./footer-symbols";
 const pages = [
   { label: "Home", href: "/", color: "hover:text-[#c8fad4] focus-visible:text-[#c8fad4]" },
   { label: "About us", href: "/about", color: "hover:text-[#f8d0f5] focus-visible:text-[#f8d0f5]" },
-  { label: "Projects", href: "/projects", color: "hover:text-[#feebca] focus-visible:text-[#feebca]" },
+  { label: "Project", href: "/project", color: "hover:text-[#feebca] focus-visible:text-[#feebca]" },
   { label: "Contact", href: "/contact", color: "hover:text-[#bed9ee] focus-visible:text-[#bed9ee]" },
 ];
 
