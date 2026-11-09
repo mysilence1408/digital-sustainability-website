@@ -13,7 +13,7 @@ const pages = [
 
 export default function Footer() {
   return (
-    <footer aria-labelledby="footer-title" className="relative isolate overflow-hidden bg-[#111914] px-5 pb-6 pt-16 text-[#fdf8f4] sm:px-9 sm:pt-20 lg:px-12 lg:pt-24">
+    <footer data-nav-theme="dark" aria-labelledby="footer-title" className="relative isolate overflow-hidden bg-[#111914] px-5 pb-6 pt-16 text-[#fdf8f4] sm:px-9 sm:pt-20 lg:px-12 lg:pt-24">
       <div className="mx-auto max-w-[1800px]">
         <div className="grid gap-14 md:grid-cols-[1.2fr_1fr] md:gap-16 lg:gap-32">
           <nav aria-label="Footer navigation">

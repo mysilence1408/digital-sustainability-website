@@ -16,6 +16,37 @@ function Menu({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
 
   useLayoutEffect(() => {
+    const header = root.current!;
+    let frame = 0;
+    const update = () => {
+      if (document.documentElement.dataset.navigationOpen === "true") return;
+      const bounds = button.current!.getBoundingClientRect();
+      const behind = document.elementsFromPoint(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2)
+        .find(element => !header.contains(element) && !element.closest("[data-page-curtain]"));
+      const marked = behind?.closest<HTMLElement>("[data-nav-theme]");
+      let dark = marked?.dataset.navTheme === "dark";
+      if (!marked) {
+        for (let element = behind; element; element = element.parentElement ?? undefined) {
+          const rgba = getComputedStyle(element).backgroundColor.match(/[\d.]+/g)?.map(Number);
+          if (!rgba || (rgba.length === 4 && rgba[3] < 0.5)) continue;
+          dark = rgba[0] * .2126 + rgba[1] * .7152 + rgba[2] * .0722 < 130;
+          break;
+        }
+      }
+      header.dataset.menuTheme = dark ? "light" : "dark";
+      header.style.setProperty("--menu-background", dark ? "#F4F0E2" : "#222222");
+      header.style.setProperty("--menu-text", dark ? "#222222" : "#ffffff");
+      header.style.setProperty("--menu-hover", dark ? "#22222210" : "#ffffff1a");
+    };
+    const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(update); };
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    window.addEventListener("navigation-lock-change", schedule);
+    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); window.removeEventListener("navigation-lock-change", schedule); };
+  }, []);
+
+  useLayoutEffect(() => {
     const media = gsap.matchMedia();
     media.add(
       {
@@ -67,10 +98,10 @@ function Menu({ pathname }: { pathname: string }) {
     const html = document.documentElement;
     const body = document.body;
     const htmlOverflow = html.style.overflow;
-    const bodyOverflow = body.style.overflow;
     html.dataset.navigationOpen = "true";
     html.style.overflow = "hidden";
-    body.style.overflow = "hidden";
+    // Lock the root only. Body overflow creates a different scroll container
+    // and makes viewport-sticky sections (such as the project film) jump.
     window.dispatchEvent(new Event("navigation-lock-change"));
     const outside: HTMLElement[] = [];
     // Include siblings inside the route-transition wrapper and body-level portals.
@@ -126,7 +157,6 @@ function Menu({ pathname }: { pathname: string }) {
       });
       delete html.dataset.navigationOpen;
       html.style.overflow = htmlOverflow;
-      body.style.overflow = bodyOverflow;
       window.dispatchEvent(new Event("navigation-lock-change"));
     };
   }, [open]);
@@ -134,7 +164,7 @@ function Menu({ pathname }: { pathname: string }) {
   return (
     <header
       ref={root}
-      className="pointer-events-none fixed inset-x-0 top-0 z-[100] px-5 pt-5 text-white sm:px-9 sm:pt-7 lg:px-12"
+      className="pointer-events-none fixed inset-x-0 top-0 z-[100] px-5 pt-5 text-[var(--menu-text)] [--menu-background:#222222] [--menu-text:#ffffff] [--menu-hover:#ffffff1a] sm:px-9 sm:pt-7 lg:px-12"
     >
       {open && (
         <div
@@ -154,7 +184,7 @@ function Menu({ pathname }: { pathname: string }) {
           aria-controls="primary-navigation"
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((value) => !value)}
-          className="group pointer-events-auto flex h-12 min-w-28 cursor-pointer items-center justify-between gap-5 rounded-full bg-[#222222] px-5 text-xs font-bold uppercase shadow-[0_2px_20px_#22222208] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8374be]"
+          className="group pointer-events-auto flex h-12 min-w-28 cursor-pointer items-center justify-between gap-5 rounded-full bg-[var(--menu-background)] px-5 text-xs font-bold uppercase shadow-[0_2px_20px_#22222208] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8374be]"
         >
           <span className="relative h-4 overflow-hidden">
             <span
@@ -184,7 +214,7 @@ function Menu({ pathname }: { pathname: string }) {
         aria-label="Navigation menu"
         aria-modal={open || undefined}
         inert={!open}
-        className={`absolute right-5 top-[5rem] w-[min(22rem,calc(100vw-2.5rem))] origin-top rounded-2xl bg-[#222222] p-2 shadow-[0_16px_60px_#22222212] [perspective:800px] sm:right-9 sm:top-[5.75rem] lg:right-12 ${open ? "pointer-events-auto" : "pointer-events-none"}`}
+        className={`absolute right-5 top-[5rem] w-[min(17rem,calc(100vw-4rem))] origin-top rounded-2xl bg-[var(--menu-background)] p-2 shadow-[0_16px_60px_#22222212] [perspective:800px] sm:right-9 sm:top-[5.75rem] sm:w-[22rem] lg:right-12 ${open ? "pointer-events-auto" : "pointer-events-none"}`}
         style={{ visibility: "hidden" }}
       >
         <nav aria-label="Main navigation">
@@ -200,7 +230,7 @@ function Menu({ pathname }: { pathname: string }) {
                 data-menu-link
                 aria-current={active ? "page" : undefined}
                 onClick={() => setOpen(false)}
-                className="group/link relative flex min-h-16 items-center justify-between overflow-hidden rounded-xl px-5 py-4 text-xl font-medium tracking-tight transition-colors duration-200 hover:bg-white/10 focus-visible:bg-white/10 focus-visible:outline-none motion-reduce:transition-none"
+                className="group/link relative flex min-h-14 items-center justify-between overflow-hidden rounded-xl px-4 py-3 text-lg font-medium tracking-tight transition-colors duration-200 hover:bg-[var(--menu-hover)] focus-visible:bg-[var(--menu-hover)] focus-visible:outline-none motion-reduce:transition-none sm:min-h-16 sm:px-5 sm:py-4 sm:text-xl"
               >
                 <span className="flex items-center gap-3">
                   <span

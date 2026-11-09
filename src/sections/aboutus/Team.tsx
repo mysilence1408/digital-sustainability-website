@@ -19,7 +19,6 @@ export default function Team() {
   const entranceReady = usePageEntranceReady();
   const root = useRef<HTMLElement>(null);
   const text = useRef<HTMLDivElement>(null);
-  const cursor = useRef<HTMLSpanElement>(null);
   const [member, setMember] = useState(0);
   const [paused, setPaused] = useState(false);
   const next = useCallback(
@@ -91,6 +90,7 @@ export default function Team() {
   return (
     <section
       ref={root}
+      data-nav-theme="dark"
       aria-labelledby="team-title"
       className="relative isolate min-h-svh overflow-hidden bg-[#020c0f] px-5 pb-8 pt-28 text-[#d8e9e9] sm:px-9 lg:h-svh lg:min-h-[720px] lg:px-12 lg:pt-32"
     >
@@ -114,38 +114,7 @@ export default function Team() {
 
       <div className="relative mt-8 h-[55svh] min-h-[360px] lg:absolute lg:inset-y-10 lg:left-[8%] lg:mt-0 lg:h-auto lg:w-[70%]">
         <ParticlePortrait member={member} />
-        <button
-          type="button"
-          onClick={next}
-          aria-label="Show next team member"
-          onPointerMove={(event) => {
-            if (event.pointerType === "touch") return;
-            const rect = event.currentTarget.getBoundingClientRect();
-            if (cursor.current) {
-              cursor.current.style.left = `${event.clientX - rect.left}px`;
-              cursor.current.style.top = `${event.clientY - rect.top}px`;
-            }
-          }}
-          className="group absolute inset-0 z-20 cursor-pointer touch-pan-y focus-visible:outline-1 focus-visible:outline-offset-[-8px] focus-visible:outline-[#4a46ff]"
-        >
-          <span
-            ref={cursor}
-            aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-1/2 flex size-[76px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full bg-[#3530ff] text-white opacity-0 shadow-[0_0_40px_#3530ff30] transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:opacity-100"
-          >
-            <svg
-              viewBox="0 0 32 24"
-              className="h-6 w-8"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1"
-            >
-              <path d="M3 12h24M19 4l8 8-8 8" />
-            </svg>
-            <span className="mt-1 font-mono text-[8px] uppercase tracking-widest">
-              {about.nextLabel}</span>
-          </span>
-        </button>
+
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 top-1/2 flex justify-between text-xs font-light text-[#8eaaae]/50"

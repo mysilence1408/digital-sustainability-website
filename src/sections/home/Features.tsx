@@ -63,7 +63,8 @@ export default function Features() {
             },
           },
         );
-        if (reduced) return;
+        // Keep the mobile cards stationary; the section color still animates.
+        if (reduced || !desktop) return;
         const cards = gsap.utils.toArray<HTMLElement>(
           "[data-feature-card]",
           section,

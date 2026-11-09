@@ -39,7 +39,7 @@ export default function PageTransition() {
     setPageEntranceReady(false);
     // Cover in the layout commit, including history navigation, before paint.
     gsap.set(root.current, { visibility: "visible" });
-    gsap.set(panel.current, { width: "100%", scale: 1, rotation: 0, clipPath: full });
+    gsap.set(panel.current, { width: "100%", height: "100%", scale: 1, rotation: 0, clipPath: full });
     gsap.set(shade.current, { opacity: 0 });
     gsap.set(leaf.current, { opacity: 1, y: 0 });
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -63,7 +63,7 @@ export default function PageTransition() {
       const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
       gsap.set(root.current, { visibility: "visible" });
       gsap.set(shade.current, { opacity: 0 });
-      gsap.set(panel.current, { width: "100vmin", scale: 0, rotation: -60, clipPath: octagon });
+      gsap.set(panel.current, { width: "100vmin", height: "100vmin", scale: 0, rotation: -60, clipPath: octagon });
       gsap.set(leaf.current, { y: 40, opacity: 0 });
       timeline.current = gsap.timeline({ onComplete: () => {
         // Start the timeout before push so even a synchronous commit cancels it.
@@ -74,7 +74,7 @@ export default function PageTransition() {
         .to(panel.current, { scale: 0.5, rotation: 0, duration: reduced ? 0 : 0.5, ease: "back.out(1.4)" }, 0)
         .to(panel.current, { scale: 1, duration: reduced ? 0 : 0.35, ease: "expo.inOut" }, reduced ? 0 : 0.5)
         .to(leaf.current, { opacity: 1, y: 0, duration: reduced ? 0 : 0.5, ease: "expo.inOut" }, reduced ? 0 : 0.5)
-        .to(panel.current, { width: "100%", clipPath: full, duration: reduced ? 0 : 0.35, ease: "expo.inOut" }, reduced ? 0 : 0.57);
+        .to(panel.current, { width: "100%", height: "100%", clipPath: full, duration: reduced ? 0 : 0.35, ease: "expo.inOut" }, reduced ? 0 : 0.57);
     };
     document.addEventListener("click", click, true);
     return () => {
