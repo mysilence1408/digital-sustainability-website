@@ -8,10 +8,20 @@ import ProjectFilm from "@/sections/project/ProjectFilm";
 export const metadata = pageMetadata("/project", project.metadata);
 
 export default function Page() {
-  return <main id="main-content" tabIndex={-1} className="bg-[#fdf8f4] text-[#293c31]">
-    <PageStructuredData path="/project" title={project.metadata.title} description={project.metadata.description} />
-    <ProjectGallery />
-    <ProjectStory />
-    <ProjectFilm />
-  </main>;
+  return (
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="bg-[#fdf8f4] text-[#222222]"
+    >
+      <PageStructuredData
+        path="/project"
+        title={project.metadata.title}
+        description={project.metadata.description}
+      />
+      <ProjectGallery />
+      <ProjectStory />
+      <ProjectFilm />
+    </main>
+  );
 }

@@ -6,8 +6,8 @@ import FooterSymbols from "./footer-symbols";
 
 const pages = [
   { color: "hover:text-[#c8fad4] focus-visible:text-[#c8fad4]" },
-  { color: "hover:text-[#f8d0f5] focus-visible:text-[#f8d0f5]" },
   { color: "hover:text-[#feebca] focus-visible:text-[#feebca]" },
+  { color: "hover:text-[#f8d0f5] focus-visible:text-[#f8d0f5]" },
   { color: "hover:text-[#bed9ee] focus-visible:text-[#bed9ee]" },
 ];
 

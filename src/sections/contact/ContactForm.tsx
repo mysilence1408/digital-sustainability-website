@@ -29,17 +29,32 @@ export default function ContactForm() {
       () => {
         const area = imageArea.current!;
         const image = imageMotion.current!;
-        const xTo = gsap.quickTo(image, "x", { duration: 0.8, ease: "power3.out" });
-        const yTo = gsap.quickTo(image, "y", { duration: 0.8, ease: "power3.out" });
+        const xTo = gsap.quickTo(image, "x", {
+          duration: 0.8,
+          ease: "power3.out",
+        });
+        const yTo = gsap.quickTo(image, "y", {
+          duration: 0.8,
+          ease: "power3.out",
+        });
         const move = (event: PointerEvent) => {
           if (event.pointerType === "touch") return;
           const bounds = area.getBoundingClientRect();
-          const x = Math.max(-1, Math.min(1, (event.clientX - bounds.left) / bounds.width * 2 - 1));
-          const y = Math.max(-1, Math.min(1, (event.clientY - bounds.top) / bounds.height * 2 - 1));
+          const x = Math.max(
+            -1,
+            Math.min(1, ((event.clientX - bounds.left) / bounds.width) * 2 - 1),
+          );
+          const y = Math.max(
+            -1,
+            Math.min(1, ((event.clientY - bounds.top) / bounds.height) * 2 - 1),
+          );
           xTo(x * 16);
           yTo(y * 16);
         };
-        const reset = () => { xTo(0); yTo(0); };
+        const reset = () => {
+          xTo(0);
+          yTo(0);
+        };
         area.addEventListener("pointermove", move, { passive: true });
         area.addEventListener("pointerleave", reset);
         area.addEventListener("pointercancel", reset);
@@ -132,9 +147,7 @@ export default function ContactForm() {
       form.reset();
     } catch {
       setStatus("error");
-      setFeedback(
-        copy.form.errorMessage,
-      );
+      setFeedback(copy.form.errorMessage);
     } finally {
       sending.current = false;
     }
@@ -144,7 +157,7 @@ export default function ContactForm() {
     <section
       ref={root}
       aria-labelledby="contact-title"
-      className="relative isolate grid min-h-svh bg-[#fdf8f4] text-[#293c31] lg:grid-cols-[1.05fr_1fr]"
+      className="relative isolate grid min-h-svh bg-[#fdf8f4] text-[#222222] lg:grid-cols-[1.05fr_1fr]"
     >
       <div className="relative z-10 flex flex-col justify-center px-6 pb-12 pt-32 sm:px-12 lg:min-h-[800px] lg:px-[clamp(2.5rem,6vw,7rem)] lg:pb-16 lg:pt-36">
         <div className="mx-auto w-full max-w-xl">
@@ -152,15 +165,18 @@ export default function ContactForm() {
             data-enter
             className="mb-6 text-xs font-medium uppercase tracking-[0.22em]"
           >
-            {copy.eyebrow}</p>
+            {copy.eyebrow}
+          </p>
           <h1
             id="contact-title"
             data-enter
             className="max-w-lg text-[clamp(3.5rem,5.8vw,6.5rem)] font-medium leading-[0.95] tracking-[-0.065em]"
           >
-            {copy.title}<br />
+            {copy.title}
+            <br />
             <span className="font-serif font-normal italic tracking-[-0.06em]">
-              {copy.titleAccent}</span>
+              {copy.titleAccent}
+            </span>
           </h1>
           <p
             data-enter
@@ -178,7 +194,8 @@ export default function ContactForm() {
                 htmlFor="contact-name"
                 className="text-xs font-medium uppercase tracking-[0.13em]"
               >
-                {copy.form.nameLabel}<span aria-hidden="true">*</span>
+                {copy.form.nameLabel}
+                <span aria-hidden="true">*</span>
               </label>
               <input
                 className={fieldClass}
@@ -198,7 +215,8 @@ export default function ContactForm() {
                 htmlFor="contact-email"
                 className="text-xs font-medium uppercase tracking-[0.13em]"
               >
-                {copy.form.emailLabel}<span aria-hidden="true">*</span>
+                {copy.form.emailLabel}
+                <span aria-hidden="true">*</span>
               </label>
               <input
                 className={fieldClass}
@@ -217,7 +235,8 @@ export default function ContactForm() {
                 htmlFor="contact-message"
                 className="text-xs font-medium uppercase tracking-[0.13em]"
               >
-                {copy.form.messageLabel}<span aria-hidden="true">*</span>
+                {copy.form.messageLabel}
+                <span aria-hidden="true">*</span>
               </label>
               <textarea
                 className={`${fieldClass} min-h-24 resize-y`}
@@ -236,7 +255,9 @@ export default function ContactForm() {
                 disabled={status === "sending"}
                 className="group inline-flex min-h-14 cursor-pointer items-center gap-10 rounded-full bg-[#293c31] py-2 pl-7 pr-2 text-sm font-medium text-[#fdf8f4] transition-colors hover:bg-[#3d5947] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#293c31] disabled:cursor-wait disabled:opacity-60"
               >
-                {status === "sending" ? copy.form.sendingLabel : copy.form.submitLabel}
+                {status === "sending"
+                  ? copy.form.sendingLabel
+                  : copy.form.submitLabel}
                 <span
                   aria-hidden="true"
                   className="flex size-10 items-center justify-center rounded-full bg-[#d7f991] text-[#293c31] transition-transform group-hover:-rotate-45 motion-reduce:transform-none"
@@ -253,7 +274,8 @@ export default function ContactForm() {
                 </span>
               </button>
               <span className="text-xs text-[#293c31]/55">
-                {copy.form.requiredNote}</span>
+                {copy.form.requiredNote}
+              </span>
             </div>
             <p
               role="status"
@@ -266,15 +288,18 @@ export default function ContactForm() {
           </form>
         </div>
       </div>
-      <figure ref={imageArea} className="relative m-0 min-h-[440px] overflow-hidden bg-[#b3bcaa] sm:min-h-[580px] lg:min-h-full">
+      <figure
+        ref={imageArea}
+        className="relative m-0 min-h-[440px] overflow-hidden bg-[#b3bcaa] sm:min-h-[580px] lg:min-h-full"
+      >
         <div ref={imageMotion} className="absolute -inset-6">
           <Image
-          src={copy.image.src}
-          alt={copy.image.alt}
-          fill
-          priority
-          sizes="(min-width: 1024px) 49vw, 100vw"
-          className="object-cover object-center"
+            src={copy.image.src}
+            alt={copy.image.alt}
+            fill
+            priority
+            sizes="(min-width: 1024px) 49vw, 100vw"
+            className="object-cover object-center"
           />
         </div>
         <div

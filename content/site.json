@@ -7,12 +7,12 @@
       "href": "/"
     },
     {
-      "label": "About us",
-      "href": "/about"
-    },
-    {
       "label": "Project",
       "href": "/project"
+    },
+    {
+      "label": "About us",
+      "href": "/about"
     },
     {
       "label": "Contact",
