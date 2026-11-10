@@ -32,6 +32,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <meta name="theme-color" content="#76C457" />
+      </head>
       <body className="min-h-full flex flex-col ">
         <a
           href="#main-content"

@@ -4,21 +4,21 @@
   "storyLabel": "About the project",
   "images": {
     "forest": {
-      "src": "/images/project/forest-placeholder.jpg",
-      "alt": "Sunlight filtering through a dense green forest"
+      "src": "/images/project/workstation.webp",
+      "alt": "workstation with a laptop"
     },
     "lake": {
-      "src": "/images/project/lake-placeholder.jpg",
-      "alt": "A quiet mountain lake reflecting the landscape"
+      "src": "/images/project/percent.webp",
+      "alt": "A percentage sign shown on the leafs"
     },
     "energy": {
-      "src": "/images/project/energy-placeholder.jpg",
-      "alt": "Solar panels collecting renewable energy"
+      "src": "/images/project/globe.webp",
+      "alt": "A globe with signs around it"
     }
   },
   "paragraphs": [
-    "Our digital lives leave a footprint. Every file we save, video we stream, and device we use depends on energy and resources. Yet the impact of these everyday moments often stays out of sight. The Digital Sustainability Companion explores how we can make that connection visible, understandable, and useful.",
-    "We are developing a thoughtful companion that helps people reflect on their digital habits and discover practical opportunities for change. By bringing research, design, and technology together, the project aims to turn a complex subject into small, meaningful decisions. Less unnecessary storage. More considered consumption. A longer life for the devices we already own. A lighter digital future, shaped one choice at a time."
+    "Digital technologies are part of our everyday work, but we rarely think about the resources they consume. Computers may remain running when we're not using them, applications continue working in the background, and files accumulate over time. Individually, these activities may seem insignificant, but together they contribute to unnecessary energy and resource consumption. The Digital Sustainability Companion project investigates how we can better understand these activities and reduce their environmental impact.",
+    "As part of the project, we are developing a desktop application that monitors selected computer activities and calculates a Digital Sustainability Score based on energy efficiency, storage efficiency, and digital behaviour. The application is designed to provide personalized recommendations and help users follow their progress over time. Through this research, we also want to understand whether providing people with information about their digital habits can encourage them to make more sustainable choices."
   ],
   "video": {
     "src": "/videos/project/reference-placeholder.mp4",

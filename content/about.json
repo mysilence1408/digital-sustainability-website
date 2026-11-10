@@ -1,6 +1,6 @@
 {
-  "eyebrowLine1": "The people behind",
-  "eyebrowLine2": "a lighter digital future",
+  "eyebrowLine1": "The team",
+  "eyebrowLine2": "working on the project",
   "title": "TEAM",
   "scanLabel": "Portrait scan",
   "nextLabel": "Next",
@@ -10,21 +10,30 @@
   "autoplayLabel": "autoplay",
   "members": [
     {
-      "name": "Team member 01",
-      "role": "Research & strategy",
-      "description": "Exploring the relationship between our digital habits and the world around us. Turning research into thoughtful, practical steps towards a lighter digital life.",
+      "name": "Prof. Dominik Siemon",
+      "role": "Project Supervisorr",
+      "description": "Prof. Dominik Siemon is an Associate Professor at LUT University. His research focuses on the design of information systems, human–computer interaction, and artificial intelligence, with particular interest in how technology affects people and organizations.",
       "image": {
-        "src": "/images/team/head-01.png",
-        "alt": "Team member 01"
+        "src": "/images/team/head-01.webp",
+        "alt": "Dominik Siemon"
       }
     },
     {
-      "name": "Team member 02",
-      "role": "Design & technology",
-      "description": "Bringing ideas to life through considered design and thoughtful technology. Creating a companion that makes sustainable choices feel clear, useful, and human.",
+      "name": "Ram Gurung",
+      "role": "Project Manager",
+      "description": "Ram Gurung is a Junior Researcher in Software Engineering at LUT University. His published research includes green coding, software energy efficiency, and AI-assisted software testing.",
       "image": {
-        "src": "/images/team/head-02.png",
-        "alt": "Team member 02"
+        "src": "/images/team/head-02.webp",
+        "alt": "Ram Gurung"
+      }
+    },
+    {
+      "name": "Ashkan Kohandel Shirazi",
+      "role": "Junior Research Assistant",
+      "description": "Ashkan Kohandel is a Junior Research Assistant at LUT University, working on the research and development of the Digital Sustainability Companion project.",
+      "image": {
+        "src": "/images/team/head-03.webp",
+        "alt": "Ashkan Kohandel Shirazi"
       }
     }
   ],

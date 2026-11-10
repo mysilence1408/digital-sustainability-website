@@ -57,7 +57,7 @@
     "card": {
       "tag": "A companion for your digital life",
       "image": {
-        "src": "/images/home/about.jpg",
+        "src": "/images/home/cityscape.webp",
         "alt": "About the project"
       },
       "steps": [
@@ -88,7 +88,7 @@
     "card": {
       "tag": "The impact we don’t always see",
       "image": {
-        "src": "/images/home/challenge.jpg",
+        "src": "/images/home/footprint.webp",
         "alt": "The challenge"
       },
       "steps": [
@@ -119,7 +119,7 @@
     "card": {
       "tag": "Built around meaningful next steps",
       "image": {
-        "src": "/images/home/solution.jpg",
+        "src": "/images/home/lightbulb.webp",
         "alt": "The solution"
       },
       "steps": [

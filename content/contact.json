@@ -1,19 +1,19 @@
 {
   "eyebrow": "Contact / Let’s talk",
-  "title": "A little hello.",
-  "titleAccent": "A lighter future.",
-  "description": "A question, an idea, or a new perspective?\nWe’d love to hear from you.",
+  "title": "Get in touch.",
+  "titleAccent": "We're listening.",
+  "description": "Interested in our research, have a question about the project, or want to contribute? We'd be happy to hear from you.",
   "image": {
-    "src": "/images/lahti-campus.jpg",
-    "alt": "LUT University’s Lahti campus surrounded by greenery"
+    "src": "/images/contact/lahti_campus.webp",
+    "alt": "LUT University’s Lahti campus"
   },
-  "stickerLine1": "SMALL MESSAGES.",
-  "stickerLine2": "BIGGER POSSIBILITIES.",
-  "captionLeft": "Rooted in research.",
-  "captionRight": "Looking forward. ↗",
+  "stickerLine1": "WE'D LIKE TO",
+  "stickerLine2": "HEAR FROM YOU.",
+  "captionLeft": "Research in progress.",
+  "captionRight": "Contact the research team. ↗",
   "form": {
     "nameLabel": "Your name",
-    "namePlaceholder": "What should we call you?",
+    "namePlaceholder": "Enter your name",
     "emailLabel": "Email",
     "emailPlaceholder": "you@example.com",
     "messageLabel": "Your message",

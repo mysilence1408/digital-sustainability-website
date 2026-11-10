@@ -127,7 +127,7 @@ export default function ProjectGallery() {
       <p
         data-enter
         data-opening-copy
-        className="mb-14 mt-6 text-center text-xs uppercase tracking-[0.2em] sm:mb-20 sm:text-sm motion-safe:[transform:translateY(32px)] motion-safe:opacity-0"
+        className="mb-14 mt-6 text-center text-xs uppercase tracking-[0.2em] sm:mb-20 sm:text-sm lg:text-base motion-safe:[transform:translateY(32px)] motion-safe:opacity-0"
       >
         {project.subtitle}
       </p>
