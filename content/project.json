@@ -21,12 +21,12 @@
     "As part of the project, we are developing a desktop application that monitors selected computer activities and calculates a Digital Sustainability Score based on energy efficiency, storage efficiency, and digital behaviour. The application is designed to provide personalized recommendations and help users follow their progress over time. Through this research, we also want to understand whether providing people with information about their digital habits can encourage them to make more sustainable choices."
   ],
   "video": {
-    "src": "/videos/project/reference-placeholder.mp4",
-    "poster": "/images/project/lake-placeholder.jpg",
-    "title": ["Some creations", "merit a place"],
-    "subtitle": "A lighter footprint. A shared future.",
+    "src": "/videos/project/green_city.mp4",
+    "poster": "/images/project/green_city_poster.jpg",
+    "title": ["The digital world", "has a physical impact."],
+    "subtitle": "Exploring how everyday digital activities affect energy and resource consumption.",
     "url": "",
-    "label": "Project film placeholder"
+    "label": "Aerial views of forests and lakes highlighting environmental sustainability"
   },
   "metadata": {
     "title": "Project | Digital Sustainability Companion",
