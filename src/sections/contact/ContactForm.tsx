@@ -15,11 +15,25 @@ export default function ContactForm() {
   const imageArea = useRef<HTMLElement>(null);
   const imageMotion = useRef<HTMLDivElement>(null);
   const entranceReady = usePageEntranceReady();
+  const [imageLoaded, setImageLoaded] = useState(false);
   const sending = useRef(false);
   const [status, setStatus] = useState<
     "idle" | "sending" | "success" | "error"
   >("idle");
   const [feedback, setFeedback] = useState("");
+
+  useLayoutEffect(() => {
+    if (!entranceReady || !imageLoaded) return;
+    const media = gsap.matchMedia();
+    media.add("(prefers-reduced-motion: no-preference)", () => {
+      // Reveal from the right edge; keep the hover transform on its own layer.
+      gsap.fromTo(imageArea.current,
+        { clipPath: "inset(0% 0% 0% 100%)" },
+        { clipPath: "inset(0% 0% 0% 0%)", duration: 1.25, ease: "power3.inOut" },
+      );
+    }, root);
+    return () => media.revert();
+  }, [entranceReady, imageLoaded]);
 
   useLayoutEffect(() => {
     if (!entranceReady) return;
@@ -290,7 +304,8 @@ export default function ContactForm() {
       </div>
       <figure
         ref={imageArea}
-        className="relative m-0 min-h-[440px] overflow-hidden bg-[#b3bcaa] sm:min-h-[580px] lg:min-h-full"
+        data-contact-image
+        className="relative m-0 min-h-[440px] overflow-hidden motion-safe:[clip-path:inset(0_0_0_100%)] sm:min-h-[580px] lg:min-h-full"
       >
         <div ref={imageMotion} className="absolute -inset-6">
           <Image
@@ -298,6 +313,7 @@ export default function ContactForm() {
             alt={copy.image.alt}
             fill
             priority
+            onLoad={() => setImageLoaded(true)}
             sizes="(min-width: 1024px) 49vw, 100vw"
             className="object-cover object-center"
           />
@@ -317,6 +333,7 @@ export default function ContactForm() {
           <span>{copy.captionRight}</span>
         </figcaption>
       </figure>
+      <noscript><style>{"[data-contact-image]{clip-path:none!important}"}</style></noscript>
     </section>
   );
 }
