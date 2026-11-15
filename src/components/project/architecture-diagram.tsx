@@ -22,6 +22,7 @@ const placement: Record<NodeId, string> = {
 
 export default function ArchitectureDiagram() {
   const [selected, setSelected] = useState<NodeId>("monitoring");
+  const [pulseRun, setPulseRun] = useState(0);
   const [drawing, setDrawing] = useState<{ width: number; height: number; paths: ArchitectureConnection[] }>({ width: 1, height: 1, paths: [] });
   const [running, setRunning] = useState(false);
   const graph = useRef<HTMLDivElement>(null);
@@ -58,7 +59,7 @@ export default function ArchitectureDiagram() {
   }, []);
 
   const node = (id: NodeId, number: string) => (
-    <button data-architecture-node={id} type="button" aria-pressed={selected === id} aria-controls="architecture-details" aria-label={`${copy.selectLabel} ${copy.nodes[id].title}`} onClick={() => setSelected(id)}
+    <button data-architecture-node={id} type="button" aria-pressed={selected === id} aria-controls="architecture-details" aria-label={`${copy.selectLabel} ${copy.nodes[id].title}`} onClick={() => { setSelected(id); setPulseRun(value => value + 1); }}
       className={`relative z-20 h-full min-h-40 w-full cursor-pointer rounded-xl border p-5 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] ${selected === id ? "border-[var(--accent)] bg-[var(--accent)] text-[var(--on-accent)]" : "border-[var(--line)] bg-[var(--page)] text-[var(--ink)] hover:border-[var(--accent)] hover:bg-[var(--hover)]"}`}>
       <span className="flex items-center justify-between gap-3"><SiteIcon name={copy.nodes[id].icon} className="size-6" /><span className="text-sm tabular-nums">{number}</span></span>
       <span className="mt-4 block text-base font-semibold leading-snug">{copy.nodes[id].title}</span>
@@ -73,11 +74,13 @@ export default function ArchitectureDiagram() {
           <defs>
             <marker id={marker} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="m1 1 8 4-8 4" fill="none" stroke="var(--accent)" strokeWidth="1.5" /></marker>
           </defs>
-          {drawing.paths.map((connection, index) => {
+          {drawing.paths.map((connection) => {
             const highlighted = connection.from === selected || connection.to === selected;
+            const outgoing = connection.from === selected;
+            const animate = highlighted && (outgoing || connection.both);
             return <g key={`${connection.from}-${connection.to}`} data-connection={`${connection.from}-${connection.to}`}>
               <path d={connection.d} stroke={highlighted ? "var(--accent)" : "var(--line)"} strokeWidth={highlighted ? 1.8 : 1.3} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={connection.optional ? "1 5" : undefined} markerEnd={`url(#${marker})`} markerStart={connection.both ? `url(#${marker})` : undefined} />
-              {highlighted && <path d={connection.d} pathLength="100" className={`architecture-current${connection.both ? " architecture-current-both" : ""}`} stroke="var(--accent)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" strokeDasharray={connection.both ? "3 197" : "3 97"} style={{ animationDelay: `${index * -.6}s` }} />}
+              {animate && <path key={`${selected}-${pulseRun}`} data-pulse-origin={selected} d={connection.d} pathLength="100" className={`architecture-current${connection.both ? " architecture-current-both" : ""}`} stroke="var(--accent)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" strokeDasharray={connection.both ? "3 197" : "3 97"} style={connection.both && !outgoing ? { animationDirection: "alternate-reverse" } : undefined} />}
             </g>;
           })}
         </svg>
