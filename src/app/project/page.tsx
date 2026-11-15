@@ -1,9 +1,11 @@
 import project from "@/content/project";
 import { pageMetadata } from "@/lib/seo";
 import PageStructuredData from "@/components/seo/page-structured-data";
-import ProjectGallery from "@/sections/project/ProjectGallery";
-import ProjectStory from "@/sections/project/ProjectStory";
-import ProjectFilm from "@/sections/project/ProjectFilm";
+import ProjectIntroduction from "@/sections/project/ProjectIntroduction";
+import ProjectOverview from "@/sections/project/ProjectOverview";
+import ProjectArchitecture from "@/sections/project/ProjectArchitecture";
+import ProjectEvaluation from "@/sections/project/ProjectEvaluation";
+import ProjectContributions from "@/sections/project/ProjectContributions";
 
 export const metadata = pageMetadata("/project", project.metadata);
 
@@ -12,16 +14,19 @@ export default function Page() {
     <main
       id="main-content"
       tabIndex={-1}
-      className="bg-[#fdf8f4] text-[#222222]"
+      data-page-entrance
+      className="bg-[var(--page)] text-[var(--ink)]"
     >
       <PageStructuredData
         path="/project"
         title={project.metadata.title}
         description={project.metadata.description}
       />
-      <ProjectGallery />
-      <ProjectStory />
-      <ProjectFilm />
+      <ProjectIntroduction />
+      <ProjectOverview />
+      <ProjectArchitecture />
+      <ProjectEvaluation />
+      <ProjectContributions />
     </main>
   );
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import SiteIcon from "@/components/ui/site-icon";
+import ThemeToggle from "@/components/ui/theme-toggle";
 import { useLayoutEffect, useRef, useState } from "react";
 import site from "@/content/site";
 import Link from "next/link";
@@ -34,16 +36,23 @@ function Menu({ pathname }: { pathname: string }) {
         }
       }
       header.dataset.menuTheme = dark ? "light" : "dark";
-      header.style.setProperty("--menu-background", dark ? "#F4F0E2" : "#222222");
-      header.style.setProperty("--menu-text", dark ? "#222222" : "#ffffff");
-      header.style.setProperty("--menu-hover", dark ? "#22222210" : "#ffffff1a");
+      header.style.setProperty("--menu-background", dark ? "#F2EADF" : "#191714");
+      header.style.setProperty("--menu-text", dark ? "#191714" : "#F2EADF");
+      header.style.setProperty("--menu-hover", dark ? "#19171412" : "#b5c59b20");
     };
     const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(update); };
+    const themeFinished = (event: TransitionEvent) => {
+      if (event.target === document.documentElement && event.propertyName === "--page") schedule();
+    };
+    document.documentElement.addEventListener("transitionend", themeFinished);
     update();
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
+    window.addEventListener("colour-theme-change", schedule);
+    const scheme = window.matchMedia("(prefers-color-scheme: dark)");
+    scheme.addEventListener("change", schedule);
     window.addEventListener("navigation-lock-change", schedule);
-    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); window.removeEventListener("navigation-lock-change", schedule); };
+    return () => { cancelAnimationFrame(frame); document.documentElement.removeEventListener("transitionend", themeFinished); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); window.removeEventListener("colour-theme-change", schedule); scheme.removeEventListener("change", schedule); window.removeEventListener("navigation-lock-change", schedule); };
   }, []);
 
   useLayoutEffect(() => {
@@ -97,14 +106,22 @@ function Menu({ pathname }: { pathname: string }) {
     animation.current?.timeScale(1).play();
     const html = document.documentElement;
     const body = document.body;
-    const htmlOverflow = html.style.overflow;
+    const lockedX = window.scrollX;
+    const lockedY = window.scrollY;
     html.dataset.navigationOpen = "true";
-    html.style.overflow = "hidden";
-    // Lock the root only. Body overflow creates a different scroll container
-    // and makes viewport-sticky sections (such as the project film) jump.
+
+    const preventWheel = (event: WheelEvent) => { if (!event.ctrlKey) event.preventDefault(); };
+    const preventTouch = (event: TouchEvent) => { if (event.touches.length === 1) event.preventDefault(); };
+    const restorePosition = () => {
+      if (window.scrollX !== lockedX || window.scrollY !== lockedY)
+        window.scrollTo({ left: lockedX, top: lockedY, behavior: "instant" });
+    };
+    document.addEventListener("wheel", preventWheel, { passive: false });
+    document.addEventListener("touchmove", preventTouch, { passive: false });
+    window.addEventListener("scroll", restorePosition);
     window.dispatchEvent(new Event("navigation-lock-change"));
     const outside: HTMLElement[] = [];
-    // Include siblings inside the route-transition wrapper and body-level portals.
+
     for (
       let branch: HTMLElement | null = root.current;
       branch?.parentElement;
@@ -129,6 +146,11 @@ function Menu({ pathname }: { pathname: string }) {
       element.inert = true;
     });
     const keydown = (event: KeyboardEvent) => {
+      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "PageUp", "PageDown", "Home", "End", " "].includes(event.key)) {
+
+        if (event.key !== " " || !(event.target instanceof HTMLElement) || !event.target.closest("button"))
+          event.preventDefault();
+      }
       if (event.key === "Escape") {
         setOpen(false);
         button.current?.focus();
@@ -156,7 +178,9 @@ function Menu({ pathname }: { pathname: string }) {
         element.inert = inert;
       });
       delete html.dataset.navigationOpen;
-      html.style.overflow = htmlOverflow;
+      document.removeEventListener("wheel", preventWheel);
+      document.removeEventListener("touchmove", preventTouch);
+      window.removeEventListener("scroll", restorePosition);
       window.dispatchEvent(new Event("navigation-lock-change"));
     };
   }, [open]);
@@ -164,19 +188,20 @@ function Menu({ pathname }: { pathname: string }) {
   return (
     <header
       ref={root}
-      className="pointer-events-none fixed inset-x-0 top-0 z-[100] px-5 pt-5 text-[var(--menu-text)] [--menu-background:#222222] [--menu-text:#ffffff] [--menu-hover:#ffffff1a] sm:px-9 sm:pt-7 lg:px-12"
+      className="pointer-events-none fixed inset-x-0 top-0 z-[100] px-5 pt-5 text-[var(--menu-text)] [--menu-background:#191714] [--menu-text:#F2EADF] [--menu-hover:#b5c59b20] sm:px-9 sm:pt-7 lg:px-12"
     >
       {open && (
         <div
           aria-hidden="true"
-          className="pointer-events-auto fixed inset-0 bg-[#222222]/5"
+          className="pointer-events-auto fixed inset-0 bg-[#191714]/10"
           onClick={() => {
             setOpen(false);
             button.current?.focus();
           }}
         />
       )}
-      <div className="flex justify-end">
+      <div className="relative flex items-center justify-end gap-3">
+        <ThemeToggle />
         <button
           ref={button}
           type="button"
@@ -184,26 +209,21 @@ function Menu({ pathname }: { pathname: string }) {
           aria-controls="primary-navigation"
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((value) => !value)}
-          className="group pointer-events-auto flex h-12 min-w-28 cursor-pointer items-center justify-between gap-5 rounded-full bg-[var(--menu-background)] px-5 text-xs font-bold uppercase shadow-[0_2px_20px_#22222208] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8374be]"
+          className="group pointer-events-auto flex h-12 min-w-28 cursor-pointer items-center justify-between gap-5 rounded-full bg-[var(--menu-background)] px-5 text-sm font-bold uppercase shadow-[0_2px_20px_#382d2708] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
         >
-          <span className="relative h-4 overflow-hidden">
+          <span className="relative h-5 overflow-hidden">
             <span
               className={`block transition-transform duration-300 motion-reduce:transition-none ${open ? "-translate-y-1/2" : "translate-y-0"}`}
             >
-              <span className="block h-4">{site.menuLabel}</span>
-              <span className="block h-4">{site.closeLabel}</span>
+              <span className="block h-5 leading-5">{site.menuLabel}</span>
+              <span className="block h-5 leading-5">{site.closeLabel}</span>
             </span>
           </span>
           <span
             aria-hidden="true"
             className={`flex h-4 w-4 items-center justify-center gap-[3px] transition-transform duration-300 motion-reduce:transition-none ${open ? "rotate-90" : "group-hover:rotate-90 group-focus-visible:rotate-90"}`}
           >
-            {[0, 1, 2].map((dot) => (
-              <span
-                key={dot}
-                className="size-[3px] shrink-0 rounded-full bg-current"
-              />
-            ))}
+            <SiteIcon name={site.icons.menu} className="size-5" />
           </span>
         </button>
       </div>
@@ -214,7 +234,7 @@ function Menu({ pathname }: { pathname: string }) {
         aria-label="Navigation menu"
         aria-modal={open || undefined}
         inert={!open}
-        className={`absolute right-5 top-[5rem] w-[min(17rem,calc(100vw-4rem))] origin-top rounded-2xl bg-[var(--menu-background)] p-2 shadow-[0_16px_60px_#22222212] [perspective:800px] sm:right-9 sm:top-[5.75rem] sm:w-[22rem] lg:right-12 ${open ? "pointer-events-auto" : "pointer-events-none"}`}
+        className={`absolute right-5 top-[5rem] w-[min(17rem,calc(100vw-4rem))] origin-top rounded-2xl bg-[var(--menu-background)] p-2 shadow-[0_16px_60px_#382d2712] [perspective:800px] sm:right-9 sm:top-[5.75rem] sm:w-[22rem] lg:right-12 ${open ? "pointer-events-auto" : "pointer-events-none"}`}
         style={{ visibility: "hidden" }}
       >
         <nav aria-label="Main navigation">
@@ -237,7 +257,7 @@ function Menu({ pathname }: { pathname: string }) {
                     aria-hidden="true"
                     className="-ml-7 inline-block w-4 -translate-x-2 opacity-0 transition-all duration-300 group-hover/link:ml-0 group-hover/link:translate-x-0 group-hover/link:opacity-100 group-focus-visible/link:ml-0 group-focus-visible/link:translate-x-0 group-focus-visible/link:opacity-100 motion-reduce:transition-none"
                   >
-                    &#8594;
+                    <SiteIcon name={site.icons.arrowRight} className="size-4" />
                   </span>
                   {label}
                 </span>

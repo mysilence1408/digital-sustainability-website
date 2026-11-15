@@ -2,171 +2,142 @@
   "hero": {
     "titleLines": ["Digital", "Sustainability", "Companion"],
     "researchLabel": "A research project at LUT University",
-    "researchSummary": "Exploring how everyday computer use affects digital sustainability.",
-    "particleCaption": "Understanding our digital footprint",
-    "eyebrow": "about the project",
-    "heading": "Do you know how much energy your computer uses?",
-    "description": "We're developing a desktop companion that helps people understand their computer use, identify unnecessary energy and storage consumption, and find practical ways to improve their digital habits.",
+    "researchSummary": "Developing a desktop application for employees at LUT University.",
+    "particleCaption": "Computer activity, power settings and storage use",
+    "eyebrow": "About the project",
+    "heading": "Understanding everyday computer use",
+    "description": "We're developing a desktop application for employees at LUT University to help them understand their computer use and reduce their digital carbon footprint. It will monitor selected computer activities, calculate a Digital Sustainability Score and suggest practical changes to everyday computer habits.",
     "buttonLabel": "Coming soon",
     "buttonAccessibleLabel": "Digital Sustainability Companion coming soon",
     "highlights": [
       {
         "number": "01",
         "title": "Energy",
-        "description": "Understand where energy is being used."
+        "description": "Idle time, applications and power settings."
       },
       {
         "number": "02",
         "title": "Storage",
-        "description": "Find files you no longer need."
+        "description": "Information about local storage use."
       },
       {
         "number": "03",
         "title": "Habits",
-        "description": "\tSee how your computer habits add up."
+        "description": "Patterns in selected computer activities."
       }
     ],
-    "bottomLeft": "Understanding the impact of our digital habits",
-    "bottomRight": "a research project at lut university / in development"
+    "bottomLeft": "Monitoring, scoring and recommendations on your computer",
+    "bottomRight": "LUT University / In development"
   },
   "art": {
-    "deviceLabel": "YOUR DEVICE",
-    "unusedFiles": "UNUSED FILES",
-    "challengeBadges": [
-      "Always-on habits",
-      "Storage adds up",
-      "Make it visible"
-    ],
     "scoreLabel": "DSS",
-    "scoreCaption": "A CLEARER PICTURE",
-    "dashboardHeading": "YOUR SUSTAINABILITY, AT A GLANCE",
-    "dimensions": ["Energy", "Storage", "Behaviour"],
-    "solutionBadges": [
-      "Calculated on your device",
-      "A practical next step",
-      "See your habits evolve"
+    "scoreCaption": "Digital Sustainability Score",
+    "dashboardHeading": "Dashboard",
+    "dimensions": [
+      "Energy Efficiency",
+      "Storage Efficiency",
+      "Digital Behaviour"
     ]
   },
-  "cardNote": "Digital Sustainability Companion / In development",
+  "cardNote": "Concept illustration. The bars do not show measured results.",
   "about": {
-    "eyebrow": "about the project",
-    "title": "Digital habits.",
-    "accent": "Environmental impact.",
-    "description": "Computers are part of almost everything we do at work, but we rarely think about the energy and resources they use.",
-    "caption": "A research project at LUT University, exploring a desktop companion that helps people understand their digital habits and make more sustainable everyday choices.",
+    "eyebrow": "Project overview",
+    "title": "A desktop application",
+    "accent": "for digital sustainability",
+    "description": "The project examines how feedback about computer use can help employees recognise habits they might want to change.",
+    "caption": "Monitoring, scoring and rule-based recommendations are designed to work on the computer without an internet connection. Users will be able to choose which monitoring functions are enabled.",
     "card": {
-      "tag": "A companion for your digital life",
-      "image": {
-        "src": "/images/home/cityscape.webp",
-        "alt": "About the project"
-      },
-      "steps": [
-        {
-          "label": "Observe",
-          "line1": "A clearer view of",
-          "line2": "your everyday habits."
-        },
-        {
-          "label": "Understand",
-          "line1": "Connect digital choices",
-          "line2": "to the resources they use."
-        },
-        {
-          "label": "Act",
-          "line1": "A little awareness.",
-          "line2": "A more mindful routine."
-        }
-      ]
+      "tag": "Dashboard concept"
     }
   },
   "challenge": {
     "eyebrow": "The challenge",
-    "title": "The hidden cost",
-    "accent": "of everyday habits.",
-    "description": "Our digital activities may seem invisible, but the energy and resources they consume are very real.",
-    "caption": "Computers can continue consuming energy even when we're not using them. Background applications keep running, and files we no longer need take up storage space. These are everyday habits we rarely think about, but they can add up over time.",
+    "title": "Computer habits",
+    "accent": "and resource use",
+    "description": "Computers can remain active while we are away, and storage can fill with files we rarely use. These activities are not always easy to notice during a working day.",
+    "caption": "The project focuses on idle time, running applications, available power-management information and local storage use. These activities provide a starting point for understanding everyday computer habits and opportunities for more efficient resource use.",
     "card": {
-      "tag": "The impact we don’t always see",
-      "image": {
-        "src": "/images/home/footprint.webp",
-        "alt": "The challenge"
-      },
       "steps": [
         {
-          "label": "Energy",
-          "line1": "Idle doesn’t always",
-          "line2": "mean switched off."
+          "label": "Computer activity",
+          "line1": "Idle time and running applications",
+          "line2": "provide information about how a computer is used.",
+          "icon": "energy"
         },
         {
-          "label": "Storage",
-          "line1": "Files accumulate.",
-          "line2": "So does resource use."
+          "label": "Local storage",
+          "line1": "Storage analysis will describe usage",
+          "line2": "without assuming which files a user no longer needs.",
+          "icon": "folder"
         },
         {
           "label": "Awareness",
-          "line1": "The first step is seeing",
-          "line2": "what usually stays hidden."
+          "line1": "The study will examine whether",
+          "line2": "feedback helps users identify habits they want to change.",
+          "icon": "lightbulb"
         }
       ]
     }
   },
   "solution": {
-    "eyebrow": "The solution",
-    "title": "Understand your impact.",
-    "accent": "Make better choices.",
-    "description": "A clearer picture of energy, storage, and digital behaviour. Thoughtful guidance for what to do next.",
-    "caption": "We're developing a desktop companion that helps people better understand their digital habits. By monitoring selected activities, calculating a Digital Sustainability Score, and offering practical recommendations, it aims to help users make more sustainable choices in their everyday computer use.",
+    "eyebrow": "The approach",
+    "title": "Monitoring, scoring",
+    "accent": "and local recommendations",
+    "description": "The companion will use information about computer activity to calculate a score and suggest changes. Suggestions will be generated on your computer by checking for conditions such as long periods of inactivity.",
+    "caption": "The scores will help you identify which computer habits you might want to change and follow your progress over time.",
     "card": {
-      "tag": "Built around meaningful next steps",
-      "image": {
-        "src": "/images/home/lightbulb.webp",
-        "alt": "The solution"
-      },
       "steps": [
         {
-          "label": "Score",
-          "line1": "One score.",
-          "line2": "Three useful perspectives."
+          "label": "Understand your scores",
+          "line1": "View separate scores for energy efficiency,",
+          "line2": "storage efficiency and computer habits, plus an overall score.",
+          "icon": "chart"
         },
         {
-          "label": "Recommend",
-          "line1": "Thoughtful guidance.",
-          "line2": "Practical everyday actions."
+          "label": "Suggest actions",
+          "line1": "Suggest practical changes, such as",
+          "line2": "reviewing sleep settings after long periods of inactivity.",
+          "icon": "check"
         },
         {
-          "label": "Reflect",
-          "line1": "See your progress.",
-          "line2": "Build a lighter digital life."
+          "label": "Review changes",
+          "line1": "Look back at your scores",
+          "line2": "and see how your computer habits change over time.",
+          "icon": "progress"
         }
       ]
     }
   },
   "features": {
-    "eyebrow": "What the companion offers",
-    "title": "Small choices.",
-    "accent": "Meaningful change.",
-    "description": "Understand your digital habits, discover ways to improve them, and make more informed choices.",
+    "eyebrow": "Companion features",
+    "title": "Tools to understand",
+    "accent": "your computer habits",
+    "description": "The companion will bring together activity monitoring, sustainability scores, practical suggestions and progress reports to help you make informed choices about everyday computer use.",
     "items": [
       {
-        "title": "Understand",
-        "description": "Get to know the impact behind your everyday digital habits."
+        "title": "Activity monitoring",
+        "description": "See how long your computer stays idle, which applications are running, how power settings are configured and how much storage is being used.",
+        "icon": "activity"
       },
       {
-        "title": "Discover",
-        "description": "Explore simple ways to make your digital life more sustainable."
+        "title": "Sustainability scoring",
+        "description": "View scores for energy efficiency, storage efficiency and computer habits, and track changes through trends and weekly reports.",
+        "icon": "chart"
       },
       {
-        "title": "Take action",
-        "description": "Turn small, thoughtful choices into everyday habits."
+        "title": "Practical suggestions",
+        "description": "Get suggestions based on your computer use, such as reviewing sleep settings when your computer is often left idle.",
+        "icon": "lightbulb"
       },
       {
-        "title": "Keep growing",
-        "description": "Follow your progress over time and see how your digital habits change."
+        "title": "User controls",
+        "description": "Choose which activities to monitor, how often monitoring runs and when you receive notifications.",
+        "icon": "monitor"
       }
     ]
   },
   "metadata": {
     "title": "Digital Sustainability Companion",
-    "description": "Discover a research project at LUT University exploring more sustainable digital habits, energy use, and storage choices."
+    "description": "A LUT University research project developing a desktop companion to monitor selected computer activities and support more sustainable digital habits."
   }
 }

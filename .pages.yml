@@ -1,4 +1,3 @@
-# Pages CMS: edit content, while layouts and animations stay in code.
 media:
   - name: images
     label: Images
@@ -108,21 +107,6 @@ content:
         type: object
         required: true
         fields:
-          - name: deviceLabel
-            label: Device Label
-            type: string
-            required: true
-          - name: unusedFiles
-            label: Unused Files
-            type: string
-            required: true
-          - name: challengeBadges
-            label: Challenge Badges
-            type: string
-            required: true
-            list:
-              min: 3
-              max: 3
           - name: scoreLabel
             label: Score Label
             type: string
@@ -137,13 +121,6 @@ content:
             required: true
           - name: dimensions
             label: Dimensions
-            type: string
-            required: true
-            list:
-              min: 3
-              max: 3
-          - name: solutionBadges
-            label: Solution Badges
             type: string
             required: true
             list:
@@ -187,47 +164,6 @@ content:
                 label: Tag
                 type: string
                 required: true
-              - name: image
-                label: Image
-                type: object
-                required: true
-                fields:
-                  - name: src
-                    label: Src
-                    type: image
-                    required: true
-                    options:
-                      media: images
-                    pattern:
-                      regex: ^/images/.+
-                      message: Choose an image from the media library.
-                  - name: alt
-                    label: Alt
-                    type: string
-                    required: true
-              - name: steps
-                label: Steps
-                type: object
-                required: true
-                list:
-                  min: 3
-                  max: 3
-                  collapsible:
-                    collapsed: true
-                    summary: '{index}'
-                fields:
-                  - name: label
-                    label: Label
-                    type: string
-                    required: true
-                  - name: line1
-                    label: Line1
-                    type: string
-                    required: true
-                  - name: line2
-                    label: Line2
-                    type: string
-                    required: true
       - name: challenge
         label: Challenge
         type: object
@@ -258,28 +194,6 @@ content:
             type: object
             required: true
             fields:
-              - name: tag
-                label: Tag
-                type: string
-                required: true
-              - name: image
-                label: Image
-                type: object
-                required: true
-                fields:
-                  - name: src
-                    label: Src
-                    type: image
-                    required: true
-                    options:
-                      media: images
-                    pattern:
-                      regex: ^/images/.+
-                      message: Choose an image from the media library.
-                  - name: alt
-                    label: Alt
-                    type: string
-                    required: true
               - name: steps
                 label: Steps
                 type: object
@@ -303,6 +217,10 @@ content:
                     label: Line2
                     type: string
                     required: true
+                  - name: icon
+                    label: Icon
+                    required: true
+                    component: site-icon
       - name: solution
         label: Solution
         type: object
@@ -333,28 +251,6 @@ content:
             type: object
             required: true
             fields:
-              - name: tag
-                label: Tag
-                type: string
-                required: true
-              - name: image
-                label: Image
-                type: object
-                required: true
-                fields:
-                  - name: src
-                    label: Src
-                    type: image
-                    required: true
-                    options:
-                      media: images
-                    pattern:
-                      regex: ^/images/.+
-                      message: Choose an image from the media library.
-                  - name: alt
-                    label: Alt
-                    type: string
-                    required: true
               - name: steps
                 label: Steps
                 type: object
@@ -378,6 +274,10 @@ content:
                     label: Line2
                     type: string
                     required: true
+                  - name: icon
+                    label: Icon
+                    required: true
+                    component: site-icon
       - name: features
         label: Features
         type: object
@@ -418,6 +318,10 @@ content:
                 label: Description
                 type: text
                 required: true
+              - name: icon
+                label: Icon
+                required: true
+                component: site-icon
       - name: metadata
         label: Search / browser title
         type: object
@@ -441,36 +345,8 @@ content:
         label: Eyebrow Line1
         type: string
         required: true
-      - name: eyebrowLine2
-        label: Eyebrow Line2
-        type: string
-        required: true
       - name: title
         label: Title
-        type: string
-        required: true
-      - name: scanLabel
-        label: Scan Label
-        type: string
-        required: true
-      - name: nextLabel
-        label: Next Label
-        type: string
-        required: true
-      - name: nextMemberLabel
-        label: Next Member Label
-        type: string
-        required: true
-      - name: pauseLabel
-        label: Pause Label
-        type: string
-        required: true
-      - name: resumeLabel
-        label: Resume Label
-        type: string
-        required: true
-      - name: autoplayLabel
-        label: Autoplay Label
         type: string
         required: true
       - name: members
@@ -513,6 +389,12 @@ content:
                 label: Alt
                 type: string
                 required: true
+          - name: linkedin
+            label: LinkedIn profile URL (optional)
+            type: string
+            pattern:
+              regex: ^https://(www\.)?linkedin\.com/in/[^\s]+$
+              message: Enter the full HTTPS LinkedIn profile URL.
       - name: metadata
         label: Search / browser title
         type: object
@@ -526,135 +408,38 @@ content:
             label: Description
             type: text
             required: true
+      - name: introduction
+        label: introduction
+        type: text
+        required: true
+      - name: detailsLabel
+        label: details Label
+        type: string
+        required: true
+      - name: linkedinLabel
+        label: linkedin Label
+        type: string
+        required: true
+      - name: institution
+        label: Institution
+        type: string
+        required: true
   - name: project
     label: Project page
     type: file
     path: content/project.json
     format: json
     fields:
-      - name: title
-        label: Title
-        type: string
-        required: true
       - name: subtitle
         label: Subtitle
         type: string
         required: true
-      - name: storyLabel
-        label: Story Label
-        type: string
-        required: true
-      - name: images
-        label: Images
-        type: object
-        required: true
-        fields:
-          - name: forest
-            label: Forest
-            type: object
-            required: true
-            fields:
-              - name: src
-                label: Src
-                type: image
-                required: true
-                options:
-                  media: images
-                pattern:
-                  regex: ^/images/.+
-                  message: Choose an image from the media library.
-              - name: alt
-                label: Alt
-                type: string
-                required: true
-          - name: lake
-            label: Lake
-            type: object
-            required: true
-            fields:
-              - name: src
-                label: Src
-                type: image
-                required: true
-                options:
-                  media: images
-                pattern:
-                  regex: ^/images/.+
-                  message: Choose an image from the media library.
-              - name: alt
-                label: Alt
-                type: string
-                required: true
-          - name: energy
-            label: Energy
-            type: object
-            required: true
-            fields:
-              - name: src
-                label: Src
-                type: image
-                required: true
-                options:
-                  media: images
-                pattern:
-                  regex: ^/images/.+
-                  message: Choose an image from the media library.
-              - name: alt
-                label: Alt
-                type: string
-                required: true
       - name: paragraphs
         label: Paragraphs
         type: text
         required: true
         list:
           min: 1
-      - name: video
-        label: Video
-        type: object
-        required: true
-        fields:
-          - name: src
-            label: Src
-            type: file
-            required: false
-            options:
-              media: videos
-            description: Upload a video, or leave this blank when a direct hosted URL is provided.
-          - name: poster
-            label: Poster
-            type: image
-            required: true
-            options:
-              media: images
-            pattern:
-              regex: ^/images/.+
-              message: Choose an image from the media library.
-          - name: title
-            label: Title
-            type: string
-            required: true
-            list:
-              min: 2
-              max: 2
-          - name: subtitle
-            label: Subtitle
-            type: string
-            required: true
-          - name: url
-            label: Url
-            type: string
-            required: false
-            description: >-
-              Optional direct HTTPS video URL (MP4/WebM). Overrides the uploaded file. Not a YouTube page
-              link.
-            pattern:
-              regex: ^(https://[^\s]+)?$
-              message: Use a direct HTTPS URL, or leave blank to use the uploaded video.
-          - name: label
-            label: Label
-            type: string
-            required: true
       - name: metadata
         label: Search / browser title
         type: object
@@ -668,6 +453,423 @@ content:
             label: Description
             type: text
             required: true
+      - name: research
+        label: Research
+        type: object
+        required: true
+        fields:
+          - name: eyebrow
+            label: Eyebrow
+            type: string
+            required: true
+          - name: status
+            label: Status
+            type: string
+            required: true
+          - name: institution
+            label: Institution
+            type: string
+            required: true
+          - name: introduction
+            label: Introduction
+            type: text
+            required: true
+          - name: overviewTitle
+            label: Overview Title
+            type: string
+            required: true
+          - name: methodLabel
+            label: Method Label
+            type: string
+            required: true
+          - name: methodTitle
+            label: Method Title
+            type: string
+            required: true
+          - name: methodDescription
+            label: Method Description
+            type: text
+            required: true
+          - name: architecture
+            label: Architecture
+            type: object
+            required: true
+            fields:
+              - name: eyebrow
+                label: Eyebrow
+                type: string
+                required: true
+              - name: title
+                label: Title
+                type: string
+                required: true
+              - name: introduction
+                label: Introduction
+                type: text
+                required: true
+              - name: localLabel
+                label: Local Label
+                type: string
+                required: true
+              - name: localDescription
+                label: Local Description
+                type: string
+                required: true
+              - name: cloudLabel
+                label: Cloud Label
+                type: string
+                required: true
+              - name: cloudDescription
+                label: Cloud Description
+                type: string
+                required: true
+              - name: storageConnection
+                label: Storage Connection
+                type: string
+                required: true
+              - name: cloudConnection
+                label: Cloud Connection
+                type: string
+                required: true
+              - name: detailsLabel
+                label: Details Label
+                type: string
+                required: true
+              - name: selectLabel
+                label: Select Label
+                type: string
+                required: true
+              - name: nodes
+                label: Nodes
+                type: object
+                required: true
+                fields:
+                  - name: monitoring
+                    label: Monitoring
+                    type: object
+                    required: true
+                    fields:
+                      - name: title
+                        label: Title
+                        type: string
+                        required: true
+                      - name: summary
+                        label: Summary
+                        type: string
+                        required: true
+                      - name: description
+                        label: Description
+                        type: text
+                        required: true
+                      - name: items
+                        label: Items
+                        type: string
+                        required: true
+                        list:
+                          min: 3
+                          max: 3
+                      - name: icon
+                        label: Icon
+                        required: true
+                        component: site-icon
+                  - name: analysis
+                    label: Analysis
+                    type: object
+                    required: true
+                    fields:
+                      - name: title
+                        label: Title
+                        type: string
+                        required: true
+                      - name: summary
+                        label: Summary
+                        type: string
+                        required: true
+                      - name: description
+                        label: Description
+                        type: text
+                        required: true
+                      - name: items
+                        label: Items
+                        type: string
+                        required: true
+                        list:
+                          min: 3
+                          max: 3
+                      - name: icon
+                        label: Icon
+                        required: true
+                        component: site-icon
+                  - name: recommendations
+                    label: Recommendations
+                    type: object
+                    required: true
+                    fields:
+                      - name: title
+                        label: Title
+                        type: string
+                        required: true
+                      - name: summary
+                        label: Summary
+                        type: string
+                        required: true
+                      - name: description
+                        label: Description
+                        type: text
+                        required: true
+                      - name: items
+                        label: Items
+                        type: string
+                        required: true
+                        list:
+                          min: 3
+                          max: 3
+                      - name: icon
+                        label: Icon
+                        required: true
+                        component: site-icon
+                  - name: dashboard
+                    label: Dashboard
+                    type: object
+                    required: true
+                    fields:
+                      - name: title
+                        label: Title
+                        type: string
+                        required: true
+                      - name: summary
+                        label: Summary
+                        type: string
+                        required: true
+                      - name: description
+                        label: Description
+                        type: text
+                        required: true
+                      - name: items
+                        label: Items
+                        type: string
+                        required: true
+                        list:
+                          min: 3
+                          max: 3
+                      - name: icon
+                        label: Icon
+                        required: true
+                        component: site-icon
+                  - name: storage
+                    label: Storage
+                    type: object
+                    required: true
+                    fields:
+                      - name: title
+                        label: Title
+                        type: string
+                        required: true
+                      - name: summary
+                        label: Summary
+                        type: string
+                        required: true
+                      - name: description
+                        label: Description
+                        type: text
+                        required: true
+                      - name: items
+                        label: Items
+                        type: string
+                        required: true
+                        list:
+                          min: 3
+                          max: 3
+                      - name: icon
+                        label: Icon
+                        required: true
+                        component: site-icon
+                  - name: cloud
+                    label: Cloud
+                    type: object
+                    required: true
+                    fields:
+                      - name: title
+                        label: Title
+                        type: string
+                        required: true
+                      - name: summary
+                        label: Summary
+                        type: string
+                        required: true
+                      - name: description
+                        label: Description
+                        type: text
+                        required: true
+                      - name: items
+                        label: Items
+                        type: string
+                        required: true
+                        list:
+                          min: 3
+                          max: 3
+                      - name: icon
+                        label: Icon
+                        required: true
+                        component: site-icon
+                  - name: cloudStorage
+                    label: Cloud Storage
+                    required: true
+                    type: object
+                    fields:
+                      - name: title
+                        label: Title
+                        required: true
+                        type: string
+                      - name: summary
+                        label: Summary
+                        required: true
+                        type: string
+                      - name: description
+                        label: Description
+                        required: true
+                        type: text
+                      - name: items
+                        label: Items
+                        required: true
+                        type: string
+                        list:
+                          min: 1
+                          max: 12
+                      - name: icon
+                        label: Icon
+                        required: true
+                        component: site-icon
+                  - name: ai
+                    label: Ai
+                    required: true
+                    type: object
+                    fields:
+                      - name: title
+                        label: Title
+                        required: true
+                        type: string
+                      - name: summary
+                        label: Summary
+                        required: true
+                        type: string
+                      - name: description
+                        label: Description
+                        required: true
+                        type: text
+                      - name: items
+                        label: Items
+                        required: true
+                        type: string
+                        list:
+                          min: 1
+                          max: 12
+                      - name: icon
+                        label: Icon
+                        required: true
+                        component: site-icon
+                  - name: researchDatabase
+                    label: Research Database
+                    required: true
+                    type: object
+                    fields:
+                      - name: title
+                        label: Title
+                        required: true
+                        type: string
+                      - name: summary
+                        label: Summary
+                        required: true
+                        type: string
+                      - name: description
+                        label: Description
+                        required: true
+                        type: text
+                      - name: items
+                        label: Items
+                        required: true
+                        type: string
+                        list:
+                          min: 1
+                          max: 12
+                      - name: icon
+                        label: Icon
+                        required: true
+                        component: site-icon
+              - name: ipcConnection
+                label: Ipc Connection
+                required: true
+                type: text
+              - name: externalLabel
+                label: External Label
+                required: true
+                type: string
+              - name: externalDescription
+                label: External Description
+                required: true
+                type: text
+          - name: evaluation
+            label: Evaluation
+            type: object
+            required: true
+            fields:
+              - name: eyebrow
+                label: Eyebrow
+                type: string
+                required: true
+              - name: title
+                label: Title
+                type: string
+                required: true
+              - name: introduction
+                label: Introduction
+                type: text
+                required: true
+              - name: items
+                label: Items
+                type: object
+                required: true
+                fields:
+                  - name: title
+                    label: Title
+                    type: string
+                    required: true
+                  - name: description
+                    label: Description
+                    type: text
+                    required: true
+                list:
+                  min: 1
+                  max: 12
+          - name: contributions
+            label: Contributions
+            type: object
+            required: true
+            fields:
+              - name: eyebrow
+                label: Eyebrow
+                type: string
+                required: true
+              - name: title
+                label: Title
+                type: string
+                required: true
+              - name: items
+                label: Items
+                type: object
+                required: true
+                fields:
+                  - name: title
+                    label: Title
+                    type: string
+                    required: true
+                  - name: description
+                    label: Description
+                    type: text
+                    required: true
+                list:
+                  min: 2
+                  max: 2
   - name: contact
     label: Contact page
     type: file
@@ -708,14 +910,6 @@ content:
             label: Alt
             type: string
             required: true
-      - name: stickerLine1
-        label: Sticker Line1
-        type: string
-        required: true
-      - name: stickerLine2
-        label: Sticker Line2
-        type: string
-        required: true
       - name: captionLeft
         label: Caption Left
         type: string
@@ -800,16 +994,6 @@ content:
     path: content/site.json
     format: json
     fields:
-      - name: url
-        label: Production website address
-        type: string
-        required: true
-        description: >-
-          Your public HTTPS domain only, with no page path. Used for canonical links, sharing, and sitemap
-          URLs.
-        pattern:
-          regex: ^https://[^/?#\s]+/?$
-          message: Use an HTTPS origin, such as https://example.com, without a page path.
       - name: title
         label: Title
         type: string
@@ -885,14 +1069,6 @@ content:
             label: University Caption
             type: string
             required: true
-          - name: statement
-            label: Statement
-            type: string
-            required: true
-          - name: statementAccent
-            label: Statement Accent
-            type: string
-            required: true
           - name: bottomLeft
             label: Bottom Left
             type: string
@@ -905,3 +1081,115 @@ content:
             label: Bottom Right
             type: string
             required: true
+      - name: url
+        label: Production website address
+        type: string
+        required: true
+        description: >-
+          Your public HTTPS domain only, with no page path. Used for canonical links, sharing, and sitemap
+          URLs.
+        pattern:
+          regex: ^https://[^/?#\s]+/?$
+          message: Use an HTTPS origin, such as https://example.com, without a page path.
+      - name: icons
+        label: Website icons
+        type: object
+        required: true
+        fields:
+          - name: brand
+            label: brand
+            required: true
+            component: site-icon
+          - name: arrowRight
+            label: arrow Right
+            required: true
+            component: site-icon
+          - name: externalLink
+            label: external Link
+            required: true
+            component: site-icon
+          - name: comingSoon
+            label: coming Soon
+            required: true
+            component: site-icon
+          - name: profileToggle
+            label: profile Toggle
+            required: true
+            component: site-icon
+          - name: contactSend
+            label: contact Send
+            required: true
+            component: site-icon
+          - name: play
+            label: play
+            required: true
+            component: site-icon
+          - name: pause
+            label: pause
+            required: true
+            component: site-icon
+          - name: arrowDown
+            label: arrow Down
+            required: true
+            component: site-icon
+          - name: verticalConnection
+            label: vertical Connection
+            required: true
+            component: site-icon
+          - name: menu
+            label: menu
+            required: true
+            component: site-icon
+          - name: linkedin
+            label: linkedin
+            required: true
+            component: site-icon
+components:
+  site-icon:
+    type: select
+    options:
+      values:
+        - name: leaf
+          label: leaf
+        - name: energy
+          label: energy
+        - name: folder
+          label: folder
+        - name: cloud
+          label: cloud
+        - name: chart
+          label: chart
+        - name: progress
+          label: progress
+        - name: check
+          label: check
+        - name: arrow-right
+          label: arrow right
+        - name: external-link
+          label: external link
+        - name: arrow-down
+          label: arrow down
+        - name: vertical-arrows
+          label: vertical arrows
+        - name: plus
+          label: plus
+        - name: clock
+          label: clock
+        - name: play
+          label: play
+        - name: pause
+          label: pause
+        - name: lightbulb
+          label: lightbulb
+        - name: monitor
+          label: monitor
+        - name: database
+          label: database
+        - name: activity
+          label: activity
+        - name: menu
+          label: menu
+        - name: send
+          label: send
+        - name: linkedin
+          label: linkedin

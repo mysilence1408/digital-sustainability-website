@@ -30,7 +30,7 @@ export default function LetterReveal({
       {gradient && (
         <span
           data-gradient-word
-          className="pointer-events-none absolute inset-x-0 -inset-y-[0.25em] whitespace-nowrap bg-[linear-gradient(45deg,#268c52,#b77514,#d65439)] bg-[length:200%_200%] bg-clip-text py-[0.25em] text-transparent opacity-0"
+          className="pointer-events-none absolute inset-x-0 -inset-y-[0.25em] whitespace-nowrap bg-[linear-gradient(45deg,var(--accent),var(--accent-alt),var(--accent))] bg-[length:200%_200%] bg-clip-text py-[0.25em] text-transparent opacity-0"
         >
           {text}
         </span>

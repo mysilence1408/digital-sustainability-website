@@ -1,6 +1,6 @@
 {
   "title": "Digital Sustainability Companion",
-  "description": "A university research project exploring a lighter digital life through mindful energy use, storage habits, and everyday digital behaviour.",
+  "description": "A LUT University research project developing and evaluating a desktop application for digital sustainability.",
   "navigation": [
     {
       "label": "Home",
@@ -22,19 +22,31 @@
   "menuLabel": "Menu",
   "closeLabel": "Close",
   "footer": {
-    "navigationLabel": "Keep exploring",
+    "navigationLabel": "Navigation",
     "brand": "Digital Sustainability Companion",
-    "title": "Small habits.",
-    "titleAccent": "A lighter digital footprint.",
-    "description": "Exploring how everyday digital choices can make room for a more sustainable future.",
+    "title": "Helping you understand",
+    "titleAccent": "your computer use.",
+    "description": "Have a question about digital sustainability or our research? Get in touch with the team through the contact page.",
     "universityLabel": "LUT University",
     "universityUrl": "https://www.lut.fi/en",
-    "universityCaption": "Research, people, and thoughtful technology.",
-    "statement": "Lighter, together",
-    "statementAccent": ".",
+    "universityCaption": "Learn more about LUT University.",
     "bottomLeft": "A university research project",
-    "bottomMiddle": "Energy / Storage / Everyday habits",
-    "bottomRight": "Mindful by design"
+    "bottomMiddle": "Monitoring / Scoring / Recommendations",
+    "bottomRight": "In development"
   },
-  "url": "https://digital-sustainability-website-ten.vercel.app"
+  "url": "https://digital-sustainability-website-ten.vercel.app",
+  "icons": {
+    "brand": "leaf",
+    "arrowRight": "arrow-right",
+    "externalLink": "external-link",
+    "comingSoon": "clock",
+    "profileToggle": "plus",
+    "contactSend": "arrow-right",
+    "play": "play",
+    "pause": "pause",
+    "arrowDown": "arrow-down",
+    "verticalConnection": "vertical-arrows",
+    "menu": "menu",
+    "linkedin": "linkedin"
+  }
 }

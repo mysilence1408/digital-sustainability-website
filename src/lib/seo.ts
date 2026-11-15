@@ -24,8 +24,7 @@ export function pageMetadata(path: PublicRoute, content: { title: string; descri
       url: absoluteUrl(path),
       title: content.title,
       description: content.description,
-      // Repeat images when replacing the page's Open Graph object: nested
-      // metadata does not deep-merge the parent's sharing image.
+
       images: [{ url: absoluteUrl(shareImage.src), width: shareImage.width, height: shareImage.height, alt: site.title }],
     },
     twitter: {

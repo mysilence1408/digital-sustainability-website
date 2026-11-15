@@ -1,35 +1,183 @@
 {
-  "title": "Our project",
   "subtitle": "Digital Sustainability Companion",
-  "storyLabel": "About the project",
-  "images": {
-    "forest": {
-      "src": "/images/project/workstation.webp",
-      "alt": "workstation with a laptop"
-    },
-    "lake": {
-      "src": "/images/project/percent.webp",
-      "alt": "A percentage sign shown on the leafs"
-    },
-    "energy": {
-      "src": "/images/project/globe.webp",
-      "alt": "A globe with signs around it"
-    }
-  },
   "paragraphs": [
-    "Digital technologies are part of our everyday work, but we rarely think about the resources they consume. Computers may remain running when we're not using them, applications continue working in the background, and files accumulate over time. Individually, these activities may seem insignificant, but together they contribute to unnecessary energy and resource consumption. The Digital Sustainability Companion project investigates how we can better understand these activities and reduce their environmental impact.",
-    "As part of the project, we are developing a desktop application that monitors selected computer activities and calculates a Digital Sustainability Score based on energy efficiency, storage efficiency, and digital behaviour. The application is designed to provide personalized recommendations and help users follow their progress over time. Through this research, we also want to understand whether providing people with information about their digital habits can encourage them to make more sustainable choices."
+    "The Digital Sustainability Companion is a research project at LUT University. We are developing a desktop application for employees who use a computer in their daily work. The aim is to help them understand selected digital activities and consider changes to their habits.",
+    "The application will monitor idle time, running applications, available power-management information and local storage use. It will use these indicators to calculate a Digital Sustainability Score (DSS) and generate rule-based recommendations. Monitoring, scoring and core recommendations are designed to run locally, including when the computer is offline.",
+    "Users will be able to review their scores over time, receive practical suggestions and choose which activities to monitor. For example, someone whose computer is often left idle might receive a suggestion to review their sleep settings."
   ],
-  "video": {
-    "src": "/videos/project/green_city.mp4",
-    "poster": "/images/project/green_city_poster.jpg",
-    "title": ["The digital world", "has a physical impact."],
-    "subtitle": "Exploring how everyday digital activities affect energy and resource consumption.",
-    "url": "",
-    "label": "Aerial views of forests and lakes highlighting environmental sustainability"
-  },
   "metadata": {
     "title": "Project | Digital Sustainability Companion",
-    "description": "Exploring a lighter digital footprint through research, thoughtful design, and more considered everyday habits."
+    "description": "The proposed Digital Sustainability Companion: local monitoring, indicator-based scoring, recommendations and a planned user evaluation at LUT University."
+  },
+  "research": {
+    "eyebrow": "Project",
+    "status": "In development",
+    "institution": "LUT University",
+    "introduction": "We are developing a desktop application to help LUT University employees understand selected computer activities and consider more sustainable digital habits.",
+    "overviewTitle": "What the project is developing",
+    "methodLabel": "Research approach",
+    "methodTitle": "Developing and testing the companion",
+    "methodDescription": "We will build the companion and test it with LUT University employees. Their feedback will help us understand how useful it is, how easy it is to use and whether it helps them make changes to their everyday computer habits.",
+    "architecture": {
+      "eyebrow": "System architecture",
+      "title": "How the companion will work",
+      "introduction": "Select a component to read its role in the proposed system. The diagram shows planned connections, not live data transfers.",
+      "localLabel": "On your device",
+      "localDescription": "The companion will help users review their computer use, see their scores and get practical suggestions, even without an internet connection.",
+      "cloudLabel": "Optional backend services",
+      "cloudDescription": "External communication will require user consent. Research sharing will use approved, anonymized or aggregated summaries; AI requests will contain only the information needed for an explanation.",
+      "storageConnection": "Solid: Internal application and backend communication.",
+      "cloudConnection": "Dotted: Optional external communication or consent-dependent data transmission.",
+      "detailsLabel": "Component details",
+      "selectLabel": "Read about",
+      "nodes": {
+        "monitoring": {
+          "title": "Activity monitoring",
+          "summary": "Idle time, applications, power and storage",
+          "description": "The monitoring module will collect selected activity information at configurable intervals. Users will be able to enable, disable or configure supported monitoring functions.",
+          "items": [
+            "Idle time, running applications and available power-management information",
+            "Local storage usage, with relevant monitoring records saved in SQLite",
+            "Optional access to supported cloud storage providers, with explicit permission"
+          ],
+          "icon": "activity"
+        },
+        "analysis": {
+          "title": "Sustainability analysis",
+          "summary": "DSS indicators and calculations",
+          "description": "The analytics engine will validate monitoring information and calculate the three DSS sub-scores and an overall score.",
+          "items": [
+            "Energy Efficiency, Storage Efficiency and Digital Behaviour",
+            "Scores stored locally and made available to the interface and recommendation engine",
+            "DSS is an indicator-based score, not a direct measurement of electricity consumption or carbon emissions"
+          ],
+          "icon": "chart"
+        },
+        "recommendations": {
+          "title": "Recommendation engine",
+          "summary": "Rules evaluated on the computer",
+          "description": "Local rules will use monitoring indicators and scores to generate recommendations and basic notifications. Generated recommendations will be stored in SQLite. Optional AI services may explain recommendations, but will not replace the local rule-based system.",
+          "items": [
+            "Recommendations based on defined conditions, such as prolonged inactivity or power settings",
+            "Local storage of recommendations and user notification preferences",
+            "Optional AI explanations requested through the backend only when enabled"
+          ],
+          "icon": "lightbulb"
+        },
+        "dashboard": {
+          "title": "User interface",
+          "summary": "Dashboard, scores and settings",
+          "description": "The interface will bring together your activity summaries, scores and recommendations. You will also be able to review saved results and change your monitoring and notification settings.",
+          "items": [
+            "Initial interface: Dashboard, DSS, Recommendations and Settings",
+            "Basic notifications with user controls",
+            "Historical visualizations and weekly reports"
+          ],
+          "icon": "monitor"
+        },
+        "storage": {
+          "title": "Local database (SQLite)",
+          "summary": "Monitoring records, results and preferences",
+          "description": "Your activity information, settings, score history and recommendations will be saved on your computer, so you can review previous results even without an internet connection.",
+          "items": [
+            "Monitoring records or aggregated measurements needed for scoring",
+            "User settings, DSS history and generated recommendations",
+            "Storage for periodic reports when reporting is implemented"
+          ],
+          "icon": "database"
+        },
+        "cloud": {
+          "title": "Cloud backend",
+          "summary": "Authorized requests and research summaries",
+          "description": "This online service will support optional AI explanations of users' recommendations and, with their permission, share a summary of their results for research. Users will still be able to use the companion's monitoring, scores and recommendations without an internet connection.",
+          "items": [
+            "Optional AI explanations to help users understand their recommendations",
+            "Authorized, anonymized or aggregated research summaries stored in PostgreSQL",
+            "Local monitoring, scoring and rules remain available if backend services are unavailable"
+          ],
+          "icon": "cloud"
+        },
+        "cloudStorage": {
+          "title": "Cloud storage providers",
+          "summary": "Optional monitoring with permission",
+          "description": "The DSC may connect to cloud storage services, such as Google Drive or OneDrive, to collect information about users' storage usage with their permission. This feature is optional and may be added in future versions of the application.",
+          "items": [
+            "Explicit user permission before access",
+            "Information about how much cloud storage users are using",
+            "Cloud storage usage shown alongside local storage usage"
+          ],
+          "icon": "folder"
+        },
+        "ai": {
+          "title": "AI explanation service",
+          "summary": "Optional explanations through the backend",
+          "description": "The backend may use Azure OpenAI or the OpenAI API to provide explanations of locally generated recommendations.",
+          "items": [
+            "Enabled only with user consent",
+            "Local recommendations remain available without AI"
+          ],
+          "icon": "lightbulb"
+        },
+        "researchDatabase": {
+          "title": "Research database (PostgreSQL)",
+          "summary": "Approved research summaries",
+          "description": "The backend will save and retrieve approved, anonymized or appropriately aggregated research information in PostgreSQL.",
+          "items": [
+            "Research sharing requires user authorization",
+            "No direct connection from the React interface to PostgreSQL",
+            "Separate from the local SQLite database"
+          ],
+          "icon": "database"
+        }
+      },
+      "ipcConnection": "Arrows at both ends show information moving in both directions, such as requesting saved results and receiving them for display.",
+      "externalLabel": "Connected services and research storage",
+      "externalDescription": "With users' permission, the companion can also check your cloud storage use. Optional AI explanations and research data sharing use an online service."
+    },
+    "evaluation": {
+      "eyebrow": "Planned evaluation",
+      "title": "How the application will be evaluated",
+      "introduction": "Testing will check whether the application works as intended and how much computing resource it uses. User evaluation will examine usability, satisfaction and changes in digital habits.",
+      "items": [
+        {
+          "title": "Functionality and offline use",
+          "description": "Test monitoring, score calculations, recommendation rules, notifications, local storage and behaviour when external services are unavailable."
+        },
+        {
+          "title": "Resource consumption",
+          "description": "Measure CPU and memory use, startup time, monitoring overhead and disk activity."
+        },
+        {
+          "title": "Privacy and user control",
+          "description": "Check local processing, controlled Electron interfaces, permission settings and the information included in authorized external requests."
+        },
+        {
+          "title": "Usability",
+          "description": "Ask participants to complete typical tasks, use the System Usability Scale (SUS) and collect feedback on confusing or difficult parts of the interface."
+        },
+        {
+          "title": "User satisfaction",
+          "description": "Collect feedback about the usefulness of scores, recommendations, notifications and reports when available."
+        },
+        {
+          "title": "Digital habits",
+          "description": "Compare users' sustainability scores and digital habits before and after using the DSC, and collect feedback on how they interact with its recommendations."
+        }
+      ]
+    },
+    "contributions": {
+      "eyebrow": "Expected contributions",
+      "title": "What we expect to learn and produce",
+      "items": [
+        {
+          "title": "A desktop application for evaluation",
+          "description": "An application that combines local monitoring, sustainability scoring and rule-based recommendations for use in the university workplace."
+        },
+        {
+          "title": "Evidence about sustainability feedback",
+          "description": "Findings on how participants use the companion, whether their monitored habits change and which parts of the application they find useful or difficult."
+        }
+      ]
+    }
   }
 }

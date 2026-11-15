@@ -1,44 +1,44 @@
 {
   "eyebrowLine1": "The team",
-  "eyebrowLine2": "working on the project",
-  "title": "TEAM",
-  "scanLabel": "Portrait scan",
-  "nextLabel": "Next",
-  "nextMemberLabel": "Next member",
-  "pauseLabel": "Pause",
-  "resumeLabel": "Resume",
-  "autoplayLabel": "autoplay",
+  "title": "Meet the research team",
   "members": [
     {
       "name": "Prof. Dominik Siemon",
-      "role": "Project Supervisorr",
+      "role": "Project Supervisor",
       "description": "Prof. Dominik Siemon is an Associate Professor at LUT University. His research focuses on the design of information systems, human–computer interaction, and artificial intelligence, with particular interest in how technology affects people and organizations.",
       "image": {
-        "src": "/images/team/head-01.webp",
+        "src": "/images/team/member-1.webp",
         "alt": "Dominik Siemon"
-      }
+      },
+      "linkedin": "https://www.linkedin.com/in/dominik-siemon-270368193/"
     },
     {
       "name": "Ram Gurung",
       "role": "Project Manager",
       "description": "Ram Gurung is a Junior Researcher in Software Engineering at LUT University. His published research includes green coding, software energy efficiency, and AI-assisted software testing.",
       "image": {
-        "src": "/images/team/head-02.webp",
+        "src": "/images/team/member-2.webp",
         "alt": "Ram Gurung"
-      }
+      },
+      "linkedin": "https://www.linkedin.com/in/gurungram/"
     },
     {
       "name": "Ashkan Kohandel Shirazi",
       "role": "Junior Research Assistant",
-      "description": "Ashkan Kohandel is a Junior Research Assistant at LUT University, working on the research and development of the Digital Sustainability Companion project.",
+      "description": "Ashkan Kohandel Shirazi is a Junior Research Assistant at LUT University, working on the research and development of the Digital Sustainability Companion project.",
       "image": {
-        "src": "/images/team/head-03.webp",
+        "src": "/images/team/member-3.webp",
         "alt": "Ashkan Kohandel Shirazi"
-      }
+      },
+      "linkedin": "https://www.linkedin.com/in/ashkan-kohandel/"
     }
   ],
   "metadata": {
     "title": "About us | Digital Sustainability Companion",
     "description": "Meet the people behind the Digital Sustainability Companion research project at LUT University."
-  }
+  },
+  "introduction": "The team at LUT University is developing the Digital Sustainability Companion and preparing its research evaluation.",
+  "detailsLabel": "View profile",
+  "linkedinLabel": "LinkedIn profile",
+  "institution": "LUT University"
 }

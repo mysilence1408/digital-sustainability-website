@@ -7,7 +7,7 @@ export const metadata = pageMetadata("/about", about.metadata);
 
 export default function Page() {
   return (
-    <main id="main-content" tabIndex={-1}>
+    <main id="main-content" tabIndex={-1} data-page-entrance>
       <PageStructuredData path="/about" title={about.metadata.title} description={about.metadata.description} />
       <Team />
     </main>

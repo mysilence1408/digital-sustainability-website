@@ -1,4 +1,4 @@
-/** A procedural carbon-footprint emblem; every point remains a stable GPU home. */
+
 export function carbonFootprintPoint(phase: number, random: () => number): [number, number, number] {
   const angle=random()*Math.PI*2;
   const tube=(radius: number): [number,number,number] => [Math.cos(angle)*radius,Math.sin(angle)*radius,(random()-.5)*radius];
@@ -23,7 +23,7 @@ export function carbonFootprintPoint(phase: number, random: () => number): [numb
     const t=(phase-.64)/.18;
     const radius=.009+random()*.009;
     const d=tube(radius);
-    // C and O are curved strokes; the small 2 sits on the baseline.
+
     if(t<.38){const a=.30*Math.PI+t/.38*1.40*Math.PI;return [-.40+.16*Math.cos(a)+d[0],.88+.21*Math.sin(a)+d[1],d[2]];}
     if(t<.76){const a=(t-.38)/.38*Math.PI*2;return [-.025+.16*Math.cos(a)+d[0],.88+.21*Math.sin(a)+d[1],d[2]];}
     const path=[[.20,.77],[.23,.81],[.29,.81],[.32,.77],[.30,.73],[.21,.65],[.33,.65]];
@@ -32,7 +32,7 @@ export function carbonFootprintPoint(phase: number, random: () => number): [numb
   }
   if(phase<.94){
     const a=(phase-.82)/.12*Math.PI*2;
-    // Delicate orbit frames the sprout without overpowering its silhouette.
+
     return [1.13*Math.cos(a)+.006*Math.cos(angle),.04+1.27*Math.sin(a),-.12+.006*Math.sin(angle)];
   }
   const local=(phase-.94)/.06;

@@ -7,7 +7,7 @@ export const metadata = pageMetadata("/contact", contact.metadata);
 
 export default function Page() {
   return (
-    <main id="main-content" tabIndex={-1}>
+    <main id="main-content" tabIndex={-1} data-page-entrance className="bg-[var(--page)]">
       <PageStructuredData path="/contact" title={contact.metadata.title} description={contact.metadata.description} />
       <ContactForm />
     </main>

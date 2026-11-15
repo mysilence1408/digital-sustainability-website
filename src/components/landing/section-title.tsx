@@ -14,7 +14,6 @@ export function notifySectionBackgroundReset(section: HTMLElement) {
   section.dispatchEvent(new Event("section-background-reset"));
 }
 
-// Keep words together and preserve the heading's line breaks and color spans.
 function splitLetters(children: ReactNode): ReactNode {
   return Children.map(children, (child) => {
     if (typeof child === "string") {
@@ -58,8 +57,7 @@ export default function SectionTitle({ children, id, className }: {
         ],
         stagger: 0.022,
       });
-      // Observe direction throughout the page, including while a color tween
-      // finishes. Reversing the scroll immediately clears a running trail.
+
       const direction = ScrollTrigger.create({
         start: 0,
         end: "max",

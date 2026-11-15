@@ -4,7 +4,6 @@ import { useLayoutEffect, useRef } from "react";
 import { usePageEntranceReady } from "@/components/providers/page-entrance";
 import { gsap } from "gsap";
 
-/** A landing-only decode, with the final text reserving its original layout. */
 export default function EncryptedText({ text, delay = 0 }: { text: string; delay?: number }) {
   const entranceReady = usePageEntranceReady();
   const display = useRef<HTMLSpanElement>(null);
@@ -41,6 +40,4 @@ export default function EncryptedText({ text, delay = 0 }: { text: string; delay
     <span ref={display} aria-hidden="true" className="col-start-1 row-start-1">{text}</span>
   </span>;
 }
-
-
 

@@ -1,7 +1,6 @@
 import { createDigitalLeafHomes } from "./digital-leaf-homes";
 import { createFootprintHomes } from "./footprint-homes";
 
-/** Carbon-footprint sculpture with stable particle homes and GPU magnetic displacement. */
 const quadVertex = `#version 300 es
 precision highp float;
 out vec2 uv;
@@ -10,7 +9,6 @@ void main(){
   uv=p; gl_Position=vec4(p*2.-1.,0.,1.);
 }`;
 
-// Shared by simulation and draw shaders so moving homes never diverge.
 const projection = `
 uniform vec2 viewport;
 uniform vec2 gaze;
@@ -23,7 +21,7 @@ mat3 rx(float a){float c=cos(a),s=sin(a);return mat3(1,0,0,0,c,s,0,-s,c);}
 mat3 ry(float a){float c=cos(a),s=sin(a);return mat3(c,0,-s,0,1,0,s,0,c);}
 mat3 rz(float a){float c=cos(a),s=sin(a);return mat3(c,s,0,-s,c,0,0,0,1);}
 float seed(float a){return fract(sin(a)*43758.5453);}
-// Both footprints share fixed GPU homes throughout all section states.
+
 vec3 ecoFootprint(float kind){
   vec3 p=texture(companionOrigin,particleUV).xyz;
   float goodbye=kind>4.5?.025*sin(time*3.):0.;
@@ -39,12 +37,12 @@ vec3 home(vec4 anchor){
   }else if(anchor.w<.5){
     p=ry(time*.085)*rx(.12)*p*(1.+.012*sin(time*.65));
   }else{
-    // Ring, leaf lamina and veins share this independent orbital transform.
+
     p=rz(-.38)*rx(.94+.035*sin(time*.18))*rz(time*.105)*p;
   }
   return sculpture>.5?p:p+vec3(0.,.025*sin(time*.48),0.);
 }
-// Extra horizontal framing accounts for the leaf extending beyond the orbit.
+
 vec3 eye(){return vec3(gaze.x*.2,gaze.y*.16,(sculpture>.5?max(4.8,5.8/(viewport.x/viewport.y)):max(6.,7.4/(viewport.x/viewport.y))));}
 mat3 cameraBasis(){
   vec3 z=normalize(eye()),x=normalize(cross(vec3(0,1,0),z));
@@ -69,7 +67,7 @@ ${projection}
 void main(){
   particleUV=uv;
   vec3 anchor=home(texture(origin,uv));
-  // State contains displacement, never the rotated world position.
+
   vec3 offset=texture(state,uv).xyz;
   if(any(isnan(offset))||any(isinf(offset))||length(offset)>1.)offset=vec3(0.);
   vec4 clip=project(anchor);
@@ -80,7 +78,7 @@ void main(){
   vec2 direction=distanceToPointer>.001?delta/distanceToPointer:vec2(1.,0.);
   vec2 push=direction*radius*.58*influence;
   vec3 destination=cameraBasis()*vec3(push,0.)*(2.*clip.w/(3.171595*viewport.y));
-  // Bounded force + exponential relaxation; home keeps rotating independently.
+
   offset=mix(offset,destination,1.-exp(-.095*hz));
   result=vec4(offset,1.);
 }`;
@@ -102,8 +100,7 @@ void main(){
   vec3 homePosition=home(anchor);
   vec3 p=homePosition+texture(state,uv).xyz;
   if(sculpture>.5){
-    // A traveling stroke gathers each tube cross-section outward from its centerline.
-    // Undrawn segments do not exist on screen; no whole-object fade or clipping mask.
+
     float stroke=drawProgress*1.04;
     float gathered=smoothstep(anchor.w,anchor.w+.035,stroke);
     vec3 center=home(vec4(anchor.x*.12,-1.04,anchor.z*.12,anchor.w));
@@ -125,7 +122,7 @@ void main(){
   float leaf=step(1.5,anchor.w);
   float accent=leaf+(1.-leaf)*step(.985,random.y);
   vec3 base=mix(violet,emerald,accent);
-  // Rim lighting and softer back-facing particles reveal the spherical volume.
+
   float facing=dot(normalize(homePosition),normalize(eye()-p));
   float rim=pow(1.-abs(facing),2.);
   float light=anchor.w<.5?(.28+.44*rim+.28*max(facing,0.)):1.;
@@ -134,8 +131,9 @@ void main(){
   float strength=anchor.w<.5?.42:(anchor.w<1.5?.20:.26);
   if(anchor.w>2.5)strength=.06;
   if(sculpture>.5){
-    // Fine silver particles with restrained sage highlights, retaining the original texture.
+
     base=mix(vec3(random.x*.2),vec3(.43,.64,.49),pow(random.z,65.));
+    if(lightTheme<.5)base=mix(vec3(.34,.40,.29),vec3(.71,.77,.61),random.x);
     sparkle=max(.12,.5+(.4+sin(time*4.+random.y*20.))*pow(random.z,10.)*2.5);
     float tip=exp(-pow((anchor.w-drawProgress)/.018,2.))*(1.-step(.99,drawProgress));
     color=vec4(base*sparkle*density*(1.+tip*.65),1.);
@@ -158,7 +156,7 @@ uniform float lightTheme;
 void main(){
   vec2 p=gl_PointCoord*2.-1.;float r=dot(p,p);
   if(r>1.)discard;
-  // Analytic soft spherical matcap, avoiding an external image request.
+
   float matcap=sqrt(max(0.,1.-r));
   float shade=(.35+.65*matcap)*(1.-smoothstep(.3,1.,r));
   if(lightTheme>.5){
@@ -176,12 +174,11 @@ type Target = {
 export type CompanionActing = { idle: number; arrival: number; color?: readonly [number, number, number] };
 const restingActing: CompanionActing = { idle: 0, arrival: 0 };
 
-/** Starts one scene; the public lifecycle below also handles context restoration. */
 function createScene(
   canvas: HTMLCanvasElement,
   sculpture = false,
   isFormationReady: () => boolean = () => true,
-  lightTheme = false,
+  lightTheme: boolean | (() => boolean) = false,
   getShape: () => number = () => 0,
   getActing: () => CompanionActing = () => restingActing,
 ): () => void {
@@ -267,7 +264,7 @@ function createScene(
       throw new Error("Floating-point framebuffer unavailable");
     return result;
   }
-  // Cache uniform locations: no shader reflection or allocations in the render loop.
+
   const locations = new Map<
     WebGLProgram,
     Map<string, WebGLUniformLocation | null>
@@ -309,7 +306,7 @@ function createScene(
   try {
     const step = program(quadVertex, particleStep),
       points = program(pointsVertex, pointsFragment);
-    // Original desktop density, with a smaller GPU texture on mobile. Two passes per frame.
+
     const size = mobile ? 128 : sculpture ? 512 : 256;
     const count = size * size;
     const anchors = new Float32Array(count * 4);
@@ -325,7 +322,7 @@ function createScene(
         anchors[i + 2] = heroHomes![i + 2];
         anchors[i + 3] = heroHomes![i + 3];
       } else if (index < sphereCount) {
-        // Fibonacci distribution produces a uniform spherical shell, not poles.
+
         const y = 1 - (2 * (index + 0.5)) / sphereCount;
         const angle = index * goldenAngle;
         const radius = 0.86 * (0.975 + Math.random() * 0.025);
@@ -343,7 +340,7 @@ function createScene(
         anchors[i + 2] = thickness * Math.sin(tube);
         anchors[i + 3] = 1;
       } else {
-        // A tapered lens with curved midrib and shallow folded 3D lamina.
+
         const leafIndex = index - sphereCount - ringCount;
         const leafCount = count - sphereCount - ringCount;
         const t = (leafIndex + 0.5) / leafCount;
@@ -433,8 +430,14 @@ function createScene(
         lastTime = 0;
         return;
       }
+
+      if (!reduced.matches && lastTime && now - lastTime < 1000 / 30 - 0.5) {
+        frame = requestAnimationFrame(render);
+        return;
+      }
+      const isLightTheme = typeof lightTheme === "function" ? lightTheme() : lightTheme;
       const delta = lastTime ? Math.min((now - lastTime) / 1000, 0.1) : 1 / 60;
-      // Exponential displacement relaxation stays stable without slowing on lower FPS.
+
       const hz = delta * 60;
       const shape = Math.max(0, Math.min(5, Math.round(getShape())));
       for(let i=0;i<6;i++)morphWeights[i]+=
@@ -445,8 +448,7 @@ function createScene(
       if (reduced.matches) drawingElapsed = formationDuration;
       else if (isFormationReady()) {
         formationStartedAt ??= now;
-        // Formation uses real elapsed time, independent of GPU warm-up/FPS.
-        // The capped delta above remains dedicated to stable particle simulation.
+
         drawingElapsed = Math.min(formationDuration, (now - formationStartedAt) / 1000);
       } else {
         formationStartedAt = null;
@@ -455,7 +457,7 @@ function createScene(
       const strokeTime = drawingElapsed / formationDuration;
       const drawProgress = reduced.matches
         ? 1
-        // Start visibly on the first frame, then settle gently at the tip.
+
         : 1 - Math.pow(1 - strokeTime, 3);
       gl.bindVertexArray(vao);
       gl.disable(gl.BLEND);
@@ -493,7 +495,7 @@ function createScene(
       gl.enable(gl.BLEND);
       gl.blendFuncSeparate(
         gl.ONE,
-        lightTheme ? gl.ONE_MINUS_SRC_ALPHA : gl.ONE,
+        isLightTheme ? gl.ONE_MINUS_SRC_ALPHA : gl.ONE,
         gl.ONE,
         gl.ONE_MINUS_SRC_ALPHA,
       );
@@ -501,7 +503,7 @@ function createScene(
       texture(points, "state", positions, 0);
       texture(points, "origin", origin, 1);
       texture(points, "companionOrigin", companionOrigin, 2);
-      scalar(points, "lightTheme", lightTheme ? 1 : 0);
+      scalar(points, "lightTheme", isLightTheme ? 1 : 0);
       scalar(points, "drawProgress", drawProgress);
       scalar(points, "size", size);
       scalar(points, "dpr", dpr);
@@ -519,7 +521,7 @@ function createScene(
       gl.enable(gl.BLEND);
       gl.blendFuncSeparate(
         gl.ONE,
-        lightTheme ? gl.ONE_MINUS_SRC_ALPHA : gl.ONE,
+        isLightTheme ? gl.ONE_MINUS_SRC_ALPHA : gl.ONE,
         gl.ONE,
         gl.ONE_MINUS_SRC_ALPHA,
       );
@@ -552,7 +554,7 @@ function createScene(
     intersection.observe(bounds);
     document.addEventListener("visibilitychange", visibility);
     const motionChanged = () => {
-      // Reset displacement when disabling motion, then render a single static frame.
+
       for (const state of [positions, nextPositions]) {
         gl.bindFramebuffer(gl.FRAMEBUFFER, state.framebuffer);
         gl.clearColor(0, 0, 0, 1);
@@ -587,12 +589,11 @@ function createScene(
   }
 }
 
-/** Owns context events separately, so a restored context gets fresh GPU resources. */
 function createRenderer(
   canvas: HTMLCanvasElement,
   sculpture: boolean,
   isFormationReady: () => boolean = () => true,
-  lightTheme = false,
+  lightTheme: boolean | (() => boolean) = false,
   getShape: () => number = () => 0,
   getActing: () => CompanionActing = () => restingActing,
 ): () => void {
@@ -617,7 +618,7 @@ function createRenderer(
 export function createParticleSculptureRenderer(
   canvas: HTMLCanvasElement,
   isFormationReady: () => boolean = () => true,
-  lightTheme = false,
+  lightTheme: boolean | (() => boolean) = false,
   getShape: () => number = () => 0,
   getActing: () => CompanionActing = () => restingActing,
 ): () => void {

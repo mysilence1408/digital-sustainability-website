@@ -1,5 +1,5 @@
 import { isPageEntranceReady } from "@/components/providers/page-entrance";
-/** Original transparent head cutouts, lit and scanned without facial reconstruction. */
+
 export function createFaceCloud(
   canvas: HTMLCanvasElement,
   images: HTMLImageElement[],
@@ -25,7 +25,7 @@ void main(){
  else{vec2 corners[6]=vec2[6](vec2(0,0),vec2(1,0),vec2(0,1),vec2(0,1),vec2(1,0),vec2(1,1));uv=corners[gl_VertexID];}
  float aspect=mix(aspectBefore,aspectAfter,smoothstep(0.,1.,progress));
  vec2 p=vec2((uv.x-.5)*2.*aspect,(.5-uv.y)*2.);
- // Stable UV homes preserve facial features; only the transition scatters them.
+
  float delay=hash(id+29.)*.20;
  float travel=smoothstep(delay,delay+.78,progress);
  float burst=sin(travel*3.14159265)*(1.-reduced);
@@ -38,7 +38,7 @@ void main(){
  float gathered=smoothstep(1.-uv.y,1.-uv.y+.12,entrance*1.12);
  if(particles>.5){p.y=mix(-1.,p.y,gathered);}
  float fit=min(viewport.x/(aspect*2.)*.87,viewport.y*.43);
- // Move the portrait as a whole: no inferred facial geometry or feature warping.
+
  p.x+=gaze.x*.045*(1.-reduced);
  p.y+=gaze.y*.012*(1.-reduced);
  gl_Position=vec4(p*fit/viewport*2.,0.,1.);
@@ -55,28 +55,26 @@ void main(){
  float id=row*grid+floor(uv.x*grid-mod(row,2.)*.5);
  float delay=fract(sin(id+29.)*43758.5453)*.20;
  float travel=smoothstep(delay,delay+.78,progress);
- // Premultiplied interpolation avoids dark fringes around transparent hair.
+
  vec4 face=mix(vec4(a.rgb*a.a,a.a),vec4(b.rgb*b.a,b.a),travel);
  float gathered=smoothstep(1.-uv.y,1.-uv.y+.12,entrance*1.12);
  if(face.a<.005||gathered<=0.)discard;
  vec3 rgb=face.rgb/max(face.a,.001);
  float l=dot(rgb,vec3(.2126,.7152,.0722));
- // Blue-white silver, with no remaining skin or clothing hue.
+
  float silver=pow(l,.80);
  vec3 ink=mix(vec3(.055,.11,.17),vec3(.88,.96,1.),silver);
  float scan=exp(-pow((fract(scanTime*.115)-uv.y)/.018,2.))*(1.-reduced);
  float key=exp(-pow((uv.x-.23)/.30,2.));
  float light=.40+1.70*key+.035*sin(time*.55+uv.x*2.)*(1.-reduced)+scan*.50;
  float burst=sin(progress*3.14159265)*(1.-reduced);
- // The faint detail layer vanishes during breakup, so the portrait really
- // becomes disconnected pieces instead of leaving a solid photo underneath.
+
  float alpha=face.a*(particles>.5?(.45+silver*.52):.07*pow(1.-burst,6.));
  if(particles>.5){vec2 q=gl_PointCoord*2.-1.;alpha*=1.-smoothstep(.50,1.,dot(q,q));}
  alpha*=gathered;
  float leadingEdge=exp(-pow((entrance*1.12-(1.-uv.y))/.025,2.))*(1.-step(.999,entrance));
  ink=ink*light+scan*.035+leadingEdge*.24;
- // A fluorescent-tube start: two uneven dimming pulses, then a steady image.
- // Bursts are infrequent, never black out the face, and avoid member transitions.
+
  float cycle=floor(time/10.3);
  float variation=fract(sin(cycle*17.13+3.1)*43758.5453);
  float age=mod(time,10.3)-(4.4+variation*1.8);
@@ -154,7 +152,6 @@ void main(){
     resize.disconnect();
     observer.disconnect();
     motion.removeEventListener("change", changed);
-    window.removeEventListener("page-entrance-change", changed);
     window.removeEventListener("pointermove", move);
     window.removeEventListener("blur", leave);
     document.documentElement.removeEventListener("pointerleave", leave);
@@ -219,7 +216,6 @@ void main(){
       ].map((name) => [name, gl.getUniformLocation(program, name)]),
     );
     const grid = matchMedia("(max-width:767px)").matches ? 172 : 260;
-    window.addEventListener("page-entrance-change", changed);
     resize.observe(canvas);
     observer.observe(canvas);
     motion.addEventListener("change", changed);

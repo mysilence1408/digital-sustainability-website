@@ -112,8 +112,7 @@ export default function FooterSymbols() {
         b.vy+=260*dt;b.x+=b.vx*dt;b.y+=b.vy*dt;b.angle+=b.spin*dt;
         b.vx*=Math.exp(-.22*dt);b.spin*=Math.exp(-.7*dt);
       });
-      // Equal/opposite impulses conserve momentum and propagate chain impacts.
-      // A held shape is kinematic, transferring its measured drag velocity.
+
       for(let pass=0;pass<3;pass++){
         for(let i=0;i<bodies.length;i++)for(let j=i+1;j<bodies.length;j++){
           const a=bodies[i],b=bodies[j],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy),limit=a.bound+b.bound;

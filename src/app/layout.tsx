@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import SmoothScroll from "@/components/providers/smooth-scroll";
-import PageTransition from "@/components/providers/page-transition";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
@@ -30,15 +29,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        <meta name="theme-color" content="#76C457" />
+        <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem("dsc-colour-theme");document.documentElement.dataset.theme=t==="dark"||t==="light"?t:"system"}catch{}` }} />
       </head>
-      <body className="min-h-full flex flex-col ">
+      <body className="min-h-full flex flex-col bg-[var(--page)] text-[var(--ink)]">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-5 focus:top-5 focus:z-[11000] focus:rounded-full focus:bg-[#222222] focus:px-6 focus:py-3 focus:text-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-5 focus:top-5 focus:z-[11000] focus:rounded-full focus:bg-[var(--ink)] focus:px-6 focus:py-3 focus:text-[var(--page)]"
         >
           Skip to content
         </a>
@@ -57,7 +57,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </Suspense>
         {children}
         <Footer />
-        <PageTransition />
       </body>
     </html>
   );

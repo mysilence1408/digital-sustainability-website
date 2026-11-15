@@ -1,7 +1,5 @@
-/** Photo-guided, authored head sculpts. These are approximate likenesses, not scans.
- * Order matches Team.tsx: 400px clean-shaven portrait, then the bearded portrait.
- * Only anatomy and surface tones live here; presentation stays in the renderer.
- */
+
+
 const profiles = [
   { height: 1.025, width: .675, jawTaper: .23, jawRoundness: .91,
     eyeSpacing: .244, eyeY: .205, eyeWidth: .145, eyeDepth: .105,
@@ -31,12 +29,12 @@ export function createHeadGeometry(count: number) {
     const x = ring * Math.sin(longitude) * profile.width * jaw;
     let z = ring * Math.cos(longitude) * .66;
     const front = Math.max(0, Math.cos(longitude)) ** 5;
-    // Bridge, tip, nostrils, eye sockets, brow ridge, cheekbones, lips and chin.
+
     let detail = .16*gauss(x,y,0,.14,profile.bridgeWidth,.32) + profile.noseTip*gauss(x,y,0,profile.noseY,profile.noseWidth,.13);
     detail += .045*(gauss(x,y,-.09,-.08,.052,.055)+gauss(x,y,.09,-.08,.052,.055));
     for(const side of [-1,1]) {
       detail -= profile.eyeDepth*gauss(x,y,side*profile.eyeSpacing,profile.eyeY,profile.eyeWidth,.083);
-      // Raised lid rims around recessed eyes, rather than hollow mannequin sockets.
+
       detail += .023*gauss(x,y,side*profile.eyeSpacing,profile.eyeY-.045,profile.eyeWidth,.025);
       detail += .027*gauss(x,y,side*profile.eyeSpacing,profile.eyeY+.045,profile.eyeWidth,.025);
       detail += profile.browHeight*gauss(x,y,side*profile.eyeSpacing,profile.browY,.17,.055);
@@ -56,7 +54,7 @@ export function createHeadGeometry(count: number) {
     return [x*(1+hair*.055),y+hair*(profile.hairVolume+curls+swept),z];
   };
   for(let member=0;member<2;member++) for(let i=0;i<count;i++) {
-    // The same sample topology in both models makes every particle morph continuously.
+
     const u = (i*.618033988749895)%1;
     const v = Math.acos(1-2*(i+.5)/count)/Math.PI;
     let p = head(u,v,member), normal: number[];

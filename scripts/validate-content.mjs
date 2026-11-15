@@ -6,11 +6,15 @@ import * as yaml from "js-yaml";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 export const config = yaml.load(fs.readFileSync(path.join(root, ".pages.yml"), "utf8"));
 
-/** Validate the exact schema used by the visual editor, including local uploads. */
 export function validateContent(entry, data) {
   const errors = [];
   const fail = (location, message) => errors.push(`${entry.path}: ${location} ${message}`);
   function fieldValue(field, value, location) {
+    if (field.component) {
+      const component = config.components?.[field.component];
+      if (!component) { fail(location, "references an unknown editor component."); return; }
+      field = { ...component, ...field };
+    }
     if (value === undefined || value === null || value === "") {
       if (field.required) fail(location, "is required.");
       return;
@@ -30,6 +34,10 @@ export function validateContent(entry, data) {
       return;
     }
     if (typeof value !== "string" || (field.required && !value.trim())) { fail(location, "must be non-empty text."); return; }
+    if (field.type === "select") {
+      const choices = field.options.values.map(option => typeof option === "string" ? option : option.name);
+      if (!choices.includes(value)) fail(location, "must use an available dropdown option.");
+    }
     if (field.pattern) {
       const regex = typeof field.pattern === "string" ? field.pattern : field.pattern.regex;
       if (!new RegExp(regex).test(value)) fail(location, typeof field.pattern === "object" ? field.pattern.message : "has an invalid format.");
@@ -45,9 +53,6 @@ export function validateContent(entry, data) {
     }
   }
   fieldValue({ type: "object", fields: entry.fields }, data, entry.name);
-  if (entry.name === "project" && !data.video?.src?.trim() && !data.video?.url?.trim()) {
-    fail("project.video", "needs either an uploaded video file or a direct HTTPS video URL.");
-  }
   return errors;
 }
 

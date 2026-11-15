@@ -1,33 +1,31 @@
 {
-  "eyebrow": "Contact / Let’s talk",
-  "title": "Get in touch.",
-  "titleAccent": "We're listening.",
-  "description": "Interested in our research, have a question about the project, or want to contribute? We'd be happy to hear from you.",
+  "eyebrow": "Contact",
+  "title": "Contact the",
+  "titleAccent": "research team",
+  "description": "If you have a question about the project or would like to discuss the research, send us a message.",
   "image": {
     "src": "/images/contact/lahti_campus.webp",
     "alt": "LUT University’s Lahti campus"
   },
-  "stickerLine1": "WE'D LIKE TO",
-  "stickerLine2": "HEAR FROM YOU.",
-  "captionLeft": "Research in progress.",
-  "captionRight": "Contact the research team. ↗",
+  "captionLeft": "LUT University",
+  "captionRight": "Lahti campus",
   "form": {
     "nameLabel": "Your name",
     "namePlaceholder": "Enter your name",
     "emailLabel": "Email",
     "emailPlaceholder": "you@example.com",
     "messageLabel": "Your message",
-    "messagePlaceholder": "Tell us what’s on your mind…",
+    "messagePlaceholder": "Write your message",
     "submitLabel": "Send message",
     "sendingLabel": "Sending…",
     "requiredNote": "All fields are required.",
     "validationMessage": "Please complete all three fields before sending.",
-    "unavailableMessage": "Sending isn’t available just yet. Please try again later.",
-    "successMessage": "Thank you. Your message is on its way!",
-    "errorMessage": "Your message couldn’t be sent. Your text is still here—please try again."
+    "unavailableMessage": "The contact form is currently unavailable. Please try again later.",
+    "successMessage": "Thank you. Your message has been sent.",
+    "errorMessage": "We couldn't send your message. Your text has been kept so you can try again."
   },
   "metadata": {
     "title": "Contact | Digital Sustainability Companion",
-    "description": "Get in touch with the Digital Sustainability Companion team to share a question, idea, or perspective on digital sustainability."
+    "description": "Contact the Digital Sustainability Companion research team at LUT University with questions about the project."
   }
 }

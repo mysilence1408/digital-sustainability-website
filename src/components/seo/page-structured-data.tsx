@@ -20,6 +20,6 @@ export default function PageStructuredData({ path, title, description }: { path:
     isPartOf: { "@id": absoluteUrl("/#website") },
   };
   const data = { "@context": "https://schema.org", "@graph": path === "/" ? [website, page] : [page] };
-  // CMS strings stay JSON data, even if they contain HTML-like characters.
+
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} />;
 }

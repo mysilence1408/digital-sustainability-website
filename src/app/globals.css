@@ -1,11 +1,173 @@
 @import "tailwindcss";
 
-html {
-  scrollbar-width: none;
+@property --page { syntax: "<color>"; inherits: true; initial-value: #faf6ef; }
+@property --footer-background { syntax: "<color>"; inherits: true; initial-value: #30382b; }
+@property --panel { syntax: "<color>"; inherits: true; initial-value: #e6e9e3; }
+@property --field { syntax: "<color>"; inherits: true; initial-value: #fffdf9; }
+@property --ink { syntax: "<color>"; inherits: true; initial-value: #382d27; }
+@property --copy { syntax: "<color>"; inherits: true; initial-value: #5c5048; }
+@property --line { syntax: "<color>"; inherits: true; initial-value: #a8b09f; }
+@property --accent { syntax: "<color>"; inherits: true; initial-value: #53643d; }
+@property --accent-alt { syntax: "<color>"; inherits: true; initial-value: #805d3d; }
+@property --accent-hover { syntax: "<color>"; inherits: true; initial-value: #435330; }
+@property --on-accent { syntax: "<color>"; inherits: true; initial-value: #ffffff; }
+@property --hover { syntax: "<color>"; inherits: true; initial-value: #dce2d6; }
+@property --error { syntax: "<color>"; inherits: true; initial-value: #9c3d2e; }
+
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    transition: --page 420ms ease-in-out,
+      --footer-background 420ms ease-in-out,
+      --panel 420ms ease-in-out,
+      --field 420ms ease-in-out,
+      --ink 420ms ease-in-out,
+      --copy 420ms ease-in-out,
+      --line 420ms ease-in-out,
+      --accent 420ms ease-in-out,
+      --accent-alt 420ms ease-in-out,
+      --accent-hover 420ms ease-in-out,
+      --on-accent 420ms ease-in-out,
+      --hover 420ms ease-in-out,
+      --error 420ms ease-in-out;
+  }
 }
 
-html::-webkit-scrollbar {
-  display: none;
+:root {
+  color-scheme: light;
+  --footer-background: #30382b;
+  --page: #faf6ef;
+  --panel: #e6e9e3;
+  --field: #fffdf9;
+  --ink: #382d27;
+  --copy: #5c5048;
+  --line: #a8b09f;
+  --accent: #53643d;
+  --accent-alt: #805d3d;
+  --accent-hover: #435330;
+  --on-accent: #ffffff;
+  --hover: #dce2d6;
+  --error: #9c3d2e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --footer-background: #252c22;
+    --page: #191714;
+    --panel: #26221d;
+    --field: #211e1a;
+    --ink: #f2eadf;
+    --copy: #c7bbaa;
+    --line: #776b5c;
+    --accent: #b5c59b;
+    --accent-alt: #d0b68f;
+    --accent-hover: #c5d3b0;
+    --on-accent: #191714;
+    --hover: #332e26;
+    --error: #f0a894;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --footer-background: #252c22;
+  --page: #191714;
+  --panel: #26221d;
+  --field: #211e1a;
+  --ink: #f2eadf;
+  --copy: #c7bbaa;
+  --line: #776b5c;
+  --accent: #b5c59b;
+  --accent-alt: #d0b68f;
+  --accent-hover: #c5d3b0;
+  --on-accent: #191714;
+  --hover: #332e26;
+  --error: #f0a894;
+}
+
+html { background: var(--page); }
+
+@theme inline {
+  --color-page: var(--page);
+  --color-panel: var(--panel);
+  --color-ink: var(--ink);
+  --color-copy: var(--copy);
+  --color-accent: var(--accent);
+  --color-line: var(--line);
+}
+
+.architecture-current {
+  animation: architecture-current 7s linear infinite;
+  animation-play-state: paused;
+}
+
+.architecture-current-both {
+  animation-name: architecture-current-both;
+  animation-direction: alternate;
+}
+
+[data-architecture-graph][data-running="true"] .architecture-current {
+  animation-play-state: running;
+}
+
+@keyframes architecture-current {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -100; }
+}
+
+@keyframes architecture-current-both {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -97; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .architecture-current { display: none; animation: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-page-entrance] > section:first-of-type {
+    animation: page-entrance 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@keyframes page-entrance {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+html[data-navigation-open="true"].lenis.lenis-stopped {
+  overflow-x: clip;
+
+  overflow-y: auto;
+}
+
+@supports (interpolate-size: allow-keywords) {
+  [data-team-profile]::details-content {
+    interpolate-size: allow-keywords;
+    block-size: 0;
+    overflow: hidden;
+    transition: block-size 450ms cubic-bezier(0.22, 1, 0.36, 1),
+      content-visibility 450ms allow-discrete;
+  }
+
+  [data-team-profile][open]::details-content {
+    block-size: auto;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-team-profile][open] [data-team-details] {
+    animation: team-details-enter 400ms ease-out both;
+  }
+}
+
+@keyframes team-details-enter {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-team-profile]::details-content { transition: none; }
 }
 
 .ai-glow-spill-mask {
@@ -15,17 +177,3 @@ html::-webkit-scrollbar {
     black 100%
   );
 }
-
-
-
-html[data-page-transition='active'] { overflow: hidden; }
-
-/* Do not show completed text underneath the wipe before its entrance starts. */
-html[data-page-transition='active'] [data-letter],
-html[data-page-transition='active'] [data-gradient-word],
-html[data-page-transition='active'] [data-enter],
-html[data-page-transition='active'] [data-member-copy],
-html[data-page-transition='active'] [data-entrance-copy] {
-  opacity: 0 !important;
-}
-

@@ -1,11 +1,11 @@
-/** Dense aerial forest with a leaf-shaped clearing and foliage CO2 lettering. */
+
 export function createForestHomes(count: number) {
   const size=800;
   const stencil=document.createElement("canvas");stencil.width=size;stencil.height=600;
   const ctx=stencil.getContext("2d",{willReadFrequently:true})!;
   ctx.fillStyle="white";ctx.beginPath();ctx.roundRect(32,24,736,552,82);ctx.fill();
   ctx.globalCompositeOperation="destination-out";
-  // A broad diagonal leaf clearing, with a forest vein left running through it.
+
   ctx.fill(new Path2D("M230 452 C152 281 315 169 570 105 C531 304 409 457 230 452Z"));
   ctx.globalCompositeOperation="source-over";
   ctx.strokeStyle="white";ctx.lineWidth=17;ctx.lineCap="round";
@@ -15,7 +15,7 @@ export function createForestHomes(count: number) {
   const mask=ctx.getImageData(0,0,size,600).data;
   const inside=(x:number,y:number)=>x>=0&&x<800&&y>=0&&y<600&&mask[(Math.floor(y)*800+Math.floor(x))*4+3]>180;
   const centers:{x:number;y:number;radius:number;height:number}[]=[];
-  // Closely spaced, overlapping crowns keep the forest dense rather than dotted.
+
   for(let row=0;row<48;row++)for(let col=0;col<64;col++){
     const x=(col+.5)*12.5+(Math.random()-.5)*5;
     const y=(row+.5)*12.5+(Math.random()-.5)*5;

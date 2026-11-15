@@ -1,113 +1,20 @@
 "use client";
 
+import SiteIcon from "@/components/ui/site-icon";
+import site from "@/content/site";
 import Image from "next/image";
-import { useLayoutEffect, useRef, useState, type FormEvent } from "react";
-import { gsap } from "gsap";
-import ContactSticker from "@/components/contact/contact-sticker";
-import { usePageEntranceReady } from "@/components/providers/page-entrance";
+import { useRef, useState, type FormEvent } from "react";
 import copy from "@/content/contact";
 
 const fieldClass =
-  "w-full rounded-none border-b border-[#293c31]/30 bg-transparent py-3 text-lg text-[#293c31] outline-none transition-colors placeholder:text-[#293c31]/35 focus:border-[#293c31] focus:border-b-2 disabled:opacity-50 sm:text-xl";
+  "mt-2 w-full rounded-lg border border-[var(--line)] bg-[var(--field)] px-4 py-3 text-base text-[var(--ink)] outline-none placeholder:text-[var(--copy)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20 disabled:opacity-60";
 
 export default function ContactForm() {
-  const root = useRef<HTMLElement>(null);
-  const imageArea = useRef<HTMLElement>(null);
-  const imageMotion = useRef<HTMLDivElement>(null);
-  const entranceReady = usePageEntranceReady();
-  const [imageLoaded, setImageLoaded] = useState(false);
   const sending = useRef(false);
   const [status, setStatus] = useState<
     "idle" | "sending" | "success" | "error"
   >("idle");
   const [feedback, setFeedback] = useState("");
-
-  useLayoutEffect(() => {
-    if (!entranceReady || !imageLoaded) return;
-    const media = gsap.matchMedia();
-    media.add("(prefers-reduced-motion: no-preference)", () => {
-      // Reveal from the right edge; keep the hover transform on its own layer.
-      gsap.fromTo(imageArea.current,
-        { clipPath: "inset(0% 0% 0% 100%)" },
-        { clipPath: "inset(0% 0% 0% 0%)", duration: 1.25, ease: "power3.inOut" },
-      );
-    }, root);
-    return () => media.revert();
-  }, [entranceReady, imageLoaded]);
-
-  useLayoutEffect(() => {
-    if (!entranceReady) return;
-    const media = gsap.matchMedia();
-    media.add(
-      "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
-      () => {
-        const area = imageArea.current!;
-        const image = imageMotion.current!;
-        const xTo = gsap.quickTo(image, "x", {
-          duration: 0.8,
-          ease: "power3.out",
-        });
-        const yTo = gsap.quickTo(image, "y", {
-          duration: 0.8,
-          ease: "power3.out",
-        });
-        const move = (event: PointerEvent) => {
-          if (event.pointerType === "touch") return;
-          const bounds = area.getBoundingClientRect();
-          const x = Math.max(
-            -1,
-            Math.min(1, ((event.clientX - bounds.left) / bounds.width) * 2 - 1),
-          );
-          const y = Math.max(
-            -1,
-            Math.min(1, ((event.clientY - bounds.top) / bounds.height) * 2 - 1),
-          );
-          xTo(x * 16);
-          yTo(y * 16);
-        };
-        const reset = () => {
-          xTo(0);
-          yTo(0);
-        };
-        area.addEventListener("pointermove", move, { passive: true });
-        area.addEventListener("pointerleave", reset);
-        area.addEventListener("pointercancel", reset);
-        window.addEventListener("blur", reset);
-        return () => {
-          area.removeEventListener("pointermove", move);
-          area.removeEventListener("pointerleave", reset);
-          area.removeEventListener("pointercancel", reset);
-          window.removeEventListener("blur", reset);
-        };
-      },
-      root,
-    );
-    return () => media.revert();
-  }, [entranceReady]);
-
-  useLayoutEffect(() => {
-    if (!entranceReady) return;
-    const media = gsap.matchMedia();
-    media.add(
-      "(prefers-reduced-motion: no-preference)",
-      () => {
-        gsap.fromTo(
-          root.current!.querySelectorAll("[data-enter]"),
-          { y: 24, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power3.out",
-            clearProps: "transform,opacity",
-          },
-        );
-      },
-      root,
-    );
-    return () => media.revert();
-  }, [entranceReady]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -169,32 +76,28 @@ export default function ContactForm() {
 
   return (
     <section
-      ref={root}
       aria-labelledby="contact-title"
-      className="relative isolate grid min-h-svh bg-[#fdf8f4] text-[#222222] lg:grid-cols-[1.05fr_1fr]"
+      className="relative mx-auto grid max-w-6xl gap-10 px-6 pb-16 pt-32 text-[var(--ink)] sm:px-9 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:px-12 lg:pb-24 lg:pt-40"
     >
-      <div className="relative z-10 flex flex-col justify-center px-6 pb-12 pt-32 sm:px-12 lg:min-h-[800px] lg:px-[clamp(2.5rem,6vw,7rem)] lg:pb-16 lg:pt-36">
+      <div className="min-w-0">
         <div className="mx-auto w-full max-w-xl">
           <p
-            data-enter
-            className="mb-6 text-xs font-medium uppercase tracking-[0.22em]"
+            className="mb-4 text-sm font-medium text-[var(--accent)]"
           >
             {copy.eyebrow}
           </p>
           <h1
             id="contact-title"
-            data-enter
-            className="max-w-lg text-[clamp(3.5rem,5.8vw,6.5rem)] font-medium leading-[0.95] tracking-[-0.065em]"
+            className="max-w-lg text-4xl font-semibold leading-[1.15] tracking-[-0.035em] sm:text-5xl"
           >
-            {copy.title}
+            {copy.title}{" "}
             <br />
-            <span className="font-serif font-normal italic tracking-[-0.06em]">
+            <span className="font-normal text-[var(--accent)]">
               {copy.titleAccent}
             </span>
           </h1>
           <p
-            data-enter
-            className="mt-6 max-w-sm whitespace-pre-line text-sm leading-relaxed text-[#293c31]/65 sm:text-base"
+            className="mt-5 max-w-lg whitespace-pre-line text-base leading-relaxed text-[var(--copy)]"
           >
             {copy.description}
           </p>
@@ -203,10 +106,10 @@ export default function ContactForm() {
             aria-busy={status === "sending"}
             className="mt-9 space-y-6"
           >
-            <div data-enter>
+            <div>
               <label
                 htmlFor="contact-name"
-                className="text-xs font-medium uppercase tracking-[0.13em]"
+                className="text-base font-medium"
               >
                 {copy.form.nameLabel}
                 <span aria-hidden="true">*</span>
@@ -224,10 +127,10 @@ export default function ContactForm() {
                 disabled={status === "sending"}
               />
             </div>
-            <div data-enter>
+            <div>
               <label
                 htmlFor="contact-email"
-                className="text-xs font-medium uppercase tracking-[0.13em]"
+                className="text-base font-medium"
               >
                 {copy.form.emailLabel}
                 <span aria-hidden="true">*</span>
@@ -244,50 +147,42 @@ export default function ContactForm() {
                 disabled={status === "sending"}
               />
             </div>
-            <div data-enter>
+            <div>
               <label
                 htmlFor="contact-message"
-                className="text-xs font-medium uppercase tracking-[0.13em]"
+                className="text-base font-medium"
               >
                 {copy.form.messageLabel}
                 <span aria-hidden="true">*</span>
               </label>
               <textarea
-                className={`${fieldClass} min-h-24 resize-y`}
+                className={`${fieldClass} min-h-36 resize-y`}
                 id="contact-message"
                 name="message"
-                rows={2}
+                rows={5}
                 placeholder={copy.form.messagePlaceholder}
                 required
                 maxLength={5000}
                 disabled={status === "sending"}
               />
             </div>
-            <div data-enter className="flex flex-wrap items-center gap-5 pt-1">
+            <div className="flex flex-wrap items-center gap-5 pt-1">
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="group inline-flex min-h-14 cursor-pointer items-center gap-10 rounded-full bg-[#293c31] py-2 pl-7 pr-2 text-sm font-medium text-[#fdf8f4] transition-colors hover:bg-[#3d5947] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#293c31] disabled:cursor-wait disabled:opacity-60"
+                className="inline-flex min-h-12 cursor-pointer items-center gap-3 rounded-lg bg-[var(--accent)] px-6 py-3 text-base font-medium text-[var(--on-accent)] hover:bg-[var(--accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] disabled:cursor-wait disabled:opacity-60"
               >
                 {status === "sending"
                   ? copy.form.sendingLabel
                   : copy.form.submitLabel}
                 <span
                   aria-hidden="true"
-                  className="flex size-10 items-center justify-center rounded-full bg-[#d7f991] text-[#293c31] transition-transform group-hover:-rotate-45 motion-reduce:transform-none"
+                  className="inline-flex items-center justify-center"
                 >
-                  <svg width="21" height="21" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M4 12h15m-6-6 6 6-6 6"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <SiteIcon name={site.icons.contactSend} className="size-5" />
                 </span>
               </button>
-              <span className="text-xs text-[#293c31]/55">
+              <span className="text-sm text-[var(--copy)]/80">
                 {copy.form.requiredNote}
               </span>
             </div>
@@ -295,45 +190,20 @@ export default function ContactForm() {
               role="status"
               aria-live="polite"
               aria-atomic="true"
-              className={`min-h-6 max-w-md text-sm leading-relaxed ${status === "error" ? "text-[#9c3d2e]" : "text-[#367348]"}`}
+              className={`min-h-6 max-w-md text-base leading-relaxed ${status === "error" ? "text-[var(--error)]" : "text-[var(--accent)]"}`}
             >
               {feedback}
             </p>
           </form>
         </div>
       </div>
-      <figure
-        ref={imageArea}
-        data-contact-image
-        className="relative m-0 min-h-[440px] overflow-hidden motion-safe:[clip-path:inset(0_0_0_100%)] sm:min-h-[580px] lg:min-h-full"
-      >
-        <div ref={imageMotion} className="absolute -inset-6">
-          <Image
-            src={copy.image.src}
-            alt={copy.image.alt}
-            fill
-            priority
-            onLoad={() => setImageLoaded(true)}
-            sizes="(min-width: 1024px) 49vw, 100vw"
-            className="object-cover object-center"
-          />
-        </div>
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-[#162b20]/45 via-transparent to-[#162b20]/10"
-        />
-        <div
-          data-enter
-          className="absolute left-6 top-12 w-[min(80%,340px)] rotate-[-5deg] sm:left-10 sm:top-16 lg:left-[-3px] lg:top-[28%] lg:w-[min(95%,420px)]"
-        >
-          <ContactSticker />
-        </div>
-        <figcaption className="absolute bottom-7 left-7 right-7 flex items-center justify-between gap-4 border-t border-white/40 pt-4 text-[10px] uppercase tracking-[0.17em] text-white sm:bottom-10 sm:left-10 sm:right-10">
-          <span>{copy.captionLeft}</span>
-          <span>{copy.captionRight}</span>
+      <figure className="relative m-0 aspect-[4/5] self-start overflow-hidden rounded-xl bg-[var(--panel)] lg:mt-1">
+        <Image src={copy.image.src} alt={copy.image.alt} fill priority sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover object-center" />
+        <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#191714]/85 to-transparent px-6 pb-6 pt-16 text-sm leading-relaxed text-white">
+          <span className="block">{copy.captionLeft}</span>
+          <span className="mt-1 block">{copy.captionRight}</span>
         </figcaption>
       </figure>
-      <noscript><style>{"[data-contact-image]{clip-path:none!important}"}</style></noscript>
     </section>
   );
 }
