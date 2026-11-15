@@ -21,7 +21,7 @@
     "requiredNote": "All fields are required.",
     "validationMessage": "Please complete all three fields before sending.",
     "unavailableMessage": "The contact form is currently unavailable. Please try again later.",
-    "successMessage": "Thank you. Your message has been sent.",
+    "successMessage": "Thank you. Message sent.",
     "errorMessage": "We couldn't send your message. Your text has been kept so you can try again."
   },
   "metadata": {
