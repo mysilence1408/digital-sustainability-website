@@ -1,6 +1,10 @@
 {
   "hero": {
-    "titleLines": ["Digital", "Sustainability", "Companion"],
+    "titleLines": [
+      "Digital",
+      "Sustainability",
+      "Companion"
+    ],
     "researchLabel": "A research project at LUT University",
     "researchSummary": "Developing a desktop application for employees at LUT University.",
     "particleCaption": "Computer activity, power settings and storage use",
@@ -18,7 +22,7 @@
       {
         "number": "02",
         "title": "Storage",
-        "description": "Information about local storage use."
+        "description": "Information about storage use."
       },
       {
         "number": "03",
