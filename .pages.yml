@@ -103,7 +103,7 @@ content:
             type: string
             required: true
       - name: art
-        label: Art
+        label: Dashboard illustration
         type: object
         required: true
         fields:
