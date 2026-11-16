@@ -26,7 +26,6 @@ export default function ArchitectureDiagram() {
   const [drawing, setDrawing] = useState<{ width: number; height: number; paths: ArchitectureConnection[] }>({ width: 1, height: 1, paths: [] });
   const [running, setRunning] = useState(false);
   const graph = useRef<HTMLDivElement>(null);
-  const details = useRef<HTMLDivElement>(null);
   const marker = `architecture-${useId().replace(/:/g, "")}`;
   const active = copy.nodes[selected];
 
@@ -117,36 +116,11 @@ export default function ArchitectureDiagram() {
       <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[var(--copy)]">{copy.externalDescription}</p>
       <h3 className="mt-4 text-base font-semibold">{copy.cloudLabel}</h3>
       <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[var(--copy)]">{copy.cloudDescription}</p>
-      <div ref={details} id="architecture-details" tabIndex={-1} aria-live="polite" aria-atomic="true" className="mt-7 min-h-72 rounded-r-xl border-l-2 border-[var(--accent)] bg-[var(--page)] p-6 sm:p-8">
+      <div id="architecture-details" aria-live="polite" aria-atomic="true" className="mt-7 min-h-72 rounded-r-xl border-l-2 border-[var(--accent)] bg-[var(--page)] p-6 sm:p-8">
         <p className="text-sm font-medium text-[var(--accent)]">{copy.detailsLabel}</p>
         <h3 className="mt-2 text-xl font-semibold sm:text-2xl">{active.title}</h3>
         <p className="mt-3 max-w-[75ch] text-base leading-relaxed text-[var(--copy)]">{active.description}</p>
         <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-relaxed text-[var(--copy)]">{active.items.map(item => <li key={item}>{item}</li>)}</ul>
-        <div data-mobile-connections className="mt-6 border-t border-[var(--line)] pt-5 md:hidden">
-          <h4 className="text-base font-semibold">{copy.connectedToLabel}</h4>
-          <ul className="mt-3 space-y-3">
-            {drawing.paths.filter(connection => connection.from === selected || connection.to === selected).map(connection => {
-              const target = connection.from === selected ? connection.to : connection.from;
-              const key = `${connection.from}-${connection.to}` as keyof typeof copy.connectionDescriptions;
-              const direction = connection.both ? copy.twoWayLabel : connection.from === selected ? copy.sendsToLabel : copy.receivesFromLabel;
-              return <li key={key}>
-                <button type="button" data-connected-node={target} aria-controls="architecture-details" onClick={() => {
-                  selectNode(target);
-                  requestAnimationFrame(() => details.current?.focus({ preventScroll: true }));
-                }} className="w-full cursor-pointer rounded-lg border border-[var(--line)] bg-[var(--panel)] p-4 text-left hover:border-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]">
-                  <span className="flex items-start gap-3">
-                    <span aria-hidden="true" className="text-xl leading-6 text-[var(--accent)]">{connection.both ? "↔" : connection.from === selected ? "→" : "←"}</span>
-                    <span className="min-w-0">
-                      <span className="block text-sm text-[var(--copy)]">{direction}{connection.optional ? ` · ${copy.optionalConnectionLabel}` : ""}</span>
-                      <span className="mt-1 block text-base font-semibold">{copy.nodes[target].title}</span>
-                      <span className="mt-2 block text-sm leading-relaxed text-[var(--copy)]">{copy.connectionDescriptions[key]}</span>
-                    </span>
-                  </span>
-                </button>
-              </li>;
-            })}
-          </ul>
-        </div>
       </div>
     </div>
   );

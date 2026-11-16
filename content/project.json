@@ -30,27 +30,6 @@
       "cloudConnection": "Dotted: Optional external communication or consent-dependent data transmission.",
       "detailsLabel": "Component details",
       "selectLabel": "Read about",
-      "connectedToLabel": "Connected to",
-      "twoWayLabel": "Two-way communication",
-      "sendsToLabel": "Sends information to",
-      "receivesFromLabel": "Receives information from",
-      "optionalConnectionLabel": "Optional",
-      "connectionDescriptions": {
-        "monitoring-analysis": "Activity information used to calculate sustainability scores.",
-        "analysis-recommendations": "Scores used to inform practical recommendations.",
-        "monitoring-storage": "Activity records saved on the computer.",
-        "analysis-storage": "Saved activity records retrieved for analysis and calculated scores stored for review.",
-        "recommendations-storage": "Saved recommendations and preferences retrieved and updated.",
-        "dashboard-monitoring": "Monitoring settings sent from the interface and activity summaries returned for display.",
-        "dashboard-analysis": "Score requests sent from the interface and calculated results returned for display.",
-        "recommendations-dashboard": "Recommendations displayed in the interface, with notification preferences sent back.",
-        "dashboard-storage": "Saved results retrieved and settings saved through application services.",
-        "analysis-cloud": "Approved research summaries shared with user permission.",
-        "recommendations-cloud": "Requests for optional AI explanations and the explanations returned.",
-        "monitoring-cloudStorage": "Storage usage requested and received with user permission.",
-        "cloud-ai": "Explanation requests sent to the AI service and generated explanations returned.",
-        "cloud-researchDatabase": "Approved research information saved and retrieved by the backend."
-      },
       "nodes": {
         "monitoring": {
           "title": "Activity monitoring",
