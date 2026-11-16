@@ -1,7 +1,7 @@
 import "server-only";
 import type { Metadata } from "next";
 import site from "@/content/site";
-import shareImage from "@/app/opengraph-image.png";
+import shareImage from "@/app/opengraph-image.jpg";
 
 export const siteUrl = new URL(site.url);
 export const publicRoutes = ["/", "/about", "/project", "/contact"] as const;
