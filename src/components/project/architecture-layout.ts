@@ -22,7 +22,7 @@ const relationships: Omit<ArchitectureConnection, "d">[] = [
   { from: "cloud", to: "researchDatabase", both: true },
 ];
 
-export function createArchitectureConnections(boxes: Record<ArchitectureNodeId, NodeBox>, width: number, wide: boolean): ArchitectureConnection[] {
+export function createArchitectureConnections(boxes: Record<ArchitectureNodeId, NodeBox>, width: number, wide: boolean, selected?: ArchitectureNodeId): ArchitectureConnection[] {
   const point = (id: ArchitectureNodeId, side: Side, fraction = .5): Point => {
     const box = boxes[id];
     return side === "top" || side === "bottom"
@@ -35,6 +35,7 @@ export function createArchitectureConnections(boxes: Record<ArchitectureNodeId, 
 
   const leftRoutes = ["monitoring-storage", "dashboard-monitoring", "dashboard-analysis", "monitoring-cloudStorage", "cloud-ai"];
   const rightRoutes = ["analysis-storage", "recommendations-storage", "analysis-cloud", "recommendations-cloud", "cloud-researchDatabase"];
+  const selectedRoutes = new Set(relationships.filter(connection => !selected || connection.from === selected || connection.to === selected).map(connection => `${connection.from}-${connection.to}`));
   return relationships.map((connection) => {
     const { from, to } = connection;
     const key = `${from}-${to}`;
@@ -49,12 +50,12 @@ export function createArchitectureConnections(boxes: Record<ArchitectureNodeId, 
       } else {
         const left = leftRoutes.includes(key);
         const side = left ? "left" : "right";
-        const routes = left ? leftRoutes : rightRoutes;
-        const lane = 3 + routes.indexOf(key) * 4;
+        const routes = (left ? leftRoutes : rightRoutes).filter(route => selectedRoutes.has(route));
+        const lane = selectedRoutes.has(key) ? 5 + routes.indexOf(key) * 8 : 3;
 
         const fraction = (id: ArchitectureNodeId) => {
           const attached = routes.filter(route => route.split("-").includes(id));
-          return (attached.indexOf(key) + 1) / (attached.length + 1);
+          return attached.includes(key) ? (attached.indexOf(key) + 1) / (attached.length + 1) : .5;
         };
         points = verticalRail(point(from, side, fraction(from)), point(to, side, fraction(to)), left ? lane : width - lane);
       }

@@ -181,13 +181,15 @@ export default function Hero() {
         </div>
 
         <div className="relative grid flex-1 lg:grid-cols-[1.55fr_1fr] lg:gap-14 xl:gap-24">
-          <figure className="relative -mx-5 h-[300px] sm:-mx-9 sm:h-[380px] lg:mx-0 lg:h-auto lg:min-h-[420px] xl:min-h-[450px]">
-            <div className="absolute inset-x-[-8%] inset-y-[-18%] sm:inset-x-[-14%] lg:inset-y-[-22%]">
-              <HeroLeaf formationReady={formationReady} />
+          <figure className="relative -mx-5 sm:-mx-9 lg:mx-0 lg:min-h-[420px] xl:min-h-[450px]">
+            <div className="relative h-[300px] sm:h-[380px] lg:absolute lg:inset-0 lg:h-auto">
+              <div className="absolute inset-x-[-8%] inset-y-[-18%] sm:inset-x-[-14%] lg:inset-y-[-22%]">
+                <HeroLeaf formationReady={formationReady} />
+              </div>
             </div>
             <figcaption
               data-enter="1250"
-              className="pointer-events-none absolute inset-x-5 bottom-3 flex justify-between gap-3 font-mono text-sm tracking-[0.08em] text-[var(--copy)] uppercase sm:inset-x-9 lg:inset-x-0 lg:bottom-7"
+              className="pointer-events-none relative mt-8 flex justify-between gap-3 px-5 pb-8 font-mono text-sm tracking-[0.08em] text-[var(--copy)] uppercase sm:px-9 lg:absolute lg:inset-x-0 lg:bottom-7 lg:mt-0 lg:px-0 lg:pb-0"
             >
               <span>{hero.particleCaption}</span>
             </figcaption>

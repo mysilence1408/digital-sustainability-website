@@ -1,6 +1,7 @@
 import site from "@/content/site";
 import { siteUrl } from "@/lib/seo";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { browserThemeColors } from "@/lib/theme-colors";
 import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import SmoothScroll from "@/components/providers/smooth-scroll";
@@ -25,6 +26,13 @@ export const metadata: Metadata = {
   description: site.description,
 };
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: browserThemeColors.light },
+    { media: "(prefers-color-scheme: dark)", color: browserThemeColors.dark },
+  ],
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -33,7 +41,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem("dsc-colour-theme");document.documentElement.dataset.theme=t==="dark"||t==="light"?t:"system"}catch{}` }} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem("dsc-colour-theme");document.documentElement.dataset.theme=t==="dark"||t==="light"?t:"system"}catch{}`,
+          }}
+        />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--page)] text-[var(--ink)]">
         <a

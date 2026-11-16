@@ -39,8 +39,7 @@
     "dashboardHeading": "Dashboard",
     "dimensions": [
       "Energy Efficiency",
-      "Storage Efficiency",
-      "Digital Behaviour"
+      "Storage Efficiency"
     ]
   },
   "cardNote": "Concept illustration. The bars do not show measured results.",
@@ -93,8 +92,8 @@
       "steps": [
         {
           "label": "Understand your scores",
-          "line1": "View separate scores for energy efficiency,",
-          "line2": "storage efficiency and computer habits, plus an overall score.",
+          "line1": "View separate scores for energy efficiency",
+          "line2": "and storage efficiency, plus an overall sustainability score.",
           "icon": "chart"
         },
         {
@@ -125,7 +124,7 @@
       },
       {
         "title": "Sustainability scoring",
-        "description": "View scores for energy efficiency, storage efficiency and computer habits, and track changes through trends and weekly reports.",
+        "description": "View energy efficiency and storage efficiency scores, along with an overall sustainability score, and track changes through trends and weekly reports.",
         "icon": "chart"
       },
       {

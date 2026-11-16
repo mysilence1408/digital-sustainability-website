@@ -1,6 +1,7 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
+import { browserThemeColors } from "@/lib/theme-colors";
 import { LuMoon, LuSun } from "react-icons/lu";
 
 const storageKey = "dsc-colour-theme";
@@ -29,6 +30,12 @@ function snapshot() {
 
 export default function ThemeToggle() {
   const dark = useSyncExternalStore(subscribe, snapshot, () => false);
+  useEffect(() => {
+    const color = dark ? browserThemeColors.dark : browserThemeColors.light;
+    document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach(meta => {
+      meta.content = color;
+    });
+  }, [dark]);
   return (
     <button
       type="button"

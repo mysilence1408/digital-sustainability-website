@@ -23,7 +23,7 @@ export default function CompanionOverview() {
               <li key={label}>
                 <p className="mb-2 text-base font-medium">{label}</p>
                 <div aria-hidden="true" className="h-2.5 overflow-hidden rounded-full bg-[var(--accent)]/10">
-                  <div className="h-full rounded-full bg-[var(--accent)]" style={{ width: `${[70, 55, 80][index]}%` }} />
+                  <div className="h-full rounded-full bg-[var(--accent)]" style={{ width: `${[70, 55][index]}%` }} />
                 </div>
               </li>
             ))}

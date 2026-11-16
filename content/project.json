@@ -2,7 +2,7 @@
   "subtitle": "Digital Sustainability Companion",
   "paragraphs": [
     "The Digital Sustainability Companion is a research project at LUT University. We are developing a desktop application for employees who use a computer in their daily work. The aim is to help them understand selected digital activities and consider changes to their habits.",
-    "The application will monitor idle time, running applications, available power-management information and local storage use. It will use these indicators to calculate a Digital Sustainability Score (DSS) and generate rule-based recommendations. Monitoring, scoring and core recommendations are designed to run locally, including when the computer is offline.",
+    "The application will monitor idle time, running applications, available power-management information and local storage use. These indicators will inform Energy Efficiency and Storage Efficiency sub-scores, which will be combined into an overall Digital Sustainability Score (DSS). The application will also generate rule-based recommendations. Monitoring, scoring and core recommendations are designed to run locally, including when the computer is offline.",
     "Users will be able to review their scores over time, receive practical suggestions and choose which activities to monitor. For example, someone whose computer is often left idle might receive a suggestion to review their sleep settings."
   ],
   "metadata": {
@@ -30,6 +30,27 @@
       "cloudConnection": "Dotted: Optional external communication or consent-dependent data transmission.",
       "detailsLabel": "Component details",
       "selectLabel": "Read about",
+      "connectedToLabel": "Connected to",
+      "twoWayLabel": "Two-way communication",
+      "sendsToLabel": "Sends information to",
+      "receivesFromLabel": "Receives information from",
+      "optionalConnectionLabel": "Optional",
+      "connectionDescriptions": {
+        "monitoring-analysis": "Activity information used to calculate sustainability scores.",
+        "analysis-recommendations": "Scores used to inform practical recommendations.",
+        "monitoring-storage": "Activity records saved on the computer.",
+        "analysis-storage": "Saved activity records retrieved for analysis and calculated scores stored for review.",
+        "recommendations-storage": "Saved recommendations and preferences retrieved and updated.",
+        "dashboard-monitoring": "Monitoring settings sent from the interface and activity summaries returned for display.",
+        "dashboard-analysis": "Score requests sent from the interface and calculated results returned for display.",
+        "recommendations-dashboard": "Recommendations displayed in the interface, with notification preferences sent back.",
+        "dashboard-storage": "Saved results retrieved and settings saved through application services.",
+        "analysis-cloud": "Approved research summaries shared with user permission.",
+        "recommendations-cloud": "Requests for optional AI explanations and the explanations returned.",
+        "monitoring-cloudStorage": "Storage usage requested and received with user permission.",
+        "cloud-ai": "Explanation requests sent to the AI service and generated explanations returned.",
+        "cloud-researchDatabase": "Approved research information saved and retrieved by the backend."
+      },
       "nodes": {
         "monitoring": {
           "title": "Activity monitoring",
@@ -45,9 +66,9 @@
         "analysis": {
           "title": "Sustainability analysis",
           "summary": "DSS indicators and calculations",
-          "description": "The analytics engine will validate monitoring information and calculate the three DSS sub-scores and an overall score.",
+          "description": "The analytics engine will validate monitoring information, calculate Energy Efficiency and Storage Efficiency sub-scores and combine them into an overall DSS.",
           "items": [
-            "Energy Efficiency, Storage Efficiency and Digital Behaviour",
+            "Energy Efficiency and Storage Efficiency",
             "Scores stored locally and made available to the interface and recommendation engine",
             "DSS is an indicator-based score, not a direct measurement of electricity consumption or carbon emissions"
           ],
@@ -161,7 +182,7 @@
         },
         {
           "title": "Digital habits",
-          "description": "Compare users' sustainability scores and digital habits before and after using the DSC, and collect feedback on how they interact with its recommendations."
+          "description": "Evaluate behavioural change separately from the DSS by comparing monitored digital activities and sustainability indicators before and after users receive DSC feedback and recommendations. Participant feedback and engagement with recommendations may also be considered."
         }
       ]
     },
