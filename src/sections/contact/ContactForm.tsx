@@ -7,7 +7,7 @@ import { useRef, useState, type FormEvent } from "react";
 import copy from "@/content/contact";
 
 const fieldClass =
-  "mt-2 w-full rounded-lg border border-[var(--line)] bg-[var(--field)] px-4 py-3 text-base text-[var(--ink)] outline-none placeholder:text-[var(--copy)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20 disabled:opacity-60";
+  "mt-2 w-full rounded-lg border border-[var(--line)] bg-[var(--field)] px-4 py-3 text-body text-[var(--ink)] outline-none placeholder:text-[var(--copy)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20 disabled:opacity-60";
 
 export default function ContactForm() {
   const sending = useRef(false);
@@ -82,13 +82,13 @@ export default function ContactForm() {
       <div className="min-w-0">
         <div className="mx-auto w-full max-w-xl">
           <p
-            className="mb-4 text-sm font-medium text-[var(--accent)]"
+            className="mb-4 text-body font-medium uppercase tracking-[.1em] text-[var(--accent)]"
           >
             {copy.eyebrow}
           </p>
           <h1
             id="contact-title"
-            className="max-w-lg text-4xl font-semibold leading-[1.15] tracking-[-0.035em] sm:text-5xl"
+            className="max-w-lg text-heading font-semibold leading-[1.15] tracking-[-0.035em]"
           >
             {copy.title}{" "}
             <br />
@@ -97,7 +97,7 @@ export default function ContactForm() {
             </span>
           </h1>
           <p
-            className="mt-5 max-w-lg whitespace-pre-line text-base leading-relaxed text-[var(--copy)]"
+            className="mt-5 max-w-lg whitespace-pre-line text-body leading-relaxed text-[var(--copy)]"
           >
             {copy.description}
           </p>
@@ -109,7 +109,7 @@ export default function ContactForm() {
             <div>
               <label
                 htmlFor="contact-name"
-                className="text-base font-medium"
+                className="text-body font-medium"
               >
                 {copy.form.nameLabel}
                 <span aria-hidden="true">*</span>
@@ -130,7 +130,7 @@ export default function ContactForm() {
             <div>
               <label
                 htmlFor="contact-email"
-                className="text-base font-medium"
+                className="text-body font-medium"
               >
                 {copy.form.emailLabel}
                 <span aria-hidden="true">*</span>
@@ -150,7 +150,7 @@ export default function ContactForm() {
             <div>
               <label
                 htmlFor="contact-message"
-                className="text-base font-medium"
+                className="text-body font-medium"
               >
                 {copy.form.messageLabel}
                 <span aria-hidden="true">*</span>
@@ -170,7 +170,7 @@ export default function ContactForm() {
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="inline-flex min-h-12 cursor-pointer items-center gap-3 rounded-lg bg-[var(--accent)] px-6 py-3 text-base font-medium text-[var(--on-accent)] hover:bg-[var(--accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] disabled:cursor-wait disabled:opacity-60"
+                className="inline-flex min-h-12 cursor-pointer items-center gap-3 rounded-lg bg-[var(--accent)] px-6 py-3 text-body font-medium text-[var(--on-accent)] hover:bg-[var(--accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] disabled:cursor-wait disabled:opacity-60"
               >
                 {status === "sending"
                   ? copy.form.sendingLabel
@@ -182,7 +182,7 @@ export default function ContactForm() {
                   <SiteIcon name={site.icons.contactSend} className="size-5" />
                 </span>
               </button>
-              <span className="text-sm text-[var(--copy)]/80">
+              <span className="text-body text-[var(--copy)]/80">
                 {copy.form.requiredNote}
               </span>
             </div>
@@ -190,7 +190,7 @@ export default function ContactForm() {
               role="status"
               aria-live="polite"
               aria-atomic="true"
-              className={`min-h-6 max-w-md text-base leading-relaxed ${status === "error" ? "text-[var(--error)]" : "text-[var(--accent)]"}`}
+              className={`min-h-6 max-w-md text-body leading-relaxed ${status === "error" ? "text-[var(--error)]" : "text-[var(--accent)]"}`}
             >
               {feedback}
             </p>
@@ -199,7 +199,7 @@ export default function ContactForm() {
       </div>
       <figure className="relative m-0 aspect-[4/5] self-start overflow-hidden rounded-xl bg-[var(--panel)] lg:mt-1">
         <Image src={copy.image.src} alt={copy.image.alt} fill priority sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover object-center" />
-        <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#191714]/85 to-transparent px-6 pb-6 pt-16 text-sm leading-relaxed text-white">
+        <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#191714]/85 to-transparent px-6 pb-6 pt-16 text-body leading-relaxed text-white">
           <span className="block">{copy.captionLeft}</span>
           <span className="mt-1 block">{copy.captionRight}</span>
         </figcaption>

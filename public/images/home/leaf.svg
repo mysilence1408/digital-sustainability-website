@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" fill="none">
+  <defs>
+    <linearGradient id="leaf" x1="195" y1="412" x2="592" y2="104" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#52613f"/>
+      <stop offset=".52" stop-color="#809565"/>
+      <stop offset="1" stop-color="#b5c59b"/>
+    </linearGradient>
+    <linearGradient id="fold" x1="280" y1="377" x2="485" y2="238" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#263522" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#e3eacb" stop-opacity=".12"/>
+    </linearGradient>
+    <clipPath id="outline">
+      <path d="M128 418C136 238 292 105 655 72C655 288 481 452 128 418Z"/>
+    </clipPath>
+  </defs>
+  <path d="M128 418C136 238 292 105 655 72C655 288 481 452 128 418Z" fill="url(#leaf)" stroke="#8d9f75" stroke-width="1.5"/>
+  <path d="M128 418C300 323 457 193 655 72C655 288 481 452 128 418Z" fill="url(#fold)"/>
+  <g clip-path="url(#outline)">
+    <g transform="translate(128 418) rotate(-33)">
+      <path d="M90 0 290-110 290 0ZM290 0 475-70 475 0ZM155 0 305 100 305 0ZM400 0 555 35 555 0Z" fill="#e3eacb" opacity=".08"/>
+      <g stroke="#d4dfb7" stroke-width="1.6" stroke-linejoin="round" opacity=".8">
+        <path d="M70 0H88L120-32V-54M155 0H172L200-28V-90M250 0H268L290-22V-110M345 0H363L385-22V-100M440 0H453L475-22V-70M530 0H540L555-15V-35"/>
+        <path d="M70 0H88L125 37V65M155 0H172L210 38V95M250 0H268L305 37V100M345 0H363L400 37V85M440 0H453L485 32V55M530 0H540L555 15V35"/>
+      </g>
+      <g stroke="#d4dfb7" stroke-width=".8" opacity=".4">
+        <path d="M120-38H145L165-58V-82M200-58H225L245-78V-105M290-72H315L335-92V-112M385-55H410L432-77M475-42H500L518-60"/>
+        <path d="M125 40H150L170 60V80M210 62H235L255 82V103M305 62H330L350 82V98M400 48H425L445 68M485 35H505L520 50"/>
+      </g>
+      <g fill="#e0e8c7" opacity=".9">
+        <path d="M116-58h8v8h-8zM196-94h8v8h-8zM286-114h8v8h-8zM381-104h8v8h-8zM471-74h8v8h-8zM551-39h8v8h-8z"/>
+        <path d="M121 61h8v8h-8zM206 91h8v8h-8zM301 96h8v8h-8zM396 81h8v8h-8zM481 51h8v8h-8zM551 31h8v8h-8z"/>
+      </g>
+    </g>
+  </g>
+  <path d="M104 442 128 418 655 72" stroke="#d4dfb7" stroke-width="3" stroke-linecap="round"/>
+</svg>

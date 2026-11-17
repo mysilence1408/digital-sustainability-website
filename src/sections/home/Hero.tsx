@@ -13,20 +13,14 @@ import HeroLeaf from "@/components/landing/hero-leaf";
 
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
-  const formationReady = useRef(false);
   const entranceReady = usePageEntranceReady();
   useLayoutEffect(() => {
-    if (!entranceReady) {
-      formationReady.current = false;
-      return;
-    }
+    if (!entranceReady) return;
     const section = root.current;
     if (!section) return;
-    formationReady.current = false;
     gsap.registerPlugin(CustomEase);
     const ease = CustomEase.create("companion-reveal", "0.16,1,0.3,1");
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let disposed = false;
     const gradients = section.querySelectorAll<HTMLElement>(
       "[data-gradient-word]",
     );
@@ -40,15 +34,10 @@ export default function Hero() {
     const context = gsap.context(() => {
       if (motion.matches) {
         staticGradient();
-        formationReady.current = true;
         return;
       }
 
-      const title = gsap.timeline({
-        onComplete: () => {
-          if (!disposed) formationReady.current = true;
-        },
-      });
+      const title = gsap.timeline();
       section
         .querySelectorAll<HTMLElement>("[data-letter]")
         .forEach((letter) => {
@@ -112,17 +101,28 @@ export default function Hero() {
             Number(element.dataset.enter) / 1000,
           );
         });
+      const leaf = section.querySelector<HTMLElement>("[data-hero-leaf]");
+      if (leaf) {
+        gsap.fromTo(
+          leaf,
+          { autoAlpha: 0 },
+          {
+            autoAlpha: 1,
+            duration: 0.6,
+            delay: title.duration(),
+            ease: "power1.out",
+            clearProps: "opacity,visibility",
+          },
+        );
+      }
     }, section);
     const finish = () => {
       context.revert();
       context.add(staticGradient);
-      if (!disposed) formationReady.current = true;
     };
     motion.addEventListener("change", finish);
     return () => {
-      disposed = true;
-      formationReady.current = false;
-      context.revert();
+        context.revert();
       motion.removeEventListener("change", finish);
     };
   }, [entranceReady]);
@@ -132,7 +132,7 @@ export default function Hero() {
       ref={root}
       id="companion"
       aria-labelledby="companion-title"
-      className="relative isolate min-h-svh w-full overflow-hidden bg-[var(--page)] font-sans text-[var(--ink)] [font-family:var(--font-geist-sans),Arial,sans-serif] [&_button]:cursor-pointer [&_:is(a,button):focus-visible]:outline-2 [&_:is(a,button):focus-visible]:outline-offset-4 [&_:is(a,button):focus-visible]:outline-[var(--accent)]"
+      className="relative isolate min-h-svh w-full overflow-hidden bg-[var(--page)] font-sans text-[var(--ink)] [&_button]:cursor-pointer [&_:is(a,button):focus-visible]:outline-2 [&_:is(a,button):focus-visible]:outline-offset-4 [&_:is(a,button):focus-visible]:outline-[var(--accent)]"
     >
       <div className="mx-auto flex min-h-svh max-w-[1800px] flex-col px-5 sm:px-9 lg:px-12">
 
@@ -145,9 +145,9 @@ export default function Hero() {
         <div className="relative z-20 mt-8 sm:mt-9 lg:mt-7">
           <div
             data-enter="100"
-            className="pointer-events-none absolute top-1 right-0 hidden max-w-[190px] text-sm leading-[1.7] text-[var(--copy)] lg:block"
+            className="pointer-events-none absolute top-1 right-0 hidden max-w-[190px] text-body leading-[1.7] text-[var(--copy)] lg:block"
           >
-            <span className="mb-2 block font-mono text-sm tracking-[0.14em] text-[var(--accent)] uppercase">
+            <span className="mb-2 block font-sans text-body tracking-[0.14em] text-[var(--accent)] uppercase">
               {hero.researchLabel}
             </span>
             {hero.researchSummary}
@@ -184,12 +184,12 @@ export default function Hero() {
           <figure className="relative -mx-5 sm:-mx-9 lg:mx-0 lg:min-h-[420px] xl:min-h-[450px]">
             <div className="relative h-[300px] sm:h-[380px] lg:absolute lg:inset-0 lg:h-auto">
               <div className="absolute inset-x-[-8%] inset-y-[-18%] sm:inset-x-[-14%] lg:inset-y-[-22%]">
-                <HeroLeaf formationReady={formationReady} />
+                <HeroLeaf />
               </div>
             </div>
             <figcaption
               data-enter="1250"
-              className="pointer-events-none relative mt-8 flex justify-between gap-3 px-5 pb-8 font-mono text-sm tracking-[0.08em] text-[var(--copy)] uppercase sm:px-9 lg:absolute lg:inset-x-0 lg:bottom-7 lg:mt-0 lg:px-0 lg:pb-0"
+              className="pointer-events-none relative z-10 mt-8 flex justify-between gap-3 px-5 pb-8 font-sans text-body tracking-[0.08em] text-[var(--copy)] uppercase sm:px-9 lg:absolute lg:inset-x-0 lg:bottom-7 lg:mt-0 lg:px-0 lg:pb-0 lg:text-[#fffdf5] lg:[text-shadow:0_1px_3px_#191714,0_0_5px_#191714]"
             >
               <span>{hero.particleCaption}</span>
             </figcaption>
@@ -198,19 +198,19 @@ export default function Hero() {
           <div className="relative z-20 flex flex-col justify-center pb-8 lg:pt-8 lg:pb-9">
             <p
               data-enter="850"
-              className="mb-4 flex items-center gap-3 font-mono text-sm tracking-[0.16em] text-[var(--accent)] uppercase"
+              className="mb-4 flex items-center gap-3 font-sans text-body tracking-[0.16em] text-[var(--accent)] uppercase"
             >
               <span className="h-px w-7 bg-[var(--accent)]" /> {hero.eyebrow}
             </p>
             <h2
               data-enter="1000"
-              className="max-w-[400px] text-[clamp(1.65rem,2.3vw,2.5rem)] leading-[1.16] tracking-[-0.045em]"
+              className="max-w-[400px] text-heading leading-[1.16] tracking-[-0.045em]"
             >
               {hero.heading}
             </h2>
             <p
               data-enter="1100"
-              className="mt-4 max-w-[380px] text-base leading-[1.85] text-[var(--copy)]"
+              className="mt-4 max-w-[380px] text-body leading-[1.7] text-[var(--copy)]"
             >
               {hero.description}
             </p>
@@ -222,7 +222,7 @@ export default function Hero() {
                 type="button"
                 disabled
                 aria-label={hero.buttonAccessibleLabel}
-                className="flex items-center gap-8 rounded-full border border-[var(--accent)] bg-[var(--accent)] px-5 py-3.5 text-sm font-medium text-[var(--on-accent)] disabled:cursor-not-allowed"
+                className="flex items-center gap-8 rounded-full border border-[var(--accent)] bg-[var(--accent)] px-5 py-3.5 text-body font-medium text-[var(--on-accent)] disabled:cursor-not-allowed"
               >
                 <span>{hero.buttonLabel}</span>
                 <SiteIcon name={site.icons.comingSoon} className="size-4" />
@@ -230,7 +230,7 @@ export default function Hero() {
             </div>
             <p
               data-enter="1400"
-              className="mt-5 font-mono text-sm tracking-[0.03em] text-[var(--copy)]"
+              className="mt-5 font-sans text-body tracking-[0.03em] text-[var(--copy)]"
             >
               {hero.researchLabel}
             </p>
@@ -247,17 +247,17 @@ export default function Hero() {
                 key={number}
                 className="grid grid-cols-[auto_1fr] items-baseline gap-x-3 gap-y-1"
               >
-                <span className="font-mono text-sm text-[var(--copy)]">
+                <span className="font-sans text-body text-[var(--copy)]">
                   {number}
                 </span>
-                <h2 className="text-sm text-[var(--accent)]">{title}</h2>
-                <span className="col-start-2 text-sm leading-relaxed text-[var(--copy)]">
+                <h2 className="text-body text-[var(--accent)]">{title}</h2>
+                <span className="col-start-2 text-body leading-relaxed text-[var(--copy)]">
                   {description}
                 </span>
               </div>
             ))}
           </div>
-          <div className="mt-6 flex flex-wrap items-center justify-between gap-3 font-mono text-sm tracking-[0.08em] text-[var(--copy)] uppercase">
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-3 font-sans text-body tracking-[0.08em] text-[var(--copy)] uppercase">
             <span>{hero.bottomLeft}</span>
             <span>{hero.bottomRight}</span>
           </div>

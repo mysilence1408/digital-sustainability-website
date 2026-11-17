@@ -1,7 +1,6 @@
 "use client";
 
 import SiteIcon from "@/components/ui/site-icon";
-import ThemeToggle from "@/components/ui/theme-toggle";
 import { useLayoutEffect, useRef, useState } from "react";
 import site from "@/content/site";
 import Link from "next/link";
@@ -41,18 +40,11 @@ function Menu({ pathname }: { pathname: string }) {
       header.style.setProperty("--menu-hover", dark ? "#19171412" : "#b5c59b20");
     };
     const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(update); };
-    const themeFinished = (event: TransitionEvent) => {
-      if (event.target === document.documentElement && event.propertyName === "--page") schedule();
-    };
-    document.documentElement.addEventListener("transitionend", themeFinished);
     update();
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
-    window.addEventListener("colour-theme-change", schedule);
-    const scheme = window.matchMedia("(prefers-color-scheme: dark)");
-    scheme.addEventListener("change", schedule);
     window.addEventListener("navigation-lock-change", schedule);
-    return () => { cancelAnimationFrame(frame); document.documentElement.removeEventListener("transitionend", themeFinished); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); window.removeEventListener("colour-theme-change", schedule); scheme.removeEventListener("change", schedule); window.removeEventListener("navigation-lock-change", schedule); };
+    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); window.removeEventListener("navigation-lock-change", schedule); };
   }, []);
 
   useLayoutEffect(() => {
@@ -201,7 +193,6 @@ function Menu({ pathname }: { pathname: string }) {
         />
       )}
       <div className="relative flex items-center justify-end gap-3">
-        <ThemeToggle />
         <button
           ref={button}
           type="button"
@@ -209,7 +200,7 @@ function Menu({ pathname }: { pathname: string }) {
           aria-controls="primary-navigation"
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((value) => !value)}
-          className="group pointer-events-auto flex h-12 min-w-28 cursor-pointer items-center justify-between gap-5 rounded-full bg-[var(--menu-background)] px-5 text-sm font-bold uppercase shadow-[0_2px_20px_#382d2708] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+          className="group pointer-events-auto flex h-12 min-w-28 cursor-pointer items-center justify-between gap-5 rounded-full bg-[var(--menu-background)] px-5 text-body font-bold uppercase shadow-[0_2px_20px_#382d2708] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
         >
           <span className="relative h-5 overflow-hidden">
             <span
@@ -250,7 +241,7 @@ function Menu({ pathname }: { pathname: string }) {
                 data-menu-link
                 aria-current={active ? "page" : undefined}
                 onClick={() => setOpen(false)}
-                className="group/link relative flex min-h-14 items-center justify-between overflow-hidden rounded-xl px-4 py-3 text-lg font-medium tracking-tight transition-colors duration-200 hover:bg-[var(--menu-hover)] focus-visible:bg-[var(--menu-hover)] focus-visible:outline-none motion-reduce:transition-none sm:min-h-16 sm:px-5 sm:py-4 sm:text-xl"
+                className="group/link relative flex min-h-14 items-center justify-between overflow-hidden rounded-xl px-4 py-3 text-body font-medium tracking-tight transition-colors duration-200 hover:bg-[var(--menu-hover)] focus-visible:bg-[var(--menu-hover)] focus-visible:outline-none motion-reduce:transition-none sm:min-h-16 sm:px-5 sm:py-4"
               >
                 <span className="flex items-center gap-3">
                   <span

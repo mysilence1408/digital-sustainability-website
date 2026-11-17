@@ -13,25 +13,25 @@ export default function Footer() {
           <div className="max-w-xl">
             <div className="flex items-start gap-3">
               <SiteIcon name={site.icons.brand} className="mt-1 size-7 shrink-0 text-[#ead5bd]" />
-              <h2 id="footer-title" className="max-w-sm text-xl font-medium leading-snug sm:text-2xl">{copy.brand}</h2>
+              <h2 id="footer-title" className="max-w-sm text-subheading font-medium leading-snug">{copy.brand}</h2>
             </div>
-            <p className="mt-5 text-lg leading-relaxed text-[#ead5bd]">{copy.title} {copy.titleAccent}</p>
-            <p className="mt-3 max-w-lg text-base leading-relaxed text-[#ded2c4]">{copy.description}</p>
-            <a href={copy.universityUrl} target="_blank" rel="noopener noreferrer" className={`mt-5 inline-flex min-h-11 items-center gap-2 text-base ${linkClass}`}>
+            <p className="mt-5 text-body leading-relaxed text-[#ead5bd]">{copy.title} {copy.titleAccent}</p>
+            <p className="mt-3 max-w-lg text-body leading-relaxed text-[#ded2c4]">{copy.description}</p>
+            <a href={copy.universityUrl} target="_blank" rel="noopener noreferrer" className={`mt-5 inline-flex min-h-11 items-center gap-2 text-body ${linkClass}`}>
               {copy.universityLabel}<SiteIcon name={site.icons.externalLink} className="size-4" /><span className="sr-only"> (opens in a new tab)</span>
             </a>
-            <p className="mt-1 text-base leading-relaxed text-[#ded2c4]">{copy.universityCaption}</p>
+            <p className="mt-1 text-body leading-relaxed text-[#ded2c4]">{copy.universityCaption}</p>
           </div>
           <nav aria-label="Footer navigation" className="md:justify-self-end md:min-w-48">
-            <p className="mb-3 text-base text-[#ead5bd]">{copy.navigationLabel}</p>
+            <p className="mb-3 text-body text-[#ead5bd]">{copy.navigationLabel}</p>
             <ul>
               {site.navigation.map(({ href, label }) => (
-                <li key={href}><Link href={href} className={`inline-flex min-h-11 items-center py-1 text-lg font-medium sm:text-xl lg:text-2xl ${linkClass}`}>{label}</Link></li>
+                <li key={href}><Link href={href} className={`inline-flex min-h-11 items-center py-1 text-body font-medium ${linkClass}`}>{label}</Link></li>
               ))}
             </ul>
           </nav>
         </div>
-        <div className="mt-10 flex flex-wrap justify-between gap-x-8 gap-y-3 border-t border-[#ded2c4]/25 pt-6 text-base leading-relaxed text-[#ded2c4]">
+        <div className="mt-10 flex flex-wrap justify-between gap-x-8 gap-y-3 border-t border-[#ded2c4]/25 pt-6 text-body leading-relaxed text-[#ded2c4]">
           <span>{copy.bottomLeft}</span>
           <span>{copy.bottomMiddle}</span>
           <span>{copy.bottomRight}</span>

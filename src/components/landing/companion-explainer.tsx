@@ -18,14 +18,14 @@ export default function CompanionExplainer({ kind }: { kind: "challenge" | "solu
           <li key={step.label} style={{ backgroundColor: palette.panel }} className="rounded-2xl border border-current/15 p-6 sm:p-8">
             <div className="mb-7 flex items-center justify-between">
               <SiteIcon name={step.icon} className="size-9 text-[var(--accent)]" />
-              <span className="text-sm font-medium tabular-nums">0{index + 1}</span>
+              <span className="text-body font-medium tabular-nums">0{index + 1}</span>
             </div>
-            <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">{step.label}</h3>
-            <p className="mt-3 text-base leading-relaxed text-[var(--copy)]">{step.line1} {step.line2}</p>
+            <h3 className="text-subheading font-semibold tracking-tight">{step.label}</h3>
+            <p className="mt-3 text-body leading-relaxed text-[var(--copy)]">{step.line1} {step.line2}</p>
           </li>
         ))}
       </ol>
-      <p className="mx-auto mt-8 max-w-3xl text-center text-base leading-relaxed text-[var(--copy)] sm:text-lg">{copy.caption}</p>
+      <p className="mx-auto mt-8 max-w-3xl text-center text-body leading-relaxed text-[var(--copy)]">{copy.caption}</p>
     </section>
   );
 }

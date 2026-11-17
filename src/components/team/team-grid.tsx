@@ -20,20 +20,20 @@ export default function TeamGrid() {
               </span>
               <span className="mt-3 flex min-h-14 items-start justify-between gap-3">
                 <span className="block min-w-0">
-                  <span role="heading" aria-level={2} className="block font-serif text-[1.75rem] font-normal leading-[1.15] tracking-[-.025em]">{person.name}</span>
-                  <span className="mt-1 block text-sm leading-relaxed text-[var(--accent)]">{person.role}</span>
+                  <span role="heading" aria-level={2} className="block font-sans text-subheading font-normal leading-[1.15] tracking-[-.025em]">{person.name}</span>
+                  <span className="mt-1 block text-body leading-relaxed text-[var(--accent)]">{person.role}</span>
                 </span>
                 <span className="flex size-11 shrink-0 items-center justify-center" aria-hidden="true"><SiteIcon name={site.icons.profileToggle} className="size-7 transition-transform duration-300 group-open/profile:rotate-45 motion-reduce:transition-none" /></span>
               </span>
               <span className="sr-only">{about.detailsLabel}</span>
             </summary>
             <div data-team-details className="pt-5">
-              <div className="flex flex-wrap gap-2 text-sm text-[var(--ink)]">
+              <div className="flex flex-wrap gap-2 text-body text-[var(--ink)]">
                 <span className="rounded-full border border-[var(--line)] bg-[var(--panel)] px-3 py-1">{person.role}</span>
                 <span className="rounded-full border border-[var(--line)] bg-[var(--panel)] px-3 py-1">{about.institution}</span>
               </div>
-              {person.linkedin && <a href={person.linkedin} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm text-[var(--accent)] underline underline-offset-4 hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"><SiteIcon name={site.icons.linkedin} className="size-4" />{about.linkedinLabel}<span className="sr-only"> ({person.name}; opens in a new tab)</span></a>}
-              <div className="mt-3 space-y-4 text-base leading-[1.7] text-[var(--copy)]">{person.description.split(/\n\s*\n/).map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div>
+              {person.linkedin && <a href={person.linkedin} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex min-h-11 items-center gap-2 text-body text-[var(--accent)] underline underline-offset-4 hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"><SiteIcon name={site.icons.linkedin} className="size-4" />{about.linkedinLabel}<span className="sr-only"> ({person.name}; opens in a new tab)</span></a>}
+              <div className="mt-3 space-y-4 text-body leading-[1.7] text-[var(--copy)]">{person.description.split(/\n\s*\n/).map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div>
             </div>
           </details>
         </article>

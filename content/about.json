@@ -3,9 +3,9 @@
   "title": "Meet the research team",
   "members": [
     {
-      "name": "Prof. Dominik Siemon",
+      "name": "Dominik Siemon",
       "role": "Project Supervisor",
-      "description": "Prof. Dominik Siemon is an Associate Professor at LUT University. His research focuses on the design of information systems, human–computer interaction, and artificial intelligence, with particular interest in how technology affects people and organizations.",
+      "description": "Dominik Siemon is an Associate Professor at LUT University. His research focuses on the design of information systems, human–computer interaction, and artificial intelligence, with particular interest in how technology affects people and organizations.",
       "image": {
         "src": "/images/team/member-1.webp",
         "alt": "Dominik Siemon"
@@ -25,7 +25,7 @@
     {
       "name": "Ashkan Kohandel Shirazi",
       "role": "Junior Research Assistant",
-      "description": "Ashkan Kohandel Shirazi is a Junior Research Assistant at LUT University, working on the research and development of the Digital Sustainability Companion project.",
+      "description": "Ashkan Kohandel Shirazi is a Junior Research Assistant at LUT University, working on the Digital Sustainability Companion project.",
       "image": {
         "src": "/images/team/member-3.webp",
         "alt": "Ashkan Kohandel Shirazi"
