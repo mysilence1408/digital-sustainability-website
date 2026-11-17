@@ -26,6 +26,8 @@ export default function ArchitectureDiagram() {
   const graph = useRef<HTMLDivElement>(null);
   const marker = `architecture-${useId().replace(/:/g, "")}`;
   const active = copy.nodes[selected];
+  const isConnected = (connection: ArchitectureConnection) => connection.from === selected || connection.to === selected;
+  const orderedPaths = [...drawing.paths.filter(connection => !isConnected(connection)), ...drawing.paths.filter(isConnected)];
 
   useEffect(() => {
     const root = graph.current!;
@@ -71,11 +73,11 @@ export default function ArchitectureDiagram() {
           <defs>
             {[false, true].map(highlighted => <marker key={String(highlighted)} id={`${marker}-${highlighted ? "selected" : "muted"}`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="m1 1 8 4-8 4" fill="none" stroke={highlighted ? "var(--accent)" : "var(--line)"} strokeWidth="1.5" /></marker>)}
           </defs>
-          {drawing.paths.map((connection) => {
-            const highlighted = connection.from === selected || connection.to === selected;
+          {orderedPaths.map((connection) => {
+            const highlighted = isConnected(connection);
             const arrow = `url(#${marker}-${highlighted ? "selected" : "muted"})`;
-            return <g key={`${connection.from}-${connection.to}`} data-connection={`${connection.from}-${connection.to}`} className={highlighted ? undefined : "hidden md:block"}>
-              <path d={connection.d} className={highlighted ? "max-md:stroke-[2.2]" : undefined} stroke={highlighted ? "var(--accent)" : "var(--line)"} strokeWidth={highlighted ? 1.8 : 1.3} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={connection.optional ? "1 5" : undefined} markerEnd={arrow} markerStart={connection.both ? arrow : undefined} />
+            return <g key={`${connection.from}-${connection.to}`} data-connection={`${connection.from}-${connection.to}`} className={highlighted ? undefined : "hidden md:block"} opacity={highlighted ? 1 : 0.4}>
+              <path d={connection.d} stroke={highlighted ? "var(--accent)" : "var(--line)"} strokeWidth={highlighted ? 3 : 1.1} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={connection.optional ? "1 5" : undefined} markerEnd={arrow} markerStart={connection.both ? arrow : undefined} />
             </g>;
           })}
         </svg>
