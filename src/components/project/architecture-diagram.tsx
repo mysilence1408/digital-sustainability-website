@@ -22,7 +22,7 @@ const placement: Record<NodeId, string> = {
 
 export default function ArchitectureDiagram() {
   const [selected, setSelected] = useState<NodeId>("monitoring");
-  const [drawing, setDrawing] = useState<{ width: number; height: number; paths: ArchitectureConnection[] }>({ width: 1, height: 1, paths: [] });
+  const [drawing, setDrawing] = useState<{ width: number; height: number; wide: boolean; paths: ArchitectureConnection[] }>({ width: 1, height: 1, wide: false, paths: [] });
   const graph = useRef<HTMLDivElement>(null);
   const marker = `architecture-${useId().replace(/:/g, "")}`;
   const active = copy.nodes[selected];
@@ -42,7 +42,7 @@ export default function ArchitectureDiagram() {
       });
       const wide = matchMedia("(min-width: 768px)").matches;
       const paths = createArchitectureConnections(boxes, bounds.width, wide, selected);
-      setDrawing({ width: bounds.width, height: bounds.height, paths });
+      setDrawing({ width: bounds.width, height: bounds.height, wide, paths });
     };
     const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(() => { if (!disposed) measure(); }); };
     const resize = new ResizeObserver(schedule);
@@ -73,11 +73,11 @@ export default function ArchitectureDiagram() {
           <defs>
             {[false, true].map(highlighted => <marker key={String(highlighted)} id={`${marker}-${highlighted ? "selected" : "muted"}`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="m1 1 8 4-8 4" fill="none" stroke={highlighted ? "var(--accent)" : "var(--line)"} strokeWidth="1.5" /></marker>)}
           </defs>
-          {orderedPaths.map((connection) => {
+          {(drawing.wide ? orderedPaths : drawing.paths).map((connection) => {
             const highlighted = isConnected(connection);
             const arrow = `url(#${marker}-${highlighted ? "selected" : "muted"})`;
-            return <g key={`${connection.from}-${connection.to}`} data-connection={`${connection.from}-${connection.to}`} className={highlighted ? undefined : "hidden md:block"} opacity={highlighted ? 1 : 0.4}>
-              <path d={connection.d} stroke={highlighted ? "var(--accent)" : "var(--line)"} strokeWidth={highlighted ? 3 : 1.1} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={connection.optional ? "1 5" : undefined} markerEnd={arrow} markerStart={connection.both ? arrow : undefined} />
+            return <g key={`${connection.from}-${connection.to}`} data-connection={`${connection.from}-${connection.to}`} className={highlighted ? undefined : "hidden md:block"} opacity={drawing.wide && !highlighted ? 0.4 : 1}>
+              <path d={connection.d} stroke={highlighted ? "var(--accent)" : "var(--line)"} strokeWidth={drawing.wide ? (highlighted ? 3 : 1.1) : (highlighted ? 2.2 : 1.3)} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={connection.optional ? "1 5" : undefined} markerEnd={arrow} markerStart={connection.both ? arrow : undefined} />
             </g>;
           })}
         </svg>
