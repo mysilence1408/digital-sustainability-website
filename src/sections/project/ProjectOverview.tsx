@@ -12,7 +12,7 @@ export default function ProjectOverview() {
           </div>
         </div>
         <aside aria-labelledby="project-method-title" className="self-start border-l-2 border-[var(--line)] pl-6">
-          <p className="text-body font-medium text-[var(--accent)]">{copy.methodLabel}</p>
+          <p className="text-body font-medium uppercase tracking-[.1em] text-[var(--accent)]">{copy.methodLabel}</p>
           <h3 id="project-method-title" className="mt-3 text-subheading font-semibold">{copy.methodTitle}</h3>
           <p className="mt-3 text-body leading-relaxed text-[var(--copy)]">{copy.methodDescription}</p>
         </aside>

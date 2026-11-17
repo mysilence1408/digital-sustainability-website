@@ -23,7 +23,7 @@ export default function Footer() {
             <p className="mt-1 text-body leading-relaxed text-[#ded2c4]">{copy.universityCaption}</p>
           </div>
           <nav aria-label="Footer navigation" className="md:justify-self-end md:min-w-48">
-            <p className="mb-3 text-body text-[#ead5bd]">{copy.navigationLabel}</p>
+            <p className="mb-3 text-body font-medium uppercase tracking-[.1em] text-[#ead5bd]">{copy.navigationLabel}</p>
             <ul>
               {site.navigation.map(({ href, label }) => (
                 <li key={href}><Link href={href} className={`inline-flex min-h-11 items-center py-1 text-body font-medium ${linkClass}`}>{label}</Link></li>

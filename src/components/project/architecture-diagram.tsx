@@ -107,7 +107,7 @@ export default function ArchitectureDiagram() {
       <h3 className="mt-4 text-body font-semibold">{copy.cloudLabel}</h3>
       <p className="mt-2 max-w-3xl text-body leading-relaxed text-[var(--copy)]">{copy.cloudDescription}</p>
       <div id="architecture-details" aria-live="polite" aria-atomic="true" className="mt-7 min-h-72 rounded-r-xl border-l-2 border-[var(--accent)] bg-[var(--page)] p-6 sm:p-8">
-        <p className="text-body font-medium text-[var(--accent)]">{copy.detailsLabel}</p>
+        <p className="text-body font-medium uppercase tracking-[.1em] text-[var(--accent)]">{copy.detailsLabel}</p>
         <h3 className="mt-2 text-subheading font-semibold">{active.title}</h3>
         <p className="mt-3 max-w-[65ch] text-body leading-relaxed text-[var(--copy)]">{active.description}</p>
         <ul className="mt-4 list-disc space-y-2 pl-5 text-body leading-relaxed text-[var(--copy)]">{active.items.map(item => <li key={item}>{item}</li>)}</ul>
