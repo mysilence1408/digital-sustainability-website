@@ -21,13 +21,12 @@ function Menu({ pathname }: { pathname: string }) {
     const header = root.current!;
     let frame = 0;
     const update = () => {
-      if (document.documentElement.dataset.navigationOpen === "true") return;
       const bounds = button.current!.getBoundingClientRect();
       const behind = document.elementsFromPoint(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2)
         .find(element => !header.contains(element) && !element.closest("[data-page-curtain]"));
       const marked = behind?.closest<HTMLElement>("[data-nav-theme]");
-      let dark = marked?.dataset.navTheme === "dark";
-      if (!marked) {
+      let dark = marked ? marked.dataset.navTheme === "dark" : document.documentElement.dataset.theme !== "light";
+      if (!marked && !document.documentElement.hasAttribute("data-theme-changing")) {
         for (let element = behind; element; element = element.parentElement ?? undefined) {
           const rgba = getComputedStyle(element).backgroundColor.match(/[\d.]+/g)?.map(Number);
           if (!rgba || (rgba.length === 4 && rgba[3] < 0.5)) continue;
@@ -41,12 +40,13 @@ function Menu({ pathname }: { pathname: string }) {
       header.style.setProperty("--menu-hover", dark ? "#19171412" : "#b5c59b20");
     };
     const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(update); };
+    const themeChanged = () => { cancelAnimationFrame(frame); update(); };
     update();
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
     window.addEventListener("navigation-lock-change", schedule);
-    window.addEventListener("theme-change", schedule);
-    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); window.removeEventListener("navigation-lock-change", schedule); window.removeEventListener("theme-change", schedule); };
+    window.addEventListener("theme-change", themeChanged);
+    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); window.removeEventListener("navigation-lock-change", schedule); window.removeEventListener("theme-change", themeChanged); };
   }, []);
 
   useLayoutEffect(() => {
@@ -182,6 +182,7 @@ function Menu({ pathname }: { pathname: string }) {
   return (
     <header
       ref={root}
+      data-theme-controls
       className="pointer-events-none fixed inset-x-0 top-0 z-[100] px-5 pt-5 text-[var(--menu-text)] [--menu-background:#191714] [--menu-text:#F2EADF] [--menu-hover:#b5c59b20] sm:px-9 sm:pt-7 lg:px-12"
     >
       {open && (

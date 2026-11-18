@@ -189,7 +189,7 @@ export default function Hero() {
             </div>
             <figcaption
               data-enter="1250"
-              className="pointer-events-none relative z-10 mt-8 flex justify-between gap-3 px-5 pb-8 font-sans text-body tracking-[0.08em] text-[var(--copy)] uppercase sm:px-9 lg:absolute lg:inset-x-0 lg:bottom-7 lg:mt-0 lg:px-0 lg:pb-0 lg:text-[#fffdf5] lg:[text-shadow:0_1px_3px_#191714,0_0_5px_#191714]"
+              className="pointer-events-none relative z-10 mt-8 flex justify-between gap-3 px-5 pb-8 font-sans text-body tracking-[0.08em] text-[var(--copy)] uppercase sm:px-9 lg:absolute lg:inset-x-0 lg:bottom-7 lg:mt-0 lg:px-0 lg:pb-0 lg:text-[var(--leaf-caption)] lg:[text-shadow:var(--leaf-caption-shadow)]"
             >
               <span>{hero.particleCaption}</span>
             </figcaption>
