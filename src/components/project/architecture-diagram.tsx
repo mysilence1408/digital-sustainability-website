@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import SiteIcon from "@/components/ui/site-icon";
 import project from "@/content/project";
 import { createArchitectureConnections, type ArchitectureConnection, type ArchitectureNodeId, type NodeBox } from "./architecture-layout";
@@ -28,6 +28,8 @@ export default function ArchitectureDiagram() {
   const active = copy.nodes[selected];
   const isConnected = (connection: ArchitectureConnection) => connection.from === selected || connection.to === selected;
   const orderedPaths = [...drawing.paths.filter(connection => !isConnected(connection)), ...drawing.paths.filter(isConnected)];
+
+  useLayoutEffect(() => () => setSelected("monitoring"), []);
 
   useEffect(() => {
     const root = graph.current!;

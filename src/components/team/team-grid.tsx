@@ -1,3 +1,6 @@
+"use client";
+
+import { useLayoutEffect, useRef } from "react";
 import SiteIcon from "@/components/ui/site-icon";
 import site from "@/content/site";
 import Image from "next/image";
@@ -5,8 +8,17 @@ import about from "@/content/about";
 import SustainabilityMotif from "./sustainability-motif";
 
 export default function TeamGrid() {
+  const grid = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const root = grid.current;
+    const closeProfiles = () => root?.querySelectorAll<HTMLDetailsElement>("details[open]").forEach(profile => { profile.open = false; });
+    closeProfiles();
+    return closeProfiles;
+  }, []);
+
   return (
-    <div className="grid items-start gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-10">
+    <div ref={grid} className="grid items-start gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-10">
       {about.members.map((person, index) => (
         <article key={person.name} className="min-w-0">
           <details name="team-profiles" data-team-profile className="group/profile">
