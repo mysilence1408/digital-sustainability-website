@@ -1,6 +1,7 @@
 "use client";
 
 import SiteIcon from "@/components/ui/site-icon";
+import ThemeToggle from "@/components/ui/theme-toggle";
 import { useLayoutEffect, useRef, useState } from "react";
 import site from "@/content/site";
 import Link from "next/link";
@@ -44,7 +45,8 @@ function Menu({ pathname }: { pathname: string }) {
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
     window.addEventListener("navigation-lock-change", schedule);
-    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); window.removeEventListener("navigation-lock-change", schedule); };
+    window.addEventListener("theme-change", schedule);
+    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); window.removeEventListener("navigation-lock-change", schedule); window.removeEventListener("theme-change", schedule); };
   }, []);
 
   useLayoutEffect(() => {
@@ -193,6 +195,7 @@ function Menu({ pathname }: { pathname: string }) {
         />
       )}
       <div className="relative flex items-center justify-end gap-3">
+        <ThemeToggle />
         <button
           ref={button}
           type="button"
